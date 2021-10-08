@@ -12,15 +12,33 @@ def test_instances(instances, configurations, number_runs, heuristic_adaptations
     # my_points = instances["points"][i]
     # my_k = instances['n_clusters'][i][J]
 
+    #my_points = instances[i]['points']
+    #my_k = instances[i]['n_clusters']
+
+    # we fix some specific Seeds as the random initialisation for every run
+    randomSeeds = np.random.randint(0, 1000000, number_runs)
+
     # Kann cluster.KMeans die Zeiten selber messen?
 
-    time_normal = 0
-    for i in range(number_runs):
-        start = time.time()
-        normal_k_means = cluster.KMeans(init='k-means++', n_clusters=n_clusters, n_init=1, random_state=randomSeeds[i])
-        normal_k_means.fit(X)
-        time_normal += (time.time() - start)
-        inertias_normal[i] = normal_k_means.inertia_
+    results_kmpp = instances.copy()
+    # results_kmpp = {'times': {}, 'inertias:': {}}
+
+
+    for instance_counter in len(instances):
+        X = instances[instance_counter]['points']
+        for k_counter in len(instances['n_clusters'][instance_counter]):
+            #n_clusters = instances['n_clusters'][instance_counter][k_counter]
+            n_clusters = instances[instance_counter]['n_clusters']
+            time_normal = 0
+            for i in range(number_runs):
+                start = time.time()
+                normal_k_means = cluster.KMeans(init='k-means++', n_clusters=n_clusters, n_init=1, random_state=randomSeeds[i])
+                normal_k_means.fit(X)
+                time_normal += (time.time() - start)
+                inertias_normal[i] = normal_k_means.inertia_
+            time_normal /= n_runs
+            results_kmpp['n_clusters']
+
 
     depths = configurations["depths"]
     norm_its = configurations["norm_its"]
@@ -28,6 +46,7 @@ def test_instances(instances, configurations, number_runs, heuristic_adaptations
 
     # configurations: {"norm_it: ", "searchstep: ", "depth: "}
     # heuristic_adaptations: {"test_bestworst_logn": True / False, "stop_early": True / False}
+
     for depth in np.arange(depths.shape[0]):
         for norm_it in np.arange(norm_its.shape[0]):
             for step in np.arange(search_steps.shape[0]):
@@ -102,15 +121,15 @@ search_steps = search_steps = search_steps.astype('int64')
 # norm_its = np.arange(2,3)
 norm_its = np.array([2, 3, 5, 7, 10])
 
-minimum_ratios = np.ones((depths.shape[0], search_steps.shape[0])) * -1
-maximum_ratios = np.ones((depths.shape[0], search_steps.shape[0])) * -1
-avg_ratios = np.zeros((depths.shape[0], search_steps.shape[0]))
+minimum_ratios = np.ones((depths.shape[0], search_steps.shape[0], norm_its.shape[0])) * -1
+maximum_ratios = np.ones((depths.shape[0], search_steps.shape[0], norm_its.shape[0])) * -1
+avg_ratios = np.zeros((depths.shape[0], search_steps.shape[0], norm_its.shape[0]))
 
 avg_normal = 0
 best_normal = -1
 worst_normal = 0
 
-times = np.zeros((depths.shape[0], norm_its.shape[0], search_steps.shape[0]))
+times = np.zeros((depths.shape[0], search_steps.shape[0], norm_its.shape[0]))
 
 time_normal = 0
 inertias_normal = np.zeros(n_runs)
@@ -162,79 +181,36 @@ for depth in np.arange(depths.shape[0]):
                 while True:
                     output = o.split()
                     if output[0] == "overall_time":
-                        times[depth][norm_it][step] += float(output[1]) / n_runs
+                        times[depth][step][norm_it] += float(output[1]) / n_runs
                         break
                     o = fp.readline()
 
-                # Infos für den Plot
-                # km_centers = k_means.cluster_centers_
-                # k_means_labels = pairwise_distances_argmin(X, km_centers)
-
-                # mb_centers = als_pp.cluster_centers_
-                # mb_labels = pairwise_distances_argmin(X, mb_centers)
-
-                # Ratios ggf aktualisieren
-                # if k_means.inertia_/opt < k_means_min_ratio:
-                #    k_means_min_ratio = k_means.inertia_/opt
-
-                if minimum_ratios[depth][step] == -1:
-                    minimum_ratios[depth][step] = als_pp.inertia_ / opt
+                if minimum_ratios[depth][step][norm_it] == -1:
+                    minimum_ratios[depth][step][norm_it] = als_pp.inertia_ / opt
                 else:
-                    if als_pp.inertia_ / opt < minimum_ratios[depth][step]:
-                        minimum_ratios[depth][step] = als_pp.inertia_ / opt
+                    if als_pp.inertia_ / opt < minimum_ratios[depth][step][norm_it]:
+                        minimum_ratios[depth][step][norm_it] = als_pp.inertia_ / opt
 
                 # if k_means.inertia_/opt > k_means_max_ratio:
                 #    k_means_max_ratio = k_means.inertia_/opt
 
-                if maximum_ratios[depth][step] == -1:
-                    maximum_ratios[depth][step] = als_pp.inertia_ / opt
+                if maximum_ratios[depth][step][norm_it] == -1:
+                    maximum_ratios[depth][step][norm_it] = als_pp.inertia_ / opt
                 else:
-                    if als_pp.inertia_ / opt > maximum_ratios[depth][step]:
-                        maximum_ratios[depth][step] = als_pp.inertia_ / opt
+                    if als_pp.inertia_ / opt > maximum_ratios[depth][step][norm_it]:
+                        maximum_ratios[depth][step][norm_it] = als_pp.inertia_ / opt
 
                 # k_means_sum = k_means_sum + k_means.inertia_
-                avg_ratios[depth][step] = avg_ratios[depth][step] + (als_pp.inertia_ / n_runs) / opt
+                avg_ratios[depth][step][norm_it] = avg_ratios[depth][step][norm_it] + (als_pp.inertia_ / n_runs) / opt
                 # als_sum = als_sum + als_pp.inertia_
 
             inertias_current /= n_runs
 
             print("new elkan for depth={}, norm_it={}, ss={}: inertia = {:.5f}   time = {:.5f}   quality = {:10}".format(depths[depth], norm_its[norm_it], search_steps[step],
-                                                                                                                         inertias_current, times[depth][norm_it][step],
-                                                                                                                         inertias_current / times[depth][norm_it][step]))
+                                                                                                                         inertias_current, times[depth][step][norm_it],
+                                                                                                                         inertias_current / times[depth][step][norm_it]))
 
     print("current depth: " + str(depths[depth]))
-
-# ax = fig.add_subplot(1, 2, 1)
-
-# Plots (derzeit einfach nur von den Lösungen, die im letzten Run berechnet wurden)
-
-# for k, col in zip(range(n_clusters), colors):
-#     cluster_members = X[np.where(k_means_labels == k)]
-#     cluster_center = km_centers[k]
-#     ax.scatter(cluster_members[:, 0], cluster_members[:, 1], linestyle='None', marker='.', color=col)
-#     ax.scatter(cluster_center[0], cluster_center[1], marker='s', color=col, edgecolor="black")
-#     #plt.text('inertia: %f' % k_means.inertia_)
-#     plt.text(0.05, 0.05, 'inertia: %f' % k_means.inertia_, transform=ax.transAxes, fontsize=14,
-#             verticalalignment='top')
-#
-# ax = fig.add_subplot(1, 2, 2)
-#
-# for k, col in zip(range(n_clusters), colors):
-#     cluster_members = X[np.where(mb_labels == k)]
-#     cluster_center = mb_centers[k]
-#     ax.scatter(cluster_members[:, 0], cluster_members[:, 1], linestyle='None', marker='.', color=col)
-#     ax.scatter(cluster_center[0], cluster_center[1], marker='s', color=col, edgecolor="black")
-#     #plt.text('inertia: %f' % mini_batch.inertia_)
-#     plt.text(0.05, 0.05, 'inertia: %f' % als_pp.inertia_, transform=ax.transAxes, fontsize=14,
-#              verticalalignment='top')
-# plt.show()
-
-
-# print('k-means:' + str(k_means_min_ratio) + ' ' + str(k_means_max_ratio))
-# print('mini_batch:' + str(mini_batch_min_ratio) + ' ' + str(mini_batch_max_ratio))
-#
-# print('avg k-means:' + str(k_means_sum / (n_runs * opt)))
-# print('avg mini_batch:' + str(als_sum / (n_runs * opt)))
 
 print("")
 print("best ratio normal k-means: {}".format(best_normal / opt))
@@ -244,8 +220,9 @@ print("")
 
 for depth in np.arange(depths.shape[0]):
     for search_step in np.arange(search_steps.shape[0]):
-        print("depth: " + str(depths[depth]) + " , seachstep: " + str(search_steps[search_step]))
-        print("minimum ratio: " + str(minimum_ratios[depth][search_step]))
-        print("maximum ratio: " + str(maximum_ratios[depth][search_step]))
-        print("average ratio: " + str(avg_ratios[depth][search_step]))
-        print("")
+        for norm_it in np.arange(norm_its.shape[0]):
+            print("depth: " + str(depths[depth]) + " , seachstep: " + str(search_steps[search_step] + " , norm_it: " + str(norm_its[norm_it])))
+            print("minimum ratio: " + str(minimum_ratios[depth][search_step][norm_it]))
+            print("maximum ratio: " + str(maximum_ratios[depth][search_step][norm_it]))
+            print("average ratio: " + str(avg_ratios[depth][search_step][norm_it]))
+            print("")
