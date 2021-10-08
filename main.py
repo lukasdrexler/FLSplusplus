@@ -7,6 +7,10 @@ from sklearn import cluster
 
 
 def test_instances(instances, configurations, number_runs, heuristic_adaptations=None):
+    # instances: {"points": , n_clusters: }
+
+    # my_points = instances["points"][i]
+    # my_k = instances['n_clusters'][i][J]
 
     #my_points = instances[i]['points']
     #my_k = instances[i]['n_clusters']
@@ -17,8 +21,7 @@ def test_instances(instances, configurations, number_runs, heuristic_adaptations
     # Kann cluster.KMeans die Zeiten selber messen?
 
     results_kmpp = instances.copy()
-    for i_c 
-    # results_kmpp[] = {'times': {}, 'inertias:': {}}
+    # results_kmpp = {'times': {}, 'inertias:': {}}
 
 
     for instance_counter in len(instances):
