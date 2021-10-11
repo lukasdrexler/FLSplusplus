@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-*
-!*/
-!/idea/**
-!/generatoren/**
-!/datasets/**
-!/venv/Lib/site-packages/sklearn/cluster/**
-=======
 .idea
 \venv\*
 !\venv\Lib
@@ -14,5 +6,3 @@
 \venv\Lib\site-packages\*
 !\venv\Lib\site-packages\sklearn\cluster
 \venv\Lib\site-packages\sklearn\cluster\*
-!\venv\Lib\site-packages\sklearn\cluster\_kmeans.py
->>>>>>> parent of f1346a3 (MORE GITIGNORE)
