@@ -6,7 +6,6 @@ import numpy as np
 from sklearn import cluster
 
 
-#nonono
 
 def test_instances(instances, configurations, number_runs, heuristic_adaptations=None):
     # instances: {"points": , n_clusters: }
