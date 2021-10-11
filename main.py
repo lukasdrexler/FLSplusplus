@@ -8,13 +8,21 @@ from sklearn import cluster
 
 
 def test_instances(instances, configurations, number_runs, heuristic_adaptations=None):
-    # instances: {"points": , n_clusters: }
-
-    # my_points = instances["points"][i]
-    # my_k = instances['n_clusters'][i][J]
 
     #my_points = instances[i]['points']
     #my_k = instances[i]['n_clusters']
+
+    # instances[i]['points'] : i-te instanz an Punkten als np.array
+    # instances[i]['n_clusters'] : für die i-te instanz die möglichen Werte für k : np.array Bsp.: [4, 10, 30], [3]
+
+
+
+    # configurations[i]['depth'] : für die i-te instanz die möglichen Werte für depth : np.array Bsp.: [4, 10, 30], [3]
+    # selbes für search_steps und norm_it
+
+    # heuristic_adaptations: {"test_bestworst_logn": True / False, "stop_early": True / False}
+
+    #depth, searchsteps, norm_it
 
     # we fix some specific Seeds as the random initialisation for every run
     randomSeeds = np.random.randint(0, 1000000, number_runs)
@@ -48,7 +56,7 @@ def test_instances(instances, configurations, number_runs, heuristic_adaptations
     # configurations: {"norm_it: ", "searchstep: ", "depth: "}
     # heuristic_adaptations: {"test_bestworst_logn": True / False, "stop_early": True / False}
 
-    for depth in np.arange(depths.shape[0]):
+    for depth in np.arange(instances[i]['depths'].shape[0]):
         for norm_it in np.arange(norm_its.shape[0]):
             for step in np.arange(search_steps.shape[0]):
                 # print("current depth: {} , current search steps: {}".format(depths[depth], search_steps[step]))
