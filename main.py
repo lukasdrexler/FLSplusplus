@@ -137,6 +137,8 @@ inertias_normal = np.zeros(n_runs)
 # we fix some specific Seeds as the random initialisation for every run
 randomSeeds = np.random.randint(0, 1000000, n_runs)
 
+# hillalala
+
 for i in range(n_runs):
     start = time.time()
     normal_k_means = cluster.KMeans(init='k-means++', n_clusters=n_clusters, n_init=1, random_state=randomSeeds[i])
