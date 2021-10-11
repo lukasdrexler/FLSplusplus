@@ -1,9 +1,6 @@
-.idea
-/venv/*
-!/venv/Lib
-/venv/Lib/*
-!/venv/Lib/site-packages
-/venv/Lib/site-packages/*
-!/venv/Lib/site-packages/sklearn/cluster
-/venv/Lib/site-packages/sklearn/cluster/*
-!/venv/Lib/site-packages/sklearn/cluster/_kmeans.py
+*
+!*/
+!/idea/**
+!/generatoren/**
+!/datasets/**
+!/venv/Lib/site-packages/sklearn/cluster/**
