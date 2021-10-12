@@ -1,77 +1,102 @@
 import time
 
-import matplotlib.cm as cm
-import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import cluster
 
 
-
-def test_instances(instances, configurations, number_runs, heuristic_adaptations=None):
-
-    #my_points = instances[i]['points']
-    #my_k = instances[i]['n_clusters']
+def test_instances(instances, configurations, number_runs, heuristic_adaptations=None, seeds=None):
+    # my_points = instances[i]['points']
+    # my_k = instances[i]['n_clusters']
 
     # instances[i]['points'] : i-te instanz an Punkten als np.array
     # instances[i]['n_clusters'] : für die i-te instanz die möglichen Werte für k : np.array Bsp.: [4, 10, 30], [3]
-
-
 
     # configurations[i]['depth'] : für die i-te instanz die möglichen Werte für depth : np.array Bsp.: [4, 10, 30], [3]
     # selbes für search_steps und norm_it
 
     # heuristic_adaptations: {"test_bestworst_logn": True / False, "stop_early": True / False}
 
-    #depth, searchsteps, norm_it
+    # depth, searchsteps, norm_it
 
     # we fix some specific Seeds as the random initialisation for every run
-    randomSeeds = np.random.randint(0, 1000000, number_runs)
+    # alternative: 1 seed and then add 1 incrementing
+    if seeds == None:
+        randomSeeds = np.random.randint(0, 1000000, number_runs)
 
     # Kann cluster.KMeans die Zeiten selber messen?
 
     results_kmpp = instances.copy()
+
     # results_kmpp = {'times': {}, 'inertias:': {}}
 
-
-    for instance_counter in len(instances):
+    for instance_counter in range(len(instances)):
         X = instances[instance_counter]['points']
-        for k_counter in len(instances['n_clusters'][instance_counter]):
-            #n_clusters = instances['n_clusters'][instance_counter][k_counter]
+        inertias_normal = np.zeros((len(instances[instance_counter]['n_clusters']), n_runs))
+        times_normal = np.zeros((len(instances[instance_counter]['n_clusters']), n_runs))
+        for k_counter in range(len(instances[instance_counter]['n_clusters'])):
             n_clusters = instances[instance_counter]['n_clusters']
             time_normal = 0
             for i in range(number_runs):
                 start = time.time()
                 normal_k_means = cluster.KMeans(init='k-means++', n_clusters=n_clusters, n_init=1, random_state=randomSeeds[i])
                 normal_k_means.fit(X)
-                time_normal += (time.time() - start)
-                inertias_normal[i] = normal_k_means.inertia_
-            time_normal /= n_runs
-            results_kmpp['n_clusters']
+                times_normal[k_counter][i] = (time.time() - start)
+                inertias_normal[k_counter][i] = normal_k_means.inertia_
+            results_kmpp[instance_counter][k_counter]['times'] = times_normal
+            results_kmpp[instance_counter][k_counter]['inertias'] = inertias_normal
 
 
-    depths = configurations["depths"]
-    norm_its = configurations["norm_its"]
-    searchsteps = configurations["searchsteps"]
+
+    results_alspp = instances.copy()
 
     # configurations: {"norm_it: ", "searchstep: ", "depth: "}
     # heuristic_adaptations: {"test_bestworst_logn": True / False, "stop_early": True / False}
 
-    for depth in np.arange(instances[i]['depths'].shape[0]):
-        for norm_it in np.arange(norm_its.shape[0]):
-            for step in np.arange(search_steps.shape[0]):
-                # print("current depth: {} , current search steps: {}".format(depths[depth], search_steps[step]))
+    for instance_counter in len(instances):
+        X = instances[instance_counter]['points']
+        inertias_normal = np.zeros((len(instances[instance_counter]['n_clusters']), n_runs))
+        times_normal = np.zeros((len(instances[instance_counter]['n_clusters']), n_runs))
 
-                inertias_current = 0
-                for i in range(n_runs):
-                    # First we run our algorithm in the current configuration without any heuristic
-                    # adaptation. Then we include one heuristic adaptation one at a time and finally we add
-                    # all heuristic adaptations and compare all results
-                    return None
+        depths = configurations[instance_counter]["depths"]
+        norm_its = configurations[instance_counter]["norm_its"]
+        search_steps = configurations[instance_counter]["searchsteps"]
+
+        for k_counter in len(instances[instance_counter]['n_clusters']):
+            n_clusters = instances[instance_counter]['n_clusters']
+
+            times = np.zeros((depths.shape[0], search_steps.shape[0], norm_its.shape[0], n_runs))
+            inertias = np.zeros((depths.shape[0], search_steps.shape[0], norm_its.shape[0], n_runs))
+
+            for depth in np.arange(instances[i]['depths'].shape[0]):
+                for norm_it in np.arange(norm_its.shape[0]):
+                    for step in np.arange(search_steps.shape[0]):
+                        print("current depth: {} , current search steps: {}".format(depths[depth], search_steps[step]))
+
+                        inertias_current = 0
+                        for i in range(n_runs):
+                            # First we run our algorithm in the current configuration without any heuristic
+                            # adaptation. Then we include one heuristic adaptation one at a time and finally we add
+                            # all heuristic adaptations and compare all results
+                            start = time.time()
+
+                            als_pp = cluster.KMeans(init='k-means++', n_clusters=n_clusters, n_init=1, algorithm='als++',
+                                                    depth=depths[depth],
+                                                    search_steps=search_steps[step], norm_it=norm_its[norm_it], random_state=randomSeeds[i])
+                            als_pp.fit_new(X)
+
+                            times[depth][step][norm_it][i] = (time.time() - start)
+                            inertias[depth][step][norm_it][i] = normal_k_means.inertia_
+
+                            # ToDo: we now rerun the configuration with different heuristic settings to compare running time and inertia outputs
+
+        results_alspp[instance_counter][k_counter]['times'] = times.copy()
+        results_alspp[instance_counter][k_counter]['inertias'] = inertias.copy()
 
     # return inertias (dictionary) and times (dictionary)
+    return results_kmpp, results_alspp
 
 
-n_runs = 10  # Anzahl der Durchläufe
+n_runs = 1  # Anzahl der Durchläufe
 # n_clusters = 8  # Anzahl der Cluster
 n_clusters = 8  # Anzahl der Cluster
 
@@ -103,9 +128,9 @@ X = np.delete(np.genfromtxt('datasets/pr91.txt'), 0, 1)  # Padberg Rinaldi Daten
 
 
 # Kram für den Plot der Cluster später
-fig = plt.figure(figsize=(8, 3))
-fig.subplots_adjust(left=0.02, right=0.98, bottom=0.05, top=0.9)
-colors = cm.rainbow(np.linspace(0, 1, n_clusters))
+# fig = plt.figure(figsize=(8, 3))
+# fig.subplots_adjust(left=0.02, right=0.98, bottom=0.05, top=0.9)
+# colors = cm.rainbow(np.linspace(0, 1, n_clusters))
 
 # Optimale Lösung des Padberg-Rinaldi-Datensatzes
 opt = 0.701338e+10
@@ -145,8 +170,6 @@ inertias_normal = np.zeros(n_runs)
 
 # we fix some specific Seeds as the random initialisation for every run
 randomSeeds = np.random.randint(0, 1000000, n_runs)
-
-# sfdhgfdghfghf
 
 for i in range(n_runs):
     start = time.time()
@@ -232,7 +255,7 @@ print("")
 for depth in np.arange(depths.shape[0]):
     for search_step in np.arange(search_steps.shape[0]):
         for norm_it in np.arange(norm_its.shape[0]):
-            print("depth: " + str(depths[depth]) + " , seachstep: " + str(search_steps[search_step] + " , norm_it: " + str(norm_its[norm_it])))
+            print("depth: " + str(depths[depth]) + " , seachstep: " + str(search_steps[search_step]) + " , norm_it: " + str(norm_its[norm_it]))
             print("minimum ratio: " + str(minimum_ratios[depth][search_step][norm_it]))
             print("maximum ratio: " + str(maximum_ratios[depth][search_step][norm_it]))
             print("average ratio: " + str(avg_ratios[depth][search_step][norm_it]))
