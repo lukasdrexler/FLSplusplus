@@ -1,0 +1,6 @@
+Um Cygwin auf die eigene Python-Version umzustellen (erkennbar welche Version von Python gerade
+gestartet wird durch: which python) muss die Variable PATH an die entsprechende Stelle umgestellt werden.
+In Cygwin folgenden command eingeben: export PATH=/cygdrive/[Pfad zur gewünschten Python.exe]:$PATH
+
+In meinem Fall: export PATH=/cygdrive/h/Programms/Python/Clustering\ Problems/kmeans++/venv/Scripts/:$PATH
+

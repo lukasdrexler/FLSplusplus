@@ -53,6 +53,7 @@ import itertools
 import argparse
 import math
 
+
 def generate_simplex(n_vertices, scaling=1.0):
     """
     Generates a list of the vertices of a regular simplex.
@@ -74,14 +75,15 @@ def generate_simplex(n_vertices, scaling=1.0):
     -------
     np.array
         a matrix of the simplex vertices
-    """   
+    """
     return scaling * np.eye(n_vertices)
 
+
 def generate_simplex_instance(
-    outside_distance, 
-    inside_distance, 
-    n_clusters, 
-    n_points):
+        outside_distance,
+        inside_distance,
+        n_clusters,
+        n_points):
     """
     Generates a simplex based worst-case example for kmeans++.
 
@@ -133,37 +135,37 @@ def generate_simplex_instance(
     if n_points % n_clusters != 0:
         raise ValueError(
             "n_points={} must be a multiple of n_clusters={}"
-            .format(n_points, n_clusters)
+                .format(n_points, n_clusters)
         )
 
     n_points_per_cluster = n_points // n_clusters
     # scale inner simplex such that all points in the 
     # simplex have distance inside_distance
     inner_scale = inside_distance / math.sqrt(2)
-    
+
     # scale outer simplex such that all points in
     # different cluster have pairwise distance
     # outside_distance
-    outer_scale = math.sqrt( 
-		0.5 * (
-       	outside_distance *outside_distance
-        - (n_points-n_clusters)/float(n_points)
-        * inside_distance*inside_distance 
-		)
+    outer_scale = math.sqrt(
+        0.5 * (
+                outside_distance * outside_distance
+                - (n_points - n_clusters) / float(n_points)
+                * inside_distance * inside_distance
+        )
     )
 
     # centroid of the inner simplex
     inner_centroid = np.full(
-        n_points_per_cluster, 
-        (1.0/n_points_per_cluster) * inner_scale
+        n_points_per_cluster,
+        (1.0 / n_points_per_cluster) * inner_scale
     )
 
     # generate vertices of inner simplex, centered around origin
     inner_simplex = generate_simplex(
-                        n_points_per_cluster, 
-                        inner_scale
-                    ) - inner_centroid
-    
+        n_points_per_cluster,
+        inner_scale
+    ) - inner_centroid
+
     # generate vertices of outer simplex
     outer_simplex = generate_simplex(n_clusters, outer_scale)
 
@@ -173,7 +175,7 @@ def generate_simplex_instance(
             # each inner simplex occupies n_points_per_cluster many
             # dimensions. Dimensions occupied by other inner 
             # simpleces need to be filled with zeroes
-            
+
             # number of inner simplices that were generated 
             # before this one is v_idx
             leading_dims = n_points_per_cluster * v_idx
@@ -182,65 +184,66 @@ def generate_simplex_instance(
             # the number of simplices that will be generated 
             # after this one is (n_clusters - (v_idx + 1)).
             trailing_dims = n_points_per_cluster * (n_clusters - v_idx - 1)
-            
+
             # pad with zeroes accordingly
             padded_vertex = np.pad(
-                inner_vertex,                  # array to pad
-                (leading_dims, trailing_dims), # pad (before, after)
-                mode='constant',               # pad with constant
-                constant_values=0              # value for padding
+                inner_vertex,  # array to pad
+                (leading_dims, trailing_dims),  # pad (before, after)
+                mode='constant',  # pad with constant
+                constant_values=0  # value for padding
             )
 
             # need to prepend the coordinates of the vertex of the
             # outer simplex
-            yield np.concatenate( (outer_vertex, padded_vertex) )
+            yield np.concatenate((outer_vertex, padded_vertex))
 
 
 def _build_arg_parser():
     """Builds the parser for the command line arguments"""
-    
+
     arg_parser = argparse.ArgumentParser(description=
-        """
+                                         """
         Prints a simplex based worst-case example for kmeans++. The example 
         consists of an outer simplex that contains an inner simplex in each of 
         its vertices. The edge length of the inner and outer simplex may be 
         controlled, as well as the simplices' respective dimension. The example 
         is printed to the standard output. 
         """
-    )
+                                         )
     arg_parser.add_argument(
-        "n_clusters", 
-        type=int, 
+        "n_clusters",
+        type=int,
         help="number k of clusters in the instance"
     )
     arg_parser.add_argument(
-        "n_points", 
-        type=int, 
+        "n_points",
+        type=int,
         help="number n of points in the instance"
     )
     arg_parser.add_argument(
-        "outer_dist", 
-        type=float, 
+        "outer_dist",
+        type=float,
         help="length D of the edges of the outer simplex"
     )
     arg_parser.add_argument(
-        "inner_dist", 
-        type=float, 
+        "inner_dist",
+        type=float,
         help="length d of the edges of the inner simplex"
     )
     arg_parser.add_argument(
-        "--precision", 
-        type=int, 
-        help="precision of numbers in the output", 
+        "--precision",
+        type=int,
+        help="precision of numbers in the output",
         default=3
     )
     arg_parser.add_argument(
-        "--delimiter", 
-        help="string used as delimiter for the coordinates", 
+        "--delimiter",
+        help="string used as delimiter for the coordinates",
         default=" "
     )
 
     return arg_parser
+
 
 if __name__ == "__main__":
     """Prints a simplex based worst-case example for kmeans++ to stdout"""
@@ -251,15 +254,15 @@ if __name__ == "__main__":
 
     try:
         # print number of points and dimension of output points
-        print(args.n_points, args.n_clusters+args.n_points)
+        print(args.n_points, args.n_clusters + args.n_points)
 
         for p in generate_simplex_instance(
-            args.outer_dist, 
-            args.inner_dist, 
-            args.n_clusters,
-            args.n_points
+                args.outer_dist,
+                args.inner_dist,
+                args.n_clusters,
+                args.n_points
         ):
-            print(args.delimiter.join( [format_str.format(x) for x in p] ))
-    
+            print(args.delimiter.join([format_str.format(x) for x in p]))
+
     except ValueError as e:
         print("Error:", e)

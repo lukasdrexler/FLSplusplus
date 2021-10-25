@@ -2,6 +2,9 @@
 current_times.txt
 !datasets/
 !generatoren/
+!Anleitung cygwin python.txt
+!create_calls.sh
+!alspp.py
 
 !venv/
 

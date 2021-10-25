@@ -14,33 +14,37 @@ import numpy as np
 
 import randomproj
 
+
 def _build_arg_parser():
     """Builds the parser for the command line arguments"""
-    
+
     arg_parser = argparse.ArgumentParser(description=
-        """
+                                         """
         Compares the pairwise distances in the input distances with the 
         pairwise distances in a projected instances. Assumes the i-th point
         in the projected instance is the projection of the i-th point of the
         input instance.
         """
-    )
+                                         )
     randomproj.add_projections_args(arg_parser)
     randomproj.add_output_args(arg_parser)
 
     return arg_parser
-    
+
+
 def read_instance(infilename):
     """Reads points from a file"""
 
     with open(infilename) as infile:
-        infile.readline() # ignore first line
+        infile.readline()  # ignore first line
         return np.fromfile(infile)
+
 
 def sed(p, q):
     """Squared euclidean distance of p and q"""
 
-    return np.linalg.norm(p-q)
+    return np.linalg.norm(p - q)
+
 
 def build_error_histogram(true_points, proj_points, precision=0.01):
     """
@@ -53,7 +57,7 @@ def build_error_histogram(true_points, proj_points, precision=0.01):
     a histogram of the frequencies. The histogram rounds down to the given
     precision.
     """
-    
+
     histogram = dict()
 
     for (true_p, true_q), (proj_p, proj_q) in zip(
@@ -63,13 +67,13 @@ def build_error_histogram(true_points, proj_points, precision=0.01):
 
         true_dist = sed(true_p, true_q)
         proj_dist = sed(proj_p, proj_q)
-    
+
         if true_dist == 0:
             histogram[math.inf] += 1
         else:
             dist_error = proj_dist / true_dist
 
-            bucket = precision*math.floor(dist_error / precision)
+            bucket = precision * math.floor(dist_error / precision)
             if not bucket in histogram:
                 histogram[bucket] = 0
 
@@ -88,8 +92,8 @@ if __name__ == "__main__":
             target_dim = args.target_dim
         else:
             target_dim = randomproj.fit_target_dim(
-                n_points, 
-                args.eps, 
+                n_points,
+                args.eps,
                 args.beta
             )
 
@@ -102,12 +106,12 @@ if __name__ == "__main__":
                                             target_dim,
                                             args.seed,
                                             args.dense_projection
-        )
+                                            )
 
         histogram = build_error_histogram(points, proj_points, precision=0.01)
-       
+
         print(
-        """
+            """
         The following histogram shows how many of the {} pairwise distances
         had an error (projected_distance / true_distance) of [x,x+0.01) percent 
         after the projection.
@@ -117,12 +121,12 @@ if __name__ == "__main__":
         n_points: {} | dim: {} | eps: {} | beta: {}
 
         """.format(
-            int(0.5*n_points*(n_points-1)), 
-            target_dim,
-            n_points, 
-            dim,
-            args.eps if args.dimension_mode == "auto-dim" else "---",
-            args.beta if args.dimension_mode == "auto-dim" else "---",
+                int(0.5 * n_points * (n_points - 1)),
+                target_dim,
+                n_points,
+                dim,
+                args.eps if args.dimension_mode == "auto-dim" else "---",
+                args.beta if args.dimension_mode == "auto-dim" else "---",
             )
         )
 
@@ -134,4 +138,3 @@ if __name__ == "__main__":
 
     except ValueError as e:
         print("Error:", e)
-
