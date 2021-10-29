@@ -16,6 +16,7 @@ def _build_arg_parser():
     arg_parser.add_argument(
         "-f", "--file",
         type=argparse.FileType('r'),
+        required=True,
         help="file which contains all points separated by rows"
     )
     arg_parser.add_argument(
@@ -55,7 +56,7 @@ def _build_arg_parser():
         default=" "
     )
 
-    # parameter which specifies who much information is given
+    # parameter which specifies how much information is given
     group = arg_parser.add_mutually_exclusive_group()
     group.add_argument(
         '-q', '--quiet',
