@@ -20,3 +20,12 @@ rm -i a.txt b.txt parameters.txt sorted_datasets.txt
 # stdout -> file and then stderr -> stdout: command >file 2>&1
 # stdout -> file and stderr -> file :		command &> file (not supported in every shell, bash supports it)
 # source: https://askubuntu.com/questions/625224/how-to-redirect-stderr-to-a-file
+
+/usr/bin/time -p ... > outputs.txt 2> current_time.txt
+cat current_time.txt ... zusammenrechnen >>   " " + outputs.txt
+/usr/bin/time -p ... >> outputs.txt 2> current_time.txt
+cat current_time.txt ... zusammenrechnen >>   " " + outputs.txt
+/usr/bin/time -p ... >> outputs.txt 2> current_time.txt
+cat current_time.txt ... zusammenrechnen >>   " " + outputs.txt
+
+cat time.txt | cut -d ' ' -f 2 | awk '(NR>1)' | awk '{ total+=$1} END { print total }' | sed 's/^/ /' >> output.txt
