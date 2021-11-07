@@ -96,7 +96,7 @@ def test_instances(instances, configurations, number_runs, heuristic_adaptations
     return results_kmpp, results_alspp
 
 
-n_runs = 1  # Anzahl der Durchläufe
+n_runs = 10  # Anzahl der Durchläufe
 # n_clusters = 8  # Anzahl der Cluster
 n_clusters = 8  # Anzahl der Cluster
 
@@ -150,8 +150,8 @@ depths = np.array([5, 7, 10])
 # depths = np.array([10, 11, 12])
 # depths = np.array([10, 11, 12])
 # search_steps = np.arange(1, np.log2(n_clusters) + 1, 2)
-search_steps = np.arange(1, 4)
-search_steps = search_steps = search_steps.astype('int64')
+search_steps = np.array([1])
+search_steps = search_steps.astype('int64')
 # norm_its = np.arange(2,3)
 norm_its = np.array([2, 3, 5, 7, 10])
 

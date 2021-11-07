@@ -86,6 +86,8 @@ if __name__ == '__main__':
                                 random_state=None)
         als_pp.fit(X)
 
+        print("Dataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
+
         if args.quiet:
             print(als_pp.inertia_)
         elif args.verbose:
