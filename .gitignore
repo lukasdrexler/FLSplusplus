@@ -8,6 +8,8 @@ current_times.txt
 !calls_datasets_generator.py
 !normal_kmeans.py
 
+!datasets/*
+
 !venv/
 
 venv/*
