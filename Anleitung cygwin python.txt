@@ -4,3 +4,9 @@ In Cygwin folgenden command eingeben: export PATH=/cygdrive/[Pfad zur gewünscht
 
 In meinem Fall: export PATH=/cygdrive/h/Programms/Python/Clustering\ Problems/kmeans++/venv/Scripts/:$PATH
 
+
+Um erste "Spalte" im txt-File 'input' zu löschen und das Ergebnis in 'output' zu speichern:
+awk '{$1=""}1' input | awk '{$1=$1}1' > output
+
+Um letzte "Spalte" im txt-File zu löschen:
+$ awk 'NF{NF-=1};1' <input >output

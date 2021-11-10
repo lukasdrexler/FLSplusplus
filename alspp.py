@@ -86,7 +86,7 @@ if __name__ == '__main__':
                                 random_state=None)
         als_pp.fit(X)
 
-        print("Dataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
+        print("\nDataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
 
         if args.quiet:
             print(als_pp.inertia_)
@@ -95,8 +95,8 @@ if __name__ == '__main__':
             print("Calculated centers:")
             for i in range(len(centers)):
                 print(centers[i])
-            print("Inertia: {}".format(als_pp.inertia_))
+            print("Inertia ALSPP: {}".format(als_pp.inertia_))
         else:
-            print("Inertia of calculated clustering = {}".format(als_pp.inertia_))
+            print("Inertia of ALSPP = {}".format(als_pp.inertia_))
     except ValueError as e:
         print("Error:", e)
