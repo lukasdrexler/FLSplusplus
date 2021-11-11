@@ -63,5 +63,6 @@ for line in lines:
         norm_its = np.array([1, 2, 3, 5])
 
         write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
+        
 
 f.close()

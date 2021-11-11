@@ -10,3 +10,6 @@ awk '{$1=""}1' input | awk '{$1=$1}1' > output
 
 Um letzte "Spalte" im txt-File zu löschen:
 $ awk 'NF{NF-=1};1' <input >output
+
+Um aus einer Spalte 3 zu machen:
+cat file | paste - - - > file_new
