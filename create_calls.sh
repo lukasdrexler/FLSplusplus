@@ -1,6 +1,18 @@
 #!/bin/bash
 # collect all possible datasets in folder
-find datasets/ -type f | sort -V > datasets.txt
+
+echo "Type 'l' for large datasets, 's' for small."
+read VAR
+
+if [ $VAR = "l" ]
+then
+	find datasets/large -type f | sort -V > datasets.txt
+fi
+
+if [ $VAR = "s" ]
+then
+	find datasets/ -type f | sort -V > datasets.txt
+fi
 
 # create calls.txt from python script and write to calls.txt
 python calls_datasets_generator.py
@@ -8,7 +20,7 @@ python calls_datasets_generator.py
 today="$(date '+%Y-%m-%d')"
 now="$(date '+%H:%M:%S')"
 echo "Time: ${today} ${now}" >> run.txt
-cat calls.txt | xargs -L1 /usr/bin/time -p >> run.txt 2>&1
+cat calls.txt | xargs -L1 /usr/bin/time -p > run.txt 2>&1
 
 
 

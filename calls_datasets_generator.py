@@ -22,6 +22,7 @@ def write_combinations_to_file(f, n_centers, depths, norm_its, search_steps):
 for line in lines:
     datapath = line.strip()
     dataset = datapath.split(sep='/')[-1].split(sep='.')[0]
+
     if dataset == 'pr91':
         n_centers = np.array([4, 8, 16, 100])
         depths = np.array([1, 3, 5])
@@ -42,7 +43,7 @@ for line in lines:
 
     elif dataset == 'D31':
         n_centers = np.array([31])
-        depths = np.array([1,3,5])
+        depths = np.array([1, 3, 5])
         search_steps = np.array([1])
         norm_its = np.array([1, 2, 3, 5])
 
@@ -50,7 +51,7 @@ for line in lines:
 
     elif dataset == 's2' or dataset == 's3' or dataset == 's4':
         n_centers = np.array([15])
-        depths = np.array([1,3,5])
+        depths = np.array([1, 3, 5])
         search_steps = np.array([1])
         norm_its = np.array([1, 2, 3, 5])
 
@@ -58,11 +59,18 @@ for line in lines:
 
     elif dataset == 'unbalance':
         n_centers = np.array([4, 6, 8, 10])
-        depths = np.array([1,3,5])
+        depths = np.array([1, 3, 5])
         search_steps = np.array([1])
         norm_its = np.array([1, 2, 3, 5])
 
         write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
-        
+
+    elif dataset == 'Tower':
+        n_centers = np.array([20, 40])
+        depths = np.array([1, 3])
+        search_steps = np.array([1])
+        norm_its = np.array([1, 2, 3])
+
+        write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
 
 f.close()
