@@ -6,7 +6,7 @@ read VAR
 
 if [ $VAR = "l" ]
 then
-	find datasets/large -type f | sort -V > datasets.txt
+	find datasets_large/ -type f | sort -V > datasets.txt
 fi
 
 if [ $VAR = "s" ]

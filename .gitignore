@@ -1,6 +1,7 @@
 *
 current_times.txt
 !datasets/
+!datasets_large/
 !generatoren/
 !Anleitung cygwin python.txt
 !create_calls.sh
@@ -8,10 +9,8 @@ current_times.txt
 !calls_datasets_generator.py
 !normal_kmeans.py
 
-!datasets/
-
-datasets/*
-!datasets/large/
+!datasets/*
+!datasets_large/*
 
 !venv/
 
