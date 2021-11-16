@@ -95,7 +95,7 @@ if __name__ == '__main__':
                                 search_steps=args.search_steps,
                                 norm_it=args.normal_iterations,
                                 random_state=args.random_state)
-        als_pp.fit(X)
+        als_pp.fit_new(X)
 
         print("\nDataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
 
