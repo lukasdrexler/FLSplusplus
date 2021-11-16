@@ -1,0 +1,2611 @@
+Time: 2021-11-15 11:16:34
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 620295852.0099988
+real 26.14
+user 73.32
+sys 38.22
+Inertia of kMeans++: 615237971.6971049
+real 20.32
+user 48.12
+sys 39.17
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 623340578.5273912
+real 18.39
+user 44.71
+sys 40.37
+Inertia of kMeans++: 611925151.0534705
+real 19.88
+user 50.72
+sys 38.52
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 618654619.7310739
+real 25.96
+user 70.58
+sys 40.89
+Inertia of kMeans++: 619616478.9489027
+real 31.69
+user 89.97
+sys 39.86
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 621949958.6573844
+real 25.09
+user 68.24
+sys 39.36
+Inertia of kMeans++: 627928266.5512133
+real 21.48
+user 53.52
+sys 39.21
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 623885969.677627
+real 22.43
+user 56.56
+sys 38.66
+Inertia of kMeans++: 614640303.6294326
+real 22.69
+user 57.92
+sys 38.37
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 617256114.591534
+real 19.88
+user 46.51
+sys 39.45
+Inertia of kMeans++: 619635650.6162592
+real 34.94
+user 107.28
+sys 41.60
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 622419834.9306717
+real 20.12
+user 47.05
+sys 39.77
+Inertia of kMeans++: 610657473.9687238
+real 20.10
+user 49.66
+sys 38.92
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 610958157.748741
+real 21.54
+user 52.88
+sys 39.92
+Inertia of kMeans++: 610699071.047531
+real 22.58
+user 60.01
+sys 39.80
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 631561769.4235274
+real 32.76
+user 101.72
+sys 40.13
+Inertia of kMeans++: 625237175.0547862
+real 22.09
+user 55.61
+sys 38.46
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 610666292.7001607
+real 21.64
+user 53.51
+sys 39.91
+Inertia of kMeans++: 658258793.9351281
+real 21.20
+user 52.76
+sys 38.89
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 622024162.9283262
+real 20.84
+user 49.81
+sys 39.61
+Inertia of kMeans++: 616767883.7988942
+real 20.40
+user 50.82
+sys 39.72
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 610668930.3400509
+real 24.97
+user 69.09
+sys 40.32
+Inertia of kMeans++: 611254544.3743129
+real 19.54
+user 47.23
+sys 38.68
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 623334474.9938816
+real 21.19
+user 56.35
+sys 38.90
+Inertia of kMeans++: 616352483.7750555
+real 22.75
+user 58.76
+sys 39.18
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 623595010.2430009
+real 24.58
+user 65.65
+sys 40.06
+Inertia of kMeans++: 614978196.9561759
+real 24.43
+user 60.24
+sys 38.34
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 624178297.7052245
+real 21.11
+user 60.39
+sys 43.57
+Inertia of kMeans++: 624471212.6429807
+real 18.75
+user 50.89
+sys 43.45
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 611518410.3939788
+real 26.99
+user 79.13
+sys 41.95
+Inertia of kMeans++: 630067175.7069129
+real 20.72
+user 47.69
+sys 39.48
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 628285841.4194037
+real 19.95
+user 49.41
+sys 42.12
+Inertia of kMeans++: 619443831.555991
+real 26.43
+user 76.38
+sys 42.90
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 624190329.2886992
+real 23.39
+user 66.72
+sys 40.78
+Inertia of kMeans++: 628610618.6390504
+real 20.22
+user 50.49
+sys 41.58
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 621807978.4214126
+real 26.60
+user 75.63
+sys 42.11
+Inertia of kMeans++: 615308072.256835
+real 19.62
+user 50.42
+sys 42.59
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 617217463.2348405
+real 20.04
+user 52.70
+sys 42.81
+Inertia of kMeans++: 624083005.5278568
+real 24.49
+user 70.23
+sys 41.88
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 610618918.0293945
+real 22.28
+user 62.00
+sys 42.11
+Inertia of kMeans++: 619685067.7399846
+real 18.90
+user 47.92
+sys 42.65
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 614283147.6617664
+real 24.56
+user 69.68
+sys 42.32
+Inertia of kMeans++: 655528240.8201882
+real 24.14
+user 67.79
+sys 42.45
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 623533658.0831425
+real 21.00
+user 56.90
+sys 42.54
+Inertia of kMeans++: 634682294.1220357
+real 18.62
+user 41.74
+sys 38.89
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 627687652.9794477
+real 19.35
+user 45.03
+sys 40.54
+Inertia of kMeans++: 616998814.7321812
+real 25.18
+user 74.68
+sys 42.81
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 631089122.6126939
+real 24.88
+user 73.76
+sys 42.38
+Inertia of kMeans++: 638791338.4521111
+real 22.99
+user 63.80
+sys 41.83
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 619636575.1621896
+real 25.09
+user 70.94
+sys 41.81
+Inertia of kMeans++: 639247545.3361007
+real 31.55
+user 97.44
+sys 43.38
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 653204943.9559875
+real 31.53
+user 98.91
+sys 42.61
+Inertia of kMeans++: 624892176.2059088
+real 20.16
+user 52.20
+sys 42.21
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 611088360.7859926
+real 20.75
+user 56.73
+sys 43.15
+Inertia of kMeans++: 616884726.5834279
+real 24.87
+user 72.28
+sys 43.18
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 623324108.8893001
+real 19.47
+user 50.68
+sys 43.04
+Inertia of kMeans++: 624553224.4836828
+real 24.04
+user 71.04
+sys 41.77
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 624380855.9401054
+real 21.24
+user 59.31
+sys 43.42
+Inertia of kMeans++: 619563840.7722838
+real 29.47
+user 90.72
+sys 43.04
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 630563619.6925923
+real 21.64
+user 60.29
+sys 40.83
+Inertia of kMeans++: 624232714.8580087
+real 18.76
+user 49.15
+sys 43.04
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 616727693.2652309
+real 19.48
+user 50.70
+sys 42.21
+Inertia of kMeans++: 611827090.3040433
+real 23.43
+user 66.63
+sys 42.84
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 628686082.3931582
+real 20.29
+user 52.81
+sys 42.84
+Inertia of kMeans++: 621827362.0110319
+real 23.83
+user 66.19
+sys 41.76
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 621622840.6236895
+real 19.12
+user 48.04
+sys 42.00
+Inertia of kMeans++: 625128306.9569292
+real 18.20
+user 46.93
+sys 42.55
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 624135103.0432289
+real 18.24
+user 46.05
+sys 42.45
+Inertia of kMeans++: 630236972.6916186
+real 24.65
+user 69.15
+sys 42.00
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 645031665.2684308
+real 19.32
+user 49.80
+sys 40.94
+Inertia of kMeans++: 614320129.9230134
+real 19.92
+user 51.76
+sys 42.72
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 624361404.2296615
+real 21.26
+user 57.81
+sys 42.86
+Inertia of kMeans++: 637124202.5045172
+real 31.22
+user 97.48
+sys 41.40
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 619512216.2335716
+real 28.34
+user 84.60
+sys 39.79
+Inertia of kMeans++: 622456339.6171372
+real 18.03
+user 42.96
+sys 42.88
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 619600987.8357855
+real 25.97
+user 74.93
+sys 42.77
+Inertia of kMeans++: 619370021.5410376
+real 20.88
+user 55.01
+sys 43.54
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 623229150.7926311
+real 20.06
+user 51.71
+sys 42.60
+Inertia of kMeans++: 611142859.2558215
+real 20.84
+user 58.17
+sys 41.86
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 617719595.8930906
+real 21.17
+user 55.82
+sys 40.47
+Inertia of kMeans++: 656425613.0272479
+real 21.16
+user 55.80
+sys 42.08
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 625227134.7671223
+real 20.02
+user 50.59
+sys 40.48
+Inertia of kMeans++: 621672441.2602391
+real 22.41
+user 57.07
+sys 39.88
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 632795830.6290743
+real 17.53
+user 42.03
+sys 40.73
+Inertia of kMeans++: 613363197.829703
+real 18.38
+user 45.54
+sys 43.02
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 618388256.844937
+real 20.12
+user 52.72
+sys 42.32
+Inertia of kMeans++: 614848378.3283767
+real 21.80
+user 59.71
+sys 42.46
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 624431058.443593
+real 25.05
+user 71.89
+sys 42.21
+Inertia of kMeans++: 617357751.4632084
+real 23.75
+user 68.73
+sys 41.82
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 621978730.3520807
+real 18.88
+user 48.99
+sys 42.97
+Inertia of kMeans++: 622919844.574401
+real 28.73
+user 87.18
+sys 42.23
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 637837337.4534817
+real 19.94
+user 53.99
+sys 42.32
+Inertia of kMeans++: 636956508.8496317
+real 21.91
+user 60.30
+sys 41.38
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 617914383.3302732
+real 22.29
+user 61.34
+sys 42.04
+Inertia of kMeans++: 611209125.5114951
+real 20.13
+user 52.53
+sys 43.34
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 610877480.3798527
+real 25.46
+user 73.32
+sys 42.25
+Inertia of kMeans++: 628355616.5969352
+real 18.92
+user 47.51
+sys 41.57
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 609950399.289241
+real 20.91
+user 53.22
+sys 40.73
+Inertia of kMeans++: 611035323.711457
+real 27.18
+user 84.20
+sys 43.68
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 624409633.4392359
+real 25.15
+user 72.96
+sys 42.64
+Inertia of kMeans++: 641198278.4399251
+real 23.26
+user 65.57
+sys 43.63
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 615357118.4968785
+real 20.87
+user 57.61
+sys 43.52
+Inertia of kMeans++: 617680003.0197326
+real 22.12
+user 60.49
+sys 42.46
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 610579292.51574
+real 18.60
+user 47.51
+sys 42.00
+Inertia of kMeans++: 627781023.9547598
+real 25.49
+user 73.80
+sys 41.99
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 614701545.993109
+real 18.54
+user 45.99
+sys 43.29
+Inertia of kMeans++: 623232998.6945302
+real 24.24
+user 65.61
+sys 40.72
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 617250952.2569057
+real 17.99
+user 45.15
+sys 41.74
+Inertia of kMeans++: 629916518.5632809
+real 21.03
+user 56.44
+sys 42.35
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 621631608.7501045
+real 20.65
+user 54.17
+sys 42.89
+Inertia of kMeans++: 622380356.5246048
+real 22.65
+user 61.92
+sys 42.89
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 619499528.427094
+real 23.95
+user 68.22
+sys 41.37
+Inertia of kMeans++: 611242926.9980785
+real 19.83
+user 53.34
+sys 42.23
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 620020953.1628666
+real 20.94
+user 56.67
+sys 42.45
+Inertia of kMeans++: 652915124.5485224
+real 21.67
+user 60.57
+sys 43.32
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 637181913.5392035
+real 18.84
+user 47.74
+sys 42.98
+Inertia of kMeans++: 634191829.561624
+real 18.59
+user 47.24
+sys 42.75
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 621988570.4408693
+real 18.01
+user 43.17
+sys 41.54
+Inertia of kMeans++: 630772261.7199867
+real 25.00
+user 69.38
+sys 42.39
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 633430183.6047596
+real 22.34
+user 60.44
+sys 43.28
+Inertia of kMeans++: 614217226.2646334
+real 27.09
+user 78.65
+sys 42.74
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 614544413.2947567
+real 24.85
+user 70.96
+sys 40.39
+Inertia of kMeans++: 611019323.5855412
+real 23.10
+user 64.63
+sys 42.40
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 610264686.1049865
+real 19.29
+user 52.18
+sys 43.79
+Inertia of kMeans++: 634654114.8630415
+real 21.04
+user 58.39
+sys 43.41
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 613982245.5833715
+real 26.79
+user 82.10
+sys 44.04
+Inertia of kMeans++: 624382254.2028549
+real 18.92
+user 52.80
+sys 43.02
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 638763339.4442322
+real 23.07
+user 68.52
+sys 43.60
+Inertia of kMeans++: 616900553.2231734
+real 19.83
+user 55.90
+sys 44.00
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 611272866.9201884
+real 26.53
+user 83.31
+sys 44.13
+Inertia of kMeans++: 620357206.1759259
+real 17.09
+user 45.95
+sys 42.49
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 624676437.1683309
+real 17.98
+user 49.57
+sys 43.21
+Inertia of kMeans++: 623944359.7611427
+real 20.82
+user 61.50
+sys 42.70
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 610306499.4871662
+real 16.82
+user 44.56
+sys 42.74
+Inertia of kMeans++: 641266540.2495328
+real 18.19
+user 48.69
+sys 44.11
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 626964153.6204308
+real 20.15
+user 58.37
+sys 43.81
+Inertia of kMeans++: 640380888.2359731
+real 21.20
+user 56.99
+sys 42.48
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 616853785.8184431
+real 27.24
+user 75.07
+sys 42.26
+Inertia of kMeans++: 624168891.3122628
+real 21.11
+user 54.41
+sys 40.05
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 613954633.257504
+real 19.96
+user 50.47
+sys 41.45
+Inertia of kMeans++: 619653545.5156772
+real 29.31
+user 86.41
+sys 43.44
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 636055751.8175923
+real 22.01
+user 57.81
+sys 43.33
+Inertia of kMeans++: 621138885.5587382
+real 28.20
+user 82.47
+sys 43.41
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 628052490.8026482
+real 24.07
+user 69.50
+sys 42.35
+Inertia of kMeans++: 627972381.1321676
+real 19.09
+user 49.57
+sys 42.23
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 610902577.9802127
+real 23.63
+user 66.44
+sys 42.81
+Inertia of kMeans++: 617191840.7404643
+real 19.36
+user 49.82
+sys 43.67
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 614701566.9436917
+real 20.28
+user 53.45
+sys 43.44
+Inertia of kMeans++: 623999369.1589358
+real 18.50
+user 45.74
+sys 43.35
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 616903859.1117476
+real 22.92
+user 63.19
+sys 42.92
+Inertia of kMeans++: 653488694.3302381
+real 22.12
+user 56.45
+sys 42.04
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 611067256.9734285
+real 23.03
+user 60.80
+sys 43.20
+Inertia of kMeans++: 623237368.7624676
+real 27.27
+user 76.75
+sys 43.11
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 614788873.0675997
+real 20.31
+user 52.69
+sys 41.49
+Inertia of kMeans++: 624664722.6628054
+real 24.70
+user 68.46
+sys 42.38
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 620093304.3763452
+real 22.51
+user 60.29
+sys 41.82
+Inertia of kMeans++: 655866479.9755718
+real 20.47
+user 50.71
+sys 42.99
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 622286993.6918741
+real 25.32
+user 70.45
+sys 42.46
+Inertia of kMeans++: 610266859.0163678
+real 24.13
+user 62.27
+sys 39.59
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 621586125.2600642
+real 26.40
+user 71.00
+sys 39.53
+Inertia of kMeans++: 645852921.7952638
+real 22.86
+user 59.21
+sys 38.63
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 617026144.6852672
+real 24.74
+user 65.87
+sys 39.23
+Inertia of kMeans++: 614754559.9513777
+real 27.55
+user 76.76
+sys 40.09
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 616922361.482353
+real 22.74
+user 58.59
+sys 38.50
+Inertia of kMeans++: 623425733.2367959
+real 24.33
+user 65.25
+sys 38.89
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 621899089.5219251
+real 19.71
+user 46.71
+sys 39.83
+Inertia of kMeans++: 619490079.7121464
+real 36.86
+user 112.79
+sys 40.08
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 625623406.8257192
+real 25.04
+user 64.97
+sys 38.27
+Inertia of kMeans++: 631633771.168366
+real 22.78
+user 58.85
+sys 38.44
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 636226708.2841866
+real 24.53
+user 64.53
+sys 39.05
+Inertia of kMeans++: 623280393.9462444
+real 24.40
+user 63.67
+sys 39.38
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 623784827.1337423
+real 20.11
+user 45.10
+sys 39.88
+Inertia of kMeans++: 625969952.4323791
+real 20.65
+user 49.52
+sys 38.68
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 617818208.7372608
+real 23.47
+user 60.04
+sys 38.13
+Inertia of kMeans++: 616718504.245868
+real 27.72
+user 74.06
+sys 39.73
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 610171914.9007084
+real 21.23
+user 50.47
+sys 38.50
+Inertia of kMeans++: 616898501.5864003
+real 23.36
+user 59.81
+sys 39.18
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 636415758.5356927
+real 19.68
+user 46.19
+sys 38.37
+Inertia of kMeans++: 610877291.9538773
+real 26.03
+user 70.79
+sys 39.49
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 610410251.6910499
+real 22.85
+user 57.03
+sys 39.14
+Inertia of kMeans++: 624992966.6634183
+real 24.53
+user 64.97
+sys 39.74
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 619543762.1957413
+real 41.54
+user 134.85
+sys 39.92
+Inertia of kMeans++: 616665116.0225779
+real 26.49
+user 69.23
+sys 39.72
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 616798122.3482519
+real 38.90
+user 116.92
+sys 39.33
+Inertia of kMeans++: 619380193.4934301
+real 31.97
+user 86.60
+sys 38.54
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 617069574.4724941
+real 25.28
+user 61.70
+sys 39.78
+Inertia of kMeans++: 624182414.8646439
+real 27.27
+user 68.81
+sys 39.91
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 619658693.6067066
+real 31.97
+user 90.48
+sys 39.64
+Inertia of kMeans++: 628403577.5088267
+real 23.49
+user 55.16
+sys 39.40
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 637397025.6401668
+real 20.75
+user 46.01
+sys 38.53
+Inertia of kMeans++: 626936883.0915442
+real 28.92
+user 80.13
+sys 40.20
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 615059041.5425042
+real 30.12
+user 84.40
+sys 39.84
+Inertia of kMeans++: 624628407.3798664
+real 25.09
+user 63.00
+sys 39.47
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 615628728.8793049
+real 26.28
+user 66.78
+sys 39.68
+Inertia of kMeans++: 610483911.3031268
+real 23.86
+user 57.30
+sys 39.99
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 659972868.9896111
+real 23.44
+user 55.04
+sys 39.46
+Inertia of kMeans++: 609875571.1908016
+real 24.85
+user 57.62
+sys 38.00
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 624048511.3261455
+real 25.45
+user 63.19
+sys 37.96
+Inertia of kMeans++: 616622192.3009087
+real 28.46
+user 74.48
+sys 37.64
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 616849949.9127475
+real 28.21
+user 72.53
+sys 37.66
+Inertia of kMeans++: 623298951.0910792
+real 39.20
+user 115.10
+sys 38.63
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 623715329.6692581
+real 23.03
+user 50.26
+sys 39.66
+Inertia of kMeans++: 628277363.383233
+real 24.21
+user 58.38
+sys 39.09
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 624033039.5310931
+real 24.52
+user 59.23
+sys 39.61
+Inertia of kMeans++: 656872964.0153916
+real 27.68
+user 71.69
+sys 38.89
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 612809632.5219594
+real 25.88
+user 63.42
+sys 39.76
+Inertia of kMeans++: 610262304.327104
+real 26.11
+user 65.09
+sys 38.19
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 628888159.2833805
+real 26.35
+user 66.24
+sys 39.54
+Inertia of kMeans++: 659064911.4641571
+real 29.88
+user 82.82
+sys 39.48
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 610895319.5779444
+real 26.69
+user 66.28
+sys 39.72
+Inertia of kMeans++: 623562112.5490229
+real 24.26
+user 55.68
+sys 39.49
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 624295370.2356634
+real 28.21
+user 71.70
+sys 38.31
+Inertia of kMeans++: 629326492.257003
+real 25.03
+user 59.50
+sys 39.41
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 623604076.0930746
+real 22.68
+user 52.18
+sys 38.28
+Inertia of kMeans++: 624732450.3829315
+real 23.05
+user 52.41
+sys 39.77
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 624410329.7958857
+real 25.91
+user 64.89
+sys 39.93
+Inertia of kMeans++: 628399497.8967874
+real 27.84
+user 70.33
+sys 39.70
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 610574810.8551946
+real 23.49
+user 55.22
+sys 38.85
+Inertia of kMeans++: 623188156.0473273
+real 23.01
+user 51.97
+sys 39.63
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 611286721.0638912
+real 29.73
+user 80.97
+sys 39.61
+Inertia of kMeans++: 610683436.3399742
+real 27.08
+user 69.36
+sys 38.94
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 610725935.427232
+real 39.03
+user 115.48
+sys 39.96
+Inertia of kMeans++: 611275392.4589137
+real 26.31
+user 66.59
+sys 39.49
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 616763780.7297084
+real 25.52
+user 63.74
+sys 38.66
+Inertia of kMeans++: 611894075.980843
+real 32.22
+user 91.47
+sys 39.42
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 611013661.6478845
+real 26.78
+user 69.18
+sys 39.44
+Inertia of kMeans++: 611715098.1760174
+real 24.33
+user 59.37
+sys 39.87
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 623748745.6498077
+real 23.70
+user 55.55
+sys 39.86
+Inertia of kMeans++: 619426611.4333477
+real 30.37
+user 80.89
+sys 39.51
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 635580130.2934662
+real 30.31
+user 84.54
+sys 39.38
+Inertia of kMeans++: 614844434.2995286
+real 26.89
+user 69.85
+sys 39.89
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 612899033.8252437
+real 24.60
+user 60.92
+sys 38.88
+Inertia of kMeans++: 614942050.9643791
+real 36.67
+user 108.83
+sys 39.82
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 610299166.8904959
+real 29.95
+user 81.85
+sys 39.03
+Inertia of kMeans++: 619317412.7040267
+real 25.88
+user 63.51
+sys 40.17
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 616884290.5996224
+real 23.41
+user 54.91
+sys 39.46
+Inertia of kMeans++: 620667189.7838587
+real 27.19
+user 70.72
+sys 39.61
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 631856110.4831432
+real 25.85
+user 66.08
+sys 39.91
+Inertia of kMeans++: 634565121.7546352
+real 24.50
+user 60.00
+sys 39.16
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 623210045.8647432
+real 40.92
+user 121.12
+sys 37.57
+Inertia of kMeans++: 641999846.7312231
+real 32.91
+user 94.10
+sys 39.55
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 635803504.7523458
+real 29.66
+user 79.26
+sys 39.64
+Inertia of kMeans++: 621388958.972224
+real 24.55
+user 60.06
+sys 39.94
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 616771703.1297967
+real 37.41
+user 111.39
+sys 39.39
+Inertia of kMeans++: 619222887.6206386
+real 37.72
+user 111.62
+sys 38.98
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 628807952.9333857
+real 23.48
+user 54.37
+sys 38.75
+Inertia of kMeans++: 616938078.8187699
+real 25.31
+user 59.91
+sys 38.17
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 626971621.0385286
+real 33.02
+user 93.11
+sys 39.86
+Inertia of kMeans++: 617178096.7508757
+real 31.73
+user 87.42
+sys 40.28
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 623973001.9032974
+real 26.45
+user 67.03
+sys 40.60
+Inertia of kMeans++: 631153554.3611093
+real 30.14
+user 82.49
+sys 39.88
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 634527998.7775706
+real 27.47
+user 71.33
+sys 39.37
+Inertia of kMeans++: 658178758.5447335
+real 22.54
+user 51.36
+sys 38.97
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 656732892.8083621
+real 33.31
+user 94.02
+sys 39.80
+Inertia of kMeans++: 626020191.0659107
+real 26.60
+user 70.58
+sys 38.46
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 610368851.0892906
+real 22.56
+user 55.77
+sys 40.46
+Inertia of kMeans++: 624279768.9922037
+real 20.67
+user 50.36
+sys 42.52
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 610135686.3309926
+real 30.91
+user 91.52
+sys 42.54
+Inertia of kMeans++: 614969282.833443
+real 28.51
+user 79.95
+sys 41.61
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 634772846.4141645
+real 21.37
+user 55.18
+sys 42.79
+Inertia of kMeans++: 617268852.79309
+real 26.24
+user 75.37
+sys 41.95
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 630306786.9117821
+real 23.81
+user 65.72
+sys 43.11
+Inertia of kMeans++: 610040701.4957346
+real 21.11
+user 55.48
+sys 42.02
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 611109034.725151
+real 19.90
+user 51.03
+sys 43.17
+Inertia of kMeans++: 616736933.4418846
+real 26.72
+user 77.26
+sys 43.15
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 611216549.4634475
+real 18.47
+user 45.37
+sys 43.07
+Inertia of kMeans++: 623817786.3037926
+real 20.43
+user 53.78
+sys 43.04
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 633932534.7573289
+real 21.50
+user 57.97
+sys 43.08
+Inertia of kMeans++: 622634045.8702555
+real 20.77
+user 54.69
+sys 43.28
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 613948536.243614
+real 22.28
+user 61.78
+sys 42.57
+Inertia of kMeans++: 626467607.3690518
+real 18.65
+user 46.35
+sys 43.57
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 629328731.8470874
+real 23.13
+user 65.71
+sys 41.63
+Inertia of kMeans++: 628660498.552469
+real 20.97
+user 55.48
+sys 42.87
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 619586932.6390424
+real 20.72
+user 55.09
+sys 43.46
+Inertia of kMeans++: 622908731.4020905
+real 24.85
+user 70.62
+sys 43.62
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 637835043.929402
+real 17.37
+user 41.79
+sys 43.52
+Inertia of kMeans++: 610286628.2288482
+real 21.40
+user 57.97
+sys 43.19
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 616823849.7812562
+real 21.92
+user 60.37
+sys 43.39
+Inertia of kMeans++: 628439766.5136285
+real 23.81
+user 65.31
+sys 43.73
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 615023404.3681272
+real 18.70
+user 47.73
+sys 43.16
+Inertia of kMeans++: 619556945.1124086
+real 23.03
+user 63.64
+sys 43.36
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 614390887.6887069
+real 19.76
+user 52.93
+sys 43.32
+Inertia of kMeans++: 634788614.3508731
+real 18.22
+user 46.02
+sys 43.22
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 619367964.2583385
+real 22.43
+user 60.44
+sys 41.77
+Inertia of kMeans++: 648694946.8296846
+real 18.05
+user 45.89
+sys 41.92
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 635500971.2203975
+real 19.86
+user 51.50
+sys 43.16
+Inertia of kMeans++: 611179509.842716
+real 22.79
+user 62.99
+sys 42.01
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 661303196.2761205
+real 20.00
+user 51.96
+sys 42.85
+Inertia of kMeans++: 614411123.3261309
+real 23.86
+user 67.17
+sys 43.26
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 616817794.5616252
+real 19.70
+user 53.34
+sys 41.91
+Inertia of kMeans++: 623770378.3372209
+real 19.94
+user 49.48
+sys 42.21
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 617813264.5128832
+real 21.60
+user 59.45
+sys 41.69
+Inertia of kMeans++: 616582356.7457874
+real 17.45
+user 44.86
+sys 41.92
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 617632134.2939752
+real 21.49
+user 59.47
+sys 43.47
+Inertia of kMeans++: 610908028.4377689
+real 22.26
+user 62.32
+sys 43.62
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 617380973.9081485
+real 29.09
+user 88.23
+sys 43.47
+Inertia of kMeans++: 610724141.4039097
+real 21.88
+user 61.18
+sys 43.42
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 611103197.884397
+real 19.90
+user 53.72
+sys 43.25
+Inertia of kMeans++: 610592503.5066425
+real 21.83
+user 60.64
+sys 43.25
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 659615840.5377429
+real 19.86
+user 51.79
+sys 43.46
+Inertia of kMeans++: 611491808.9669857
+real 19.20
+user 50.52
+sys 43.34
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 611382686.795292
+real 19.80
+user 50.27
+sys 42.89
+Inertia of kMeans++: 638858741.3526851
+real 22.30
+user 59.94
+sys 43.39
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 622762544.7245857
+real 22.71
+user 62.65
+sys 43.26
+Inertia of kMeans++: 636692195.2936144
+real 20.24
+user 54.34
+sys 43.29
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 632940559.2840699
+real 18.13
+user 46.44
+sys 43.50
+Inertia of kMeans++: 611577435.1531749
+real 22.19
+user 63.30
+sys 42.15
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 622868076.1262378
+real 24.70
+user 71.08
+sys 42.63
+Inertia of kMeans++: 621523711.6906459
+real 27.09
+user 81.42
+sys 43.66
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 617122309.8401618
+real 20.67
+user 54.02
+sys 43.77
+Inertia of kMeans++: 619679898.230794
+real 36.54
+user 117.57
+sys 42.41
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 635845876.5168924
+real 19.08
+user 49.56
+sys 43.31
+Inertia of kMeans++: 622959951.701846
+real 19.90
+user 52.90
+sys 43.26
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 627050310.3494941
+real 17.44
+user 42.86
+sys 43.48
+Inertia of kMeans++: 625018676.5235918
+real 23.02
+user 67.13
+sys 41.93
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 621898752.3915303
+real 19.27
+user 50.85
+sys 42.78
+Inertia of kMeans++: 624168850.2353011
+real 21.56
+user 57.03
+sys 40.85
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 634889602.5154699
+real 20.44
+user 54.41
+sys 42.24
+Inertia of kMeans++: 624186583.8064626
+real 17.65
+user 45.32
+sys 41.33
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 636687651.5480901
+real 17.78
+user 43.08
+sys 43.05
+Inertia of kMeans++: 610290177.7943856
+real 22.21
+user 60.61
+sys 42.98
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 637184888.3271865
+real 23.24
+user 64.46
+sys 42.89
+Inertia of kMeans++: 640614839.3865784
+real 21.16
+user 58.06
+sys 42.92
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 626199895.8031701
+real 18.38
+user 47.71
+sys 42.07
+Inertia of kMeans++: 635544618.9030445
+real 25.92
+user 75.93
+sys 43.04
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 636228378.5076158
+real 19.91
+user 52.26
+sys 43.20
+Inertia of kMeans++: 622880053.9359039
+real 21.47
+user 60.13
+sys 41.63
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 616701738.4509708
+real 20.98
+user 57.09
+sys 41.83
+Inertia of kMeans++: 610549597.7582785
+real 20.92
+user 56.76
+sys 41.63
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 623377261.9886819
+real 16.85
+user 40.09
+sys 42.59
+Inertia of kMeans++: 619420657.0851029
+real 20.31
+user 54.15
+sys 41.78
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 632443531.9028003
+real 19.58
+user 52.19
+sys 41.93
+Inertia of kMeans++: 616963028.3048433
+real 23.29
+user 64.82
+sys 43.44
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 634885846.7821419
+real 16.23
+user 38.08
+sys 42.53
+Inertia of kMeans++: 620616889.9477929
+real 25.16
+user 70.93
+sys 43.50
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 619802078.4204926
+real 23.90
+user 66.34
+sys 43.19
+Inertia of kMeans++: 619502388.204036
+real 33.02
+user 101.02
+sys 42.98
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 626802225.1380835
+real 22.59
+user 62.08
+sys 43.23
+Inertia of kMeans++: 622907383.8559206
+real 18.17
+user 46.25
+sys 41.77
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 621569347.4366901
+real 18.92
+user 48.64
+sys 43.18
+Inertia of kMeans++: 615970334.5001934
+real 20.22
+user 52.37
+sys 42.80
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 635287385.0844631
+real 27.34
+user 83.24
+sys 42.27
+Inertia of kMeans++: 622525462.6867076
+real 18.37
+user 47.12
+sys 42.69
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 619503782.2574145
+real 29.43
+user 88.30
+sys 42.59
+Inertia of kMeans++: 623607220.7225512
+real 20.01
+user 52.84
+sys 41.87
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 656513436.5578654
+real 18.94
+user 47.95
+sys 43.09
+Inertia of kMeans++: 634000839.3018275
+real 19.41
+user 49.63
+sys 43.49
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 616285343.2063425
+real 27.44
+user 80.68
+sys 42.94
+Inertia of kMeans++: 616333058.5935811
+real 21.33
+user 58.41
+sys 41.84
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 626698276.8038428
+real 28.33
+user 85.91
+sys 43.34
+Inertia of kMeans++: 616883678.1045073
+real 18.01
+user 45.00
+sys 43.37
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 616622891.4534861
+real 19.61
+user 51.81
+sys 43.06
+Inertia of kMeans++: 624545179.1688846
+real 20.79
+user 56.51
+sys 43.48
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 613999434.6923652
+real 17.69
+user 44.17
+sys 43.10
+Inertia of kMeans++: 637021306.8309914
+real 23.93
+user 69.37
+sys 41.76
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 620799683.7680151
+real 17.09
+user 41.95
+sys 43.03
+Inertia of kMeans++: 656193913.8347851
+real 16.91
+user 40.95
+sys 43.40
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 622037809.4053693
+real 18.88
+user 49.66
+sys 42.02
+Inertia of kMeans++: 629171908.9879794
+real 17.40
+user 43.64
+sys 42.40
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 654852952.5630553
+real 18.50
+user 47.64
+sys 42.14
+Inertia of kMeans++: 635017393.4843189
+real 17.96
+user 45.43
+sys 43.12
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 610149507.8469883
+real 18.54
+user 47.71
+sys 43.25
+Inertia of kMeans++: 623193169.6869066
+real 18.51
+user 47.92
+sys 43.26
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 614944586.3566525
+real 20.21
+user 55.85
+sys 42.14
+Inertia of kMeans++: 616289799.8693202
+real 24.56
+user 70.58
+sys 42.88
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 610747940.6647968
+real 21.72
+user 59.20
+sys 43.16
+Inertia of kMeans++: 616621344.7905513
+real 19.80
+user 53.10
+sys 42.50
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 642074843.3967769
+real 22.54
+user 64.07
+sys 42.37
+Inertia of kMeans++: 616849894.278541
+real 20.79
+user 56.50
+sys 42.49
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 616694908.8848641
+real 18.25
+user 45.95
+sys 42.96
+Inertia of kMeans++: 629446492.1059523
+real 20.60
+user 56.18
+sys 42.04
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 624379932.4886929
+real 22.28
+user 61.44
+sys 43.54
+Inertia of kMeans++: 657102280.812032
+real 21.45
+user 57.70
+sys 43.18
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 631224519.2755018
+real 21.39
+user 56.37
+sys 42.50
+Inertia of kMeans++: 629845573.3267881
+real 18.51
+user 47.84
+sys 43.12
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 623740381.7298181
+real 19.69
+user 52.96
+sys 42.33
+Inertia of kMeans++: 624238741.3828887
+real 24.88
+user 71.13
+sys 42.96
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 641821697.743426
+real 18.64
+user 46.96
+sys 43.46
+Inertia of kMeans++: 610823106.6268842
+real 23.64
+user 67.16
+sys 42.39
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 629642684.7164034
+real 20.98
+user 56.83
+sys 41.79
+Inertia of kMeans++: 622303537.6035045
+real 17.74
+user 45.61
+sys 41.89
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 655460231.1906941
+real 26.43
+user 77.63
+sys 42.07
+Inertia of kMeans++: 614503752.1022716
+real 21.07
+user 59.85
+sys 41.69
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 630756568.7287617
+real 19.77
+user 53.50
+sys 43.10
+Inertia of kMeans++: 620771055.7880235
+real 24.74
+user 72.11
+sys 42.13
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 614305785.6752003
+real 20.46
+user 54.22
+sys 43.11
+Inertia of kMeans++: 630518679.6504905
+real 21.53
+user 58.77
+sys 42.32
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 625976973.4825451
+real 17.90
+user 43.00
+sys 43.59
+Inertia of kMeans++: 612005613.9828413
+real 19.18
+user 50.21
+sys 43.24
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 639564875.9395832
+real 18.48
+user 47.46
+sys 43.87
+Inertia of kMeans++: 634675193.2564083
+real 22.49
+user 62.68
+sys 43.69
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 629723712.1482669
+real 17.86
+user 44.75
+sys 43.73
+Inertia of kMeans++: 616265206.2279227
+real 18.49
+user 46.77
+sys 43.96
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 682796338.186176
+real 18.25
+user 46.91
+sys 43.57
+Inertia of kMeans++: 654218149.6281837
+real 22.04
+user 60.68
+sys 43.64
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 616901233.767785
+real 19.26
+user 50.62
+sys 43.58
+Inertia of kMeans++: 616898894.435252
+real 25.28
+user 74.12
+sys 42.57
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 629125578.524781
+real 19.30
+user 51.44
+sys 42.50
+Inertia of kMeans++: 630189554.9008164
+real 21.73
+user 59.34
+sys 43.83
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 610651136.6785647
+real 19.68
+user 52.90
+sys 43.09
+Inertia of kMeans++: 634626760.643167
+real 18.78
+user 48.20
+sys 43.60
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 653210399.6996074
+real 21.33
+user 58.84
+sys 42.68
+Inertia of kMeans++: 621640355.2374187
+real 20.57
+user 54.75
+sys 43.58
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 610889789.7398294
+real 22.49
+user 63.23
+sys 41.23
+Inertia of kMeans++: 616673109.8813162
+real 24.30
+user 68.12
+sys 42.80
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 619340656.332334
+real 25.18
+user 71.70
+sys 43.11
+Inertia of kMeans++: 614704919.0777386
+real 22.11
+user 60.73
+sys 43.43
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 655442128.3412111
+real 25.56
+user 73.62
+sys 43.17
+Inertia of kMeans++: 611726338.3460063
+real 19.44
+user 51.70
+sys 41.21
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 628251170.5200665
+real 20.46
+user 53.37
+sys 42.81
+Inertia of kMeans++: 614885097.958025
+real 21.37
+user 57.50
+sys 43.33
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 619809948.5537553
+real 22.59
+user 63.02
+sys 41.95
+Inertia of kMeans++: 616680841.653229
+real 21.25
+user 57.36
+sys 43.25
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 614089697.2860985
+real 22.63
+user 63.21
+sys 42.91
+Inertia of kMeans++: 623815250.3538064
+real 17.44
+user 44.01
+sys 42.24
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 615131892.8349097
+real 22.48
+user 63.74
+sys 43.32
+Inertia of kMeans++: 626087780.633378
+real 20.36
+user 54.16
+sys 43.59
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 616874446.3771886
+real 19.23
+user 48.72
+sys 43.58
+Inertia of kMeans++: 622867750.0580462
+real 24.10
+user 65.95
+sys 41.91
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 632843251.4167218
+real 17.67
+user 44.37
+sys 43.25
+Inertia of kMeans++: 624718356.8132762
+real 19.48
+user 51.57
+sys 43.46
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 610108073.4736788
+real 19.96
+user 52.65
+sys 43.71
+Inertia of kMeans++: 638698674.2230079
+real 16.98
+user 40.58
+sys 43.20
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 610661431.7765875
+real 18.85
+user 49.29
+sys 43.51
+Inertia of kMeans++: 612846987.4755119
+real 21.63
+user 60.16
+sys 41.87
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 623321631.884418
+real 22.90
+user 63.25
+sys 43.52
+Inertia of kMeans++: 629331844.7268919
+real 18.14
+user 45.95
+sys 42.52
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 611868939.7872441
+real 19.73
+user 52.00
+sys 43.53
+Inertia of kMeans++: 630916829.5138426
+real 19.72
+user 51.48
+sys 43.33
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 629441782.7170877
+real 21.30
+user 57.45
+sys 43.51
+Inertia of kMeans++: 616604981.4918243
+real 26.56
+user 77.93
+sys 43.52
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 630365817.4559975
+real 20.59
+user 55.38
+sys 43.34
+Inertia of kMeans++: 622248499.6710408
+real 23.96
+user 68.62
+sys 43.28
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 610752552.3453308
+real 22.09
+user 61.27
+sys 43.96
+Inertia of kMeans++: 611840243.0897274
+real 20.38
+user 55.95
+sys 44.07
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 620690902.8776541
+real 18.10
+user 46.77
+sys 43.74
+Inertia of kMeans++: 616611124.9749799
+real 21.92
+user 60.49
+sys 43.87
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 636584545.2462261
+real 22.38
+user 63.56
+sys 43.86
+Inertia of kMeans++: 637289934.6926334
+real 18.28
+user 46.87
+sys 44.08
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 610954128.2390707
+real 29.63
+user 90.56
+sys 44.04
+Inertia of kMeans++: 624912377.0376725
+real 18.04
+user 46.54
+sys 44.17
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 632160231.0274411
+real 19.33
+user 52.41
+sys 43.41
+Inertia of kMeans++: 619453558.5804179
+real 21.05
+user 57.21
+sys 44.24
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 628414126.3332727
+real 23.50
+user 68.91
+sys 41.98
+Inertia of kMeans++: 611549543.0689764
+real 21.76
+user 61.97
+sys 43.77
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 636985965.8518882
+real 17.28
+user 44.66
+sys 42.65
+Inertia of kMeans++: 630207499.765401
+real 19.11
+user 50.54
+sys 43.44
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 616547218.3464735
+real 21.24
+user 60.16
+sys 42.28
+Inertia of kMeans++: 624158927.2934175
+real 19.03
+user 51.03
+sys 43.61
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 635946958.6184847
+real 20.83
+user 57.50
+sys 43.88
+Inertia of kMeans++: 610669189.2213132
+real 21.87
+user 62.08
+sys 43.83
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 628118345.5847276
+real 17.09
+user 43.11
+sys 43.66
+Inertia of kMeans++: 610727471.09815
+real 18.24
+user 46.70
+sys 43.97
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 621496485.2918363
+real 24.14
+user 71.16
+sys 42.79
+Inertia of kMeans++: 616350294.29908
+real 31.33
+user 95.71
+sys 44.02
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 624614755.8630482
+real 21.27
+user 59.99
+sys 42.83
+Inertia of kMeans++: 610869625.2729198
+real 18.58
+user 48.47
+sys 43.80
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 619796299.0716882
+real 20.92
+user 57.66
+sys 43.84
+Inertia of kMeans++: 637778695.5259266
+real 23.27
+user 67.45
+sys 43.85
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 611517691.5676001
+real 18.26
+user 47.42
+sys 43.89
+Inertia of kMeans++: 610594036.6925936
+real 20.83
+user 58.39
+sys 42.30
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 614949980.5463244
+real 23.11
+user 65.24
+sys 43.89
+Inertia of kMeans++: 644405657.085579
+real 18.82
+user 49.31
+sys 43.72
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 620236398.22285
+real 19.02
+user 50.55
+sys 43.49
+Inertia of kMeans++: 612691999.3319935
+real 20.41
+user 55.63
+sys 44.08
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 614849243.1498568
+real 17.79
+user 45.41
+sys 43.97
+Inertia of kMeans++: 620546138.2451789
+real 23.65
+user 69.01
+sys 42.62
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 610125144.527383
+real 23.82
+user 68.83
+sys 44.23
+Inertia of kMeans++: 614333021.8840165
+real 20.59
+user 55.59
+sys 43.86
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 634028915.6172808
+real 20.97
+user 59.21
+sys 42.28
+Inertia of kMeans++: 636738669.9148974
+real 20.74
+user 55.13
+sys 44.08
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 617163112.6896034
+real 25.09
+user 74.25
+sys 42.66
+Inertia of kMeans++: 619586230.8785523
+real 22.00
+user 61.10
+sys 43.96
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 637072251.6327726
+real 24.41
+user 71.41
+sys 43.94
+Inertia of kMeans++: 637462272.8985234
+real 19.15
+user 51.14
+sys 43.72
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 639977094.3252186
+real 19.42
+user 51.42
+sys 43.85
+Inertia of kMeans++: 624224232.997793
+real 19.98
+user 54.56
+sys 43.28
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 629675390.247421
+real 17.63
+user 44.33
+sys 44.04
+Inertia of kMeans++: 622795840.6119133
+real 19.39
+user 52.69
+sys 43.68
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 611297857.5688263
+real 17.18
+user 43.86
+sys 42.85
+Inertia of kMeans++: 636978493.1793388
+real 22.16
+user 61.45
+sys 43.27
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 625448723.1762736
+real 20.22
+user 55.42
+sys 43.57
+Inertia of kMeans++: 624748670.8371261
+real 19.89
+user 52.98
+sys 44.73
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 620882413.3745801
+real 21.70
+user 60.27
+sys 44.13
+Inertia of kMeans++: 610906004.2211314
+real 27.29
+user 82.35
+sys 43.94
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 630846839.5218726
+real 17.41
+user 44.73
+sys 43.83
+Inertia of kMeans++: 617091188.1599996
+real 19.33
+user 50.54
+sys 44.02
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 619626788.8462687
+real 25.12
+user 75.13
+sys 42.63
+Inertia of kMeans++: 610917679.5019257
+real 19.86
+user 53.69
+sys 43.94
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 610297161.3826088
+real 18.81
+user 49.56
+sys 43.86
+Inertia of kMeans++: 610251071.371612
+real 19.81
+user 53.58
+sys 44.06
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 621959353.6600996
+real 22.39
+user 63.55
+sys 41.96
+Inertia of kMeans++: 630214668.7469722
+real 22.86
+user 63.87
+sys 43.53
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 642354340.3243408
+real 19.15
+user 48.54
+sys 43.17
+Inertia of kMeans++: 624025308.5131022
+real 22.66
+user 63.78
+sys 43.35
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 611631037.8366473
+real 20.59
+user 52.01
+sys 41.58
+Inertia of kMeans++: 639943620.8958396
+real 22.59
+user 62.49
+sys 42.91
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 614369376.395233
+real 20.37
+user 55.07
+sys 42.83
+Inertia of kMeans++: 636466165.4015238
+real 20.54
+user 55.30
+sys 43.33
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 626299210.8403783
+real 19.24
+user 49.46
+sys 42.83
+Inertia of kMeans++: 616682976.6686554
+real 17.85
+user 44.28
+sys 43.08
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 636221700.8253211
+real 17.46
+user 44.59
+sys 41.76
+Inertia of kMeans++: 629022812.9500082
+real 20.81
+user 54.73
+sys 41.23
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 611420160.0267882
+real 20.73
+user 56.40
+sys 43.90
+Inertia of kMeans++: 610372681.6523787
+real 23.33
+user 68.25
+sys 42.71
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 616317962.9773116
+real 20.64
+user 55.66
+sys 43.28
+Inertia of kMeans++: 619924652.5926857
+real 26.84
+user 69.87
+sys 35.73
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 629775672.5247533
+real 24.54
+user 63.38
+sys 43.19
+Inertia of kMeans++: 610874084.7760562
+real 16.80
+user 39.68
+sys 42.93
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 619733971.7543603
+real 20.76
+user 59.21
+sys 42.44
+Inertia of kMeans++: 636066033.4515042
+real 20.80
+user 56.13
+sys 43.17
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 621970336.7067338
+real 19.03
+user 50.23
+sys 44.01
+Inertia of kMeans++: 652618592.7926897
+real 26.31
+user 76.76
+sys 43.48
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 630782676.0809345
+real 28.28
+user 88.62
+sys 40.90
+Inertia of kMeans++: 629828813.1987624
+real 22.10
+user 61.38
+sys 42.89
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 639356161.9415624
+real 20.65
+user 53.88
+sys 42.69
+Inertia of kMeans++: 656586072.6220136
+real 17.35
+user 44.03
+sys 42.42
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 620242981.6893023
+real 18.62
+user 48.15
+sys 43.12
+Inertia of kMeans++: 619599157.3261955
+real 27.17
+user 81.68
+sys 43.39
+
+Dataset: datasets_large/Tower.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 610753312.6945604
+real 21.71
+user 59.83
+sys 42.66
+Inertia of kMeans++: 624518357.7542789
+real 23.78
+user 69.56
+sys 43.22

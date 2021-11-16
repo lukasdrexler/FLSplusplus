@@ -1,6 +1,9 @@
 import os
 import numpy as np
 
+
+n_runs = 50
+
 datasets = open('datasets.txt', 'r')
 
 lines = datasets.readlines()
@@ -14,8 +17,9 @@ def write_combinations_to_file(f, n_centers, depths, norm_its, search_steps):
         for depth in depths:
             for norm_it in norm_its:
                 for search_step in search_steps:
-                    f.write("python alspp.py -f {} -k {} -d {} -n {} -s {}\n".format(datapath, n_center, depth, norm_it, search_step))
-                    f.write("python normal_kmeans.py -f {} -k {}\n".format(datapath, n_center))
+                    for i in range (n_runs):
+                        f.write("python alspp.py -f {} -k {} -d {} -n {} -s {}\n".format(datapath, n_center, depth, norm_it, search_step))
+                        f.write("python normal_kmeans.py -f {} -k {}\n".format(datapath, n_center))
 
 
 # for each possible dataset we write the parameters in a line to calls.txt
@@ -65,11 +69,21 @@ for line in lines:
 
         write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
 
-    elif dataset == 'Tower':
+    #elif dataset == 'Tower':
+     #   n_centers = np.array([20, 40])
+      #  depths = np.array([1, 3])
+       # search_steps = np.array([1])
+        #norm_its = np.array([1, 2])
+
+
+        
+        #write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
+
+    elif dataset == 'clegg':
         n_centers = np.array([20, 40])
         depths = np.array([1, 3])
         search_steps = np.array([1])
-        norm_its = np.array([1, 2, 3])
+        norm_its = np.array([1, 3])        
 
         write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
 

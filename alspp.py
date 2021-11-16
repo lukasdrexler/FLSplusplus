@@ -56,6 +56,15 @@ def _build_arg_parser():
         default=" "
     )
 
+
+    arg_parser.add_argument(
+        "-r", "--random_state",
+        type=int,
+        help="Random state",
+        default=None
+        )
+
+
     # parameter which specifies how much information is given
     group = arg_parser.add_mutually_exclusive_group()
     group.add_argument(
@@ -68,6 +77,8 @@ def _build_arg_parser():
         action='store_true',
         help='print verbose'
     )
+
+
     return arg_parser
 
 
@@ -83,7 +94,7 @@ if __name__ == '__main__':
                                 depth=args.depth,
                                 search_steps=args.search_steps,
                                 norm_it=args.normal_iterations,
-                                random_state=None)
+                                random_state=args.random_state)
         als_pp.fit(X)
 
         print("\nDataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
@@ -98,5 +109,6 @@ if __name__ == '__main__':
             print("Inertia ALSPP: {}".format(als_pp.inertia_))
         else:
             print("Inertia of ALSPP = {}".format(als_pp.inertia_))
+    
     except ValueError as e:
         print("Error:", e)

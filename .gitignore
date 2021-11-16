@@ -2,15 +2,18 @@
 current_times.txt
 !datasets/
 !datasets_large/
+!runs
 !generatoren/
 !Anleitung cygwin python.txt
 !create_calls.sh
 !alspp.py
 !calls_datasets_generator.py
 !normal_kmeans.py
+!TextToCSV.py
 
 !datasets/*
 !datasets_large/*
+!runs/*
 
 !venv/
 

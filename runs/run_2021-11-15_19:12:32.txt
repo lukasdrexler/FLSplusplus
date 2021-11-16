@@ -1,0 +1,1601 @@
+Time: 2021-11-15 19:12:32
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 810148779.9801048
+real 3.64
+user 14.13
+sys 10.25
+Inertia of kMeans++: 815582706.9502203
+real 3.91
+user 14.85
+sys 10.25
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 807321716.0712683
+real 4.31
+user 17.86
+sys 10.88
+Inertia of kMeans++: 806684585.4050018
+real 4.32
+user 18.46
+sys 10.76
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 798526917.5297269
+real 4.08
+user 16.61
+sys 11.10
+Inertia of kMeans++: 811111115.3334389
+real 4.55
+user 19.42
+sys 10.92
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 805596523.9586313
+real 4.93
+user 21.99
+sys 11.02
+Inertia of kMeans++: 792309893.8053427
+real 4.17
+user 17.17
+sys 10.77
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 793123007.2069958
+real 4.00
+user 16.08
+sys 10.93
+Inertia of kMeans++: 798187610.4173477
+real 3.75
+user 14.72
+sys 10.59
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 804870607.647574
+real 4.43
+user 15.66
+sys 10.86
+Inertia of kMeans++: 792896713.3791087
+real 3.65
+user 13.89
+sys 10.82
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 803786420.8176192
+real 4.03
+user 16.19
+sys 11.15
+Inertia of kMeans++: 810416155.5924368
+real 3.54
+user 13.27
+sys 10.79
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 796900977.9582326
+real 4.26
+user 18.28
+sys 10.44
+Inertia of kMeans++: 815076617.3618767
+real 4.64
+user 20.33
+sys 11.00
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 809904787.2181368
+real 3.58
+user 13.29
+sys 10.79
+Inertia of kMeans++: 798399013.2129129
+real 3.72
+user 14.33
+sys 10.75
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 792925908.2747312
+real 4.90
+user 21.98
+sys 10.82
+Inertia of kMeans++: 813351896.7393339
+real 3.53
+user 13.40
+sys 10.64
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 818030552.2909621
+real 3.85
+user 15.26
+sys 10.64
+Inertia of kMeans++: 792866849.8409803
+real 4.50
+user 18.97
+sys 11.02
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 804936921.158908
+real 4.78
+user 21.27
+sys 10.95
+Inertia of kMeans++: 793909800.8302214
+real 3.72
+user 14.07
+sys 10.93
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 794030927.3380827
+real 6.14
+user 29.57
+sys 10.79
+Inertia of kMeans++: 804987448.6718255
+real 5.21
+user 21.35
+sys 10.92
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 793822835.272346
+real 4.03
+user 16.07
+sys 11.17
+Inertia of kMeans++: 801908590.8135315
+real 4.15
+user 17.02
+sys 11.09
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 798945224.6224345
+real 4.04
+user 16.47
+sys 10.83
+Inertia of kMeans++: 806993291.0567759
+real 3.59
+user 13.25
+sys 11.06
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 810250752.6328131
+real 3.91
+user 15.44
+sys 11.02
+Inertia of kMeans++: 801301778.6127445
+real 4.02
+user 16.08
+sys 11.20
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 805320330.5162991
+real 3.82
+user 14.95
+sys 10.52
+Inertia of kMeans++: 792901023.2532983
+real 3.73
+user 14.26
+sys 10.69
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 795070871.2360988
+real 3.99
+user 16.04
+sys 10.89
+Inertia of kMeans++: 801818983.7327328
+real 5.53
+user 26.38
+sys 10.70
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 805457852.0769641
+real 3.88
+user 15.46
+sys 10.74
+Inertia of kMeans++: 801345388.350456
+real 5.55
+user 26.80
+sys 11.02
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 806670106.4811679
+real 3.87
+user 14.91
+sys 11.20
+Inertia of kMeans++: 792908826.925699
+real 3.74
+user 14.57
+sys 10.76
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 822369075.8628626
+real 3.39
+user 11.92
+sys 11.06
+Inertia of kMeans++: 792999484.4277235
+real 4.27
+user 14.56
+sys 10.71
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 798088024.3257216
+real 3.30
+user 11.62
+sys 10.72
+Inertia of kMeans++: 810027932.5302719
+real 4.26
+user 17.56
+sys 11.00
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 806446716.0209079
+real 3.30
+user 11.34
+sys 11.02
+Inertia of kMeans++: 801643383.6728473
+real 4.51
+user 19.47
+sys 10.72
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 798506251.2998456
+real 4.82
+user 21.50
+sys 10.87
+Inertia of kMeans++: 801603637.563768
+real 5.25
+user 23.98
+sys 11.19
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 805859391.1915078
+real 3.83
+user 15.09
+sys 10.99
+Inertia of kMeans++: 798500326.0906103
+real 3.72
+user 14.12
+sys 10.76
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 793998743.5918591
+real 3.90
+user 15.15
+sys 10.75
+Inertia of kMeans++: 804888959.1704836
+real 3.49
+user 12.45
+sys 11.03
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 801857916.3873492
+real 4.29
+user 18.08
+sys 10.89
+Inertia of kMeans++: 796887448.1106592
+real 3.40
+user 12.00
+sys 10.84
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 792351913.9155282
+real 5.23
+user 24.21
+sys 10.88
+Inertia of kMeans++: 803865827.4890189
+real 3.75
+user 14.02
+sys 10.75
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 798671707.9666241
+real 3.94
+user 15.45
+sys 10.63
+Inertia of kMeans++: 811361814.4166274
+real 4.16
+user 17.11
+sys 10.64
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 803228446.0095156
+real 4.25
+user 17.54
+sys 10.63
+Inertia of kMeans++: 807682475.4385868
+real 3.67
+user 13.79
+sys 10.73
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 810481014.4160459
+real 4.23
+user 17.51
+sys 10.68
+Inertia of kMeans++: 792927167.7717068
+real 4.49
+user 19.39
+sys 10.64
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 795474552.4975994
+real 4.54
+user 19.60
+sys 11.27
+Inertia of kMeans++: 801459723.9059116
+real 4.45
+user 19.16
+sys 10.89
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 792190560.7645507
+real 4.00
+user 16.10
+sys 10.74
+Inertia of kMeans++: 806702092.0622381
+real 5.19
+user 23.55
+sys 10.85
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 800968590.100047
+real 3.72
+user 13.18
+sys 11.21
+Inertia of kMeans++: 797032493.0889857
+real 4.36
+user 18.36
+sys 10.72
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 809888467.2666554
+real 3.44
+user 12.52
+sys 10.65
+Inertia of kMeans++: 801387351.277504
+real 4.33
+user 18.13
+sys 10.86
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 801708007.7967466
+real 4.50
+user 19.72
+sys 10.53
+Inertia of kMeans++: 831756362.5734463
+real 3.78
+user 14.66
+sys 10.70
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 812537552.4127083
+real 3.63
+user 13.70
+sys 10.78
+Inertia of kMeans++: 805108155.2355564
+real 3.34
+user 12.06
+sys 10.48
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 810180965.8315973
+real 4.34
+user 17.89
+sys 10.83
+Inertia of kMeans++: 804805071.5765074
+real 4.02
+user 15.59
+sys 11.08
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 807195882.9327583
+real 3.68
+user 13.79
+sys 10.91
+Inertia of kMeans++: 812431429.3504709
+real 4.02
+user 16.24
+sys 10.61
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 807017216.7404257
+real 4.15
+user 16.89
+sys 10.68
+Inertia of kMeans++: 801823339.5769423
+real 3.57
+user 13.26
+sys 10.79
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 801785975.8680884
+real 4.71
+user 20.39
+sys 11.07
+Inertia of kMeans++: 792266784.8270952
+real 4.36
+user 15.89
+sys 10.51
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 822579742.5021061
+real 4.59
+user 20.01
+sys 10.93
+Inertia of kMeans++: 812586631.5947945
+real 3.44
+user 12.36
+sys 10.89
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 798392147.5450331
+real 4.86
+user 22.33
+sys 10.66
+Inertia of kMeans++: 812924072.4467938
+real 3.52
+user 12.95
+sys 10.90
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 807965391.6322665
+real 3.40
+user 12.34
+sys 10.86
+Inertia of kMeans++: 804975743.6147369
+real 4.28
+user 17.94
+sys 11.18
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 799622932.1849812
+real 4.12
+user 17.15
+sys 10.68
+Inertia of kMeans++: 797385922.660959
+real 3.84
+user 14.91
+sys 10.81
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 800326935.5652323
+real 4.19
+user 17.19
+sys 11.13
+Inertia of kMeans++: 798036867.8780824
+real 3.43
+user 12.22
+sys 11.07
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 807508859.4550266
+real 3.73
+user 14.63
+sys 10.65
+Inertia of kMeans++: 811513416.9154087
+real 4.31
+user 18.29
+sys 10.66
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 804222886.2997985
+real 5.78
+user 27.82
+sys 10.73
+Inertia of kMeans++: 801709579.2983633
+real 4.07
+user 16.62
+sys 11.04
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 792350428.6608129
+real 4.98
+user 18.88
+sys 11.16
+Inertia of kMeans++: 798410154.7831296
+real 4.72
+user 21.01
+sys 10.78
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 793827860.0283407
+real 3.70
+user 13.99
+sys 10.97
+Inertia of kMeans++: 792883016.5666852
+real 3.23
+user 11.08
+sys 10.69
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 806002714.8311384
+real 3.91
+user 15.45
+sys 10.93
+Inertia of kMeans++: 831665349.0054986
+real 3.82
+user 14.99
+sys 10.83
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 802138703.2808782
+real 3.89
+user 15.75
+sys 10.43
+Inertia of kMeans++: 803764287.1614969
+real 3.25
+user 11.17
+sys 10.98
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 806257827.8344846
+real 3.53
+user 13.27
+sys 10.71
+Inertia of kMeans++: 795222445.080062
+real 4.60
+user 19.90
+sys 11.08
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 792578239.4473784
+real 4.70
+user 20.70
+sys 10.63
+Inertia of kMeans++: 813984006.8024025
+real 3.67
+user 14.13
+sys 10.48
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 820253436.7626426
+real 3.39
+user 12.45
+sys 10.72
+Inertia of kMeans++: 798580693.7703971
+real 4.02
+user 16.45
+sys 10.75
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 799390255.3675104
+real 3.73
+user 14.73
+sys 10.44
+Inertia of kMeans++: 808707215.9874632
+real 3.58
+user 13.23
+sys 11.09
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 798159613.4999602
+real 4.25
+user 18.47
+sys 10.45
+Inertia of kMeans++: 806806010.6484512
+real 4.40
+user 16.15
+sys 10.65
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 806991609.3024275
+real 3.25
+user 10.93
+sys 11.00
+Inertia of kMeans++: 800284255.2731798
+real 3.66
+user 14.05
+sys 10.70
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 801746292.1067472
+real 3.81
+user 14.68
+sys 10.89
+Inertia of kMeans++: 808729101.380913
+real 3.83
+user 15.27
+sys 10.61
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 802633608.9718715
+real 4.60
+user 20.48
+sys 10.47
+Inertia of kMeans++: 808684636.8916651
+real 3.27
+user 11.34
+sys 10.88
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 801865376.3631817
+real 4.02
+user 16.14
+sys 10.77
+Inertia of kMeans++: 797321775.9581243
+real 4.50
+user 19.01
+sys 11.01
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 806624287.1396722
+real 3.43
+user 12.52
+sys 10.83
+Inertia of kMeans++: 806711774.36029
+real 4.23
+user 17.73
+sys 10.59
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 802415687.343973
+real 3.90
+user 15.46
+sys 10.95
+Inertia of kMeans++: 792531255.9626331
+real 3.57
+user 13.25
+sys 10.89
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 806158253.9488251
+real 3.80
+user 15.08
+sys 10.91
+Inertia of kMeans++: 806518548.7699895
+real 3.62
+user 13.70
+sys 10.82
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 797430456.3183553
+real 3.99
+user 16.13
+sys 10.73
+Inertia of kMeans++: 792881799.569411
+real 4.71
+user 20.68
+sys 11.17
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 804874905.2877425
+real 4.20
+user 13.89
+sys 10.73
+Inertia of kMeans++: 804718656.9811506
+real 3.68
+user 13.93
+sys 10.85
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 792875351.1789103
+real 3.74
+user 14.30
+sys 11.03
+Inertia of kMeans++: 798817739.2298117
+real 3.85
+user 14.92
+sys 10.97
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 798401308.9130181
+real 4.68
+user 20.71
+sys 11.10
+Inertia of kMeans++: 803665131.3575882
+real 3.52
+user 13.18
+sys 10.86
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 825974808.1626205
+real 3.98
+user 16.32
+sys 10.31
+Inertia of kMeans++: 792932995.5935172
+real 4.52
+user 19.26
+sys 10.91
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 798772350.2110233
+real 4.06
+user 16.24
+sys 10.85
+Inertia of kMeans++: 793124167.139118
+real 5.52
+user 26.19
+sys 10.81
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 805705997.4274924
+real 3.92
+user 15.42
+sys 10.92
+Inertia of kMeans++: 803794660.1145234
+real 3.91
+user 15.76
+sys 10.47
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 805541506.2836664
+real 3.95
+user 15.80
+sys 11.13
+Inertia of kMeans++: 808485957.355042
+real 3.32
+user 12.15
+sys 10.25
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 795308278.1232005
+real 5.08
+user 23.17
+sys 10.73
+Inertia of kMeans++: 799716477.943117
+real 3.72
+user 14.22
+sys 10.99
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 800146989.5541967
+real 5.78
+user 24.89
+sys 10.86
+Inertia of kMeans++: 806708277.2845832
+real 4.58
+user 20.26
+sys 11.03
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 797661956.1697459
+real 3.91
+user 15.56
+sys 11.12
+Inertia of kMeans++: 792949335.1534332
+real 5.19
+user 24.00
+sys 10.76
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 792905878.4963402
+real 3.90
+user 15.27
+sys 11.06
+Inertia of kMeans++: 811836975.8678551
+real 3.72
+user 14.58
+sys 10.60
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 804828900.854949
+real 3.51
+user 12.63
+sys 10.90
+Inertia of kMeans++: 800734545.1130562
+real 4.19
+user 17.36
+sys 10.98
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 806650994.5920823
+real 3.63
+user 13.61
+sys 10.69
+Inertia of kMeans++: 800883082.1315222
+real 4.48
+user 19.23
+sys 11.00
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 806532006.0802753
+real 4.53
+user 19.52
+sys 11.01
+Inertia of kMeans++: 809734458.476952
+real 3.77
+user 14.52
+sys 10.98
+
+Dataset: datasets_large/clegg.txt, k: 20, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 805256065.6554514
+real 4.08
+user 16.96
+sys 10.81
+Inertia of kMeans++: 792326769.499821
+real 4.24
+user 17.48
+sys 11.07
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462565048.24699247
+real 5.66
+user 23.06
+sys 19.83
+Inertia of kMeans++: 461136140.8081931
+real 7.37
+user 28.80
+sys 19.76
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 469283188.94051933
+real 6.38
+user 26.86
+sys 19.15
+Inertia of kMeans++: 459947470.8770254
+real 7.18
+user 30.47
+sys 19.29
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 465790564.3893561
+real 4.96
+user 19.33
+sys 19.71
+Inertia of kMeans++: 459926725.33257955
+real 8.65
+user 38.16
+sys 18.43
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 459879885.9576624
+real 8.40
+user 35.59
+sys 19.99
+Inertia of kMeans++: 465384783.99440795
+real 5.20
+user 20.56
+sys 19.59
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 459048274.1860446
+real 6.84
+user 28.89
+sys 19.15
+Inertia of kMeans++: 462204252.61516213
+real 8.55
+user 36.57
+sys 20.14
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 469123397.8624611
+real 8.39
+user 36.10
+sys 20.01
+Inertia of kMeans++: 460862235.352612
+real 6.19
+user 25.52
+sys 19.33
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 463657071.7712514
+real 5.14
+user 20.68
+sys 19.26
+Inertia of kMeans++: 462155138.32253987
+real 5.53
+user 22.13
+sys 19.36
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462115939.8951001
+real 7.05
+user 29.28
+sys 19.76
+Inertia of kMeans++: 463518931.629314
+real 6.98
+user 28.21
+sys 20.26
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 459420871.75384533
+real 5.95
+user 24.48
+sys 19.02
+Inertia of kMeans++: 466830165.2223002
+real 5.41
+user 21.46
+sys 19.38
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 461362586.71090084
+real 6.60
+user 27.33
+sys 20.18
+Inertia of kMeans++: 458575376.6865109
+real 7.67
+user 32.55
+sys 19.21
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 461750815.12982076
+real 8.29
+user 35.63
+sys 19.87
+Inertia of kMeans++: 462598689.9744363
+real 5.97
+user 24.57
+sys 19.24
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 461979653.2573512
+real 6.16
+user 25.89
+sys 19.36
+Inertia of kMeans++: 464508920.14950246
+real 5.47
+user 21.78
+sys 19.55
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462959978.77309334
+real 8.98
+user 39.02
+sys 19.85
+Inertia of kMeans++: 462040992.08795387
+real 6.59
+user 25.01
+sys 19.20
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 460362925.02171844
+real 9.75
+user 41.30
+sys 20.00
+Inertia of kMeans++: 462754402.9842229
+real 6.33
+user 24.78
+sys 19.89
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 465143598.79516536
+real 7.02
+user 28.78
+sys 19.29
+Inertia of kMeans++: 460298494.0639273
+real 8.87
+user 38.51
+sys 19.44
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 463333650.85277694
+real 5.44
+user 22.33
+sys 19.19
+Inertia of kMeans++: 464445412.9965934
+real 9.45
+user 41.89
+sys 19.10
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 474794370.14944303
+real 5.48
+user 22.11
+sys 19.72
+Inertia of kMeans++: 462940259.588848
+real 6.35
+user 26.33
+sys 19.52
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 467233194.5139327
+real 5.03
+user 19.15
+sys 19.27
+Inertia of kMeans++: 461894326.0282494
+real 6.88
+user 28.28
+sys 19.22
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462548500.66606766
+real 6.20
+user 24.79
+sys 20.21
+Inertia of kMeans++: 465848393.09019196
+real 6.30
+user 26.01
+sys 19.41
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 463700201.48376673
+real 6.14
+user 25.34
+sys 19.60
+Inertia of kMeans++: 464752526.53682417
+real 7.03
+user 29.33
+sys 19.34
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 463012057.6193065
+real 6.22
+user 25.30
+sys 19.39
+Inertia of kMeans++: 463582888.787391
+real 6.52
+user 27.20
+sys 19.19
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 465176034.42293
+real 6.12
+user 25.28
+sys 19.71
+Inertia of kMeans++: 462948443.3946939
+real 6.28
+user 26.38
+sys 19.17
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 465554809.6483404
+real 8.03
+user 34.68
+sys 19.43
+Inertia of kMeans++: 458414712.4918268
+real 7.30
+user 30.78
+sys 20.01
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 461372127.11406195
+real 5.49
+user 22.41
+sys 19.26
+Inertia of kMeans++: 460159685.44110763
+real 6.03
+user 24.85
+sys 19.66
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 461832082.6182054
+real 6.17
+user 25.40
+sys 19.69
+Inertia of kMeans++: 461352766.61233425
+real 6.77
+user 25.75
+sys 19.33
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 459931284.471622
+real 5.61
+user 22.55
+sys 20.08
+Inertia of kMeans++: 461334223.36278594
+real 6.04
+user 24.51
+sys 20.10
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 468112052.2009413
+real 6.61
+user 27.35
+sys 20.35
+Inertia of kMeans++: 460915083.04057884
+real 7.51
+user 31.72
+sys 20.16
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 466339229.37191814
+real 9.15
+user 39.66
+sys 20.04
+Inertia of kMeans++: 463341981.70405674
+real 9.24
+user 40.78
+sys 19.41
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 471942470.3853459
+real 6.66
+user 27.35
+sys 20.35
+Inertia of kMeans++: 464150363.42507744
+real 6.63
+user 27.87
+sys 19.26
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 462375620.22865
+real 5.96
+user 24.74
+sys 18.90
+Inertia of kMeans++: 464383409.9546341
+real 7.28
+user 30.67
+sys 19.33
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 467924886.00958425
+real 5.45
+user 22.15
+sys 19.22
+Inertia of kMeans++: 465241984.74089664
+real 5.11
+user 19.98
+sys 19.84
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 463390949.1697669
+real 7.81
+user 33.57
+sys 19.33
+Inertia of kMeans++: 464626242.4213556
+real 8.54
+user 34.62
+sys 19.33
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 464281661.17774916
+real 8.00
+user 34.46
+sys 19.03
+Inertia of kMeans++: 464107934.9586343
+real 8.24
+user 35.54
+sys 19.79
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 460605534.1425743
+real 7.00
+user 29.34
+sys 19.21
+Inertia of kMeans++: 460887752.57000196
+real 6.70
+user 28.24
+sys 19.30
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 458319390.96169037
+real 5.28
+user 21.00
+sys 19.55
+Inertia of kMeans++: 460502927.78582346
+real 6.00
+user 24.87
+sys 19.13
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 460545145.6910917
+real 6.24
+user 25.79
+sys 19.28
+Inertia of kMeans++: 462928893.47860223
+real 7.75
+user 33.50
+sys 19.20
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 460923919.2405771
+real 6.09
+user 22.72
+sys 19.27
+Inertia of kMeans++: 464522529.0413666
+real 5.41
+user 21.31
+sys 20.05
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 468280819.8240981
+real 7.25
+user 30.03
+sys 19.75
+Inertia of kMeans++: 463432800.881094
+real 5.74
+user 22.52
+sys 19.71
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 461279035.85570556
+real 6.47
+user 25.87
+sys 20.03
+Inertia of kMeans++: 461829763.08527017
+real 6.25
+user 25.07
+sys 20.27
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 462104741.76440275
+real 7.78
+user 32.31
+sys 20.24
+Inertia of kMeans++: 470122510.1189373
+real 6.49
+user 26.62
+sys 19.33
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462355680.9169694
+real 6.23
+user 27.03
+sys 19.62
+Inertia of kMeans++: 463663960.8184799
+real 6.58
+user 27.08
+sys 19.69
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 467950818.1286203
+real 6.95
+user 29.35
+sys 19.39
+Inertia of kMeans++: 463050442.4920502
+real 9.37
+user 40.88
+sys 19.85
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 463360819.7850702
+real 8.01
+user 34.48
+sys 18.99
+Inertia of kMeans++: 466803683.05317235
+real 6.83
+user 27.46
+sys 19.97
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462289929.69098705
+real 6.86
+user 29.17
+sys 19.24
+Inertia of kMeans++: 460952469.85859156
+real 6.39
+user 23.99
+sys 19.41
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 459870320.74407846
+real 8.87
+user 38.75
+sys 19.50
+Inertia of kMeans++: 463182625.9162575
+real 6.45
+user 26.87
+sys 19.05
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 464251068.35295975
+real 7.28
+user 30.87
+sys 19.35
+Inertia of kMeans++: 463106009.01019955
+real 6.41
+user 26.40
+sys 19.96
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 465534818.78590584
+real 5.26
+user 20.63
+sys 20.20
+Inertia of kMeans++: 461957166.91531575
+real 6.14
+user 25.04
+sys 19.99
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 460049354.41189516
+real 6.11
+user 24.87
+sys 19.58
+Inertia of kMeans++: 460360788.8353264
+real 7.27
+user 30.61
+sys 19.97
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 464079653.28578097
+real 5.67
+user 22.86
+sys 19.35
+Inertia of kMeans++: 463666410.0885941
+real 7.73
+user 30.69
+sys 19.67
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462086500.8788888
+real 6.99
+user 29.18
+sys 20.48
+Inertia of kMeans++: 463705663.9502901
+real 5.63
+user 22.96
+sys 19.18
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462300252.87826735
+real 7.10
+user 29.80
+sys 19.20
+Inertia of kMeans++: 460046693.6747151
+real 7.05
+user 29.77
+sys 19.38
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462524024.42130035
+real 5.99
+user 24.56
+sys 19.47
+Inertia of kMeans++: 461311589.6038415
+real 7.20
+user 30.43
+sys 19.43
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 463491656.474353
+real 6.32
+user 26.15
+sys 20.00
+Inertia of kMeans++: 465767654.04650366
+real 8.02
+user 34.15
+sys 20.03
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 467812324.2665525
+real 6.52
+user 24.64
+sys 19.57
+Inertia of kMeans++: 458196085.0330531
+real 8.80
+user 37.88
+sys 20.16
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462692220.4014515
+real 7.40
+user 31.88
+sys 19.40
+Inertia of kMeans++: 461068089.5364865
+real 8.61
+user 36.96
+sys 19.83
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 467830186.19488794
+real 7.09
+user 29.89
+sys 20.11
+Inertia of kMeans++: 464413425.35375065
+real 7.29
+user 30.15
+sys 20.31
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462332673.38791126
+real 5.80
+user 23.36
+sys 19.28
+Inertia of kMeans++: 462264046.1308583
+real 6.91
+user 28.77
+sys 19.92
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 460169780.5784793
+real 9.07
+user 39.16
+sys 19.56
+Inertia of kMeans++: 461080487.4030117
+real 5.35
+user 21.29
+sys 19.98
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 462287118.3452308
+real 5.67
+user 22.72
+sys 20.04
+Inertia of kMeans++: 464689127.35161173
+real 8.29
+user 35.54
+sys 20.00
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 460297874.63258666
+real 5.76
+user 23.62
+sys 19.20
+Inertia of kMeans++: 460247688.84263
+real 7.48
+user 31.91
+sys 19.46
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 465244474.26919264
+real 7.37
+user 28.67
+sys 20.21
+Inertia of kMeans++: 459703176.04120106
+real 6.83
+user 28.82
+sys 19.30
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 461443432.939096
+real 6.75
+user 28.60
+sys 19.71
+Inertia of kMeans++: 462244363.07210207
+real 7.09
+user 29.58
+sys 20.13
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 463496019.105464
+real 7.57
+user 32.37
+sys 19.58
+Inertia of kMeans++: 464544679.815936
+real 6.55
+user 26.93
+sys 19.37
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 461109006.0446927
+real 7.46
+user 31.74
+sys 19.38
+Inertia of kMeans++: 467602545.12981933
+real 5.58
+user 22.79
+sys 19.09
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 463244268.53681356
+real 5.35
+user 21.21
+sys 19.35
+Inertia of kMeans++: 462163842.4779864
+real 9.44
+user 39.09
+sys 19.56
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 462982511.5238524
+real 6.04
+user 24.61
+sys 19.63
+Inertia of kMeans++: 460983710.8242574
+real 6.02
+user 24.62
+sys 19.34
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 462060240.55743
+real 7.86
+user 33.60
+sys 19.56
+Inertia of kMeans++: 463820559.11692333
+real 6.25
+user 25.78
+sys 19.45
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 461094302.21720546
+real 6.54
+user 26.98
+sys 19.98
+Inertia of kMeans++: 460907674.08155566
+real 9.45
+user 41.45
+sys 19.73
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 462409161.45788395
+real 7.52
+user 31.93
+sys 19.62
+Inertia of kMeans++: 471244896.7665065
+real 5.66
+user 23.50
+sys 18.97
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 461259326.6044653
+real 6.59
+user 24.89
+sys 20.22
+Inertia of kMeans++: 473085963.9811658
+real 6.67
+user 28.13
+sys 19.70
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 464016059.2362614
+real 6.10
+user 24.86
+sys 19.43
+Inertia of kMeans++: 461234073.27427626
+real 6.38
+user 26.91
+sys 18.96
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 462348924.54276145
+real 8.72
+user 37.81
+sys 18.97
+Inertia of kMeans++: 464481938.30581266
+real 5.59
+user 22.38
+sys 20.05
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 462306794.4922595
+real 7.22
+user 30.43
+sys 20.10
+Inertia of kMeans++: 463935475.15636533
+real 8.10
+user 34.88
+sys 19.52
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 465138341.33857447
+real 5.69
+user 22.87
+sys 19.84
+Inertia of kMeans++: 465033663.37634283
+real 5.09
+user 19.84
+sys 19.48
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 464233293.4344201
+real 6.23
+user 25.57
+sys 19.65
+Inertia of kMeans++: 463241132.0721244
+real 6.02
+user 23.82
+sys 19.26
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 464304037.1711846
+real 6.30
+user 25.57
+sys 19.37
+Inertia of kMeans++: 461415237.94289124
+real 9.37
+user 41.47
+sys 19.11
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 465126208.2063389
+real 7.94
+user 34.18
+sys 19.32
+Inertia of kMeans++: 464505320.197108
+real 6.37
+user 25.57
+sys 20.19
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 462000575.59152234
+real 6.23
+user 25.22
+sys 19.98
+Inertia of kMeans++: 469129369.7448365
+real 5.55
+user 22.06
+sys 19.97
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 463248847.5607634
+real 6.65
+user 27.41
+sys 20.11
+Inertia of kMeans++: 466480752.6199991
+real 6.77
+user 27.88
+sys 20.12
+
+Dataset: datasets_large/clegg.txt, k: 40, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 459158589.3521144
+real 7.69
+user 32.76
+sys 19.80
+Inertia of kMeans++: 468460082.25494856
+real 7.55
+user 32.17
+sys 19.89

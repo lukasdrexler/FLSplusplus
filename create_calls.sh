@@ -14,13 +14,14 @@ then
 	find datasets/ -type f | sort -V > datasets.txt
 fi
 
+
 # create calls.txt from python script and write to calls.txt
 python calls_datasets_generator.py
 
 today="$(date '+%Y-%m-%d')"
 now="$(date '+%H:%M:%S')"
-echo "Time: ${today} ${now}" >> run.txt
-cat calls.txt | xargs -L1 /usr/bin/time -p > run.txt 2>&1
+echo "Time: ${today} ${now}" >> runs/run_${today}_${now}.txt
+cat calls.txt | xargs -L1 /usr/bin/time -p >> runs/run_${today}_${now}.txt 2>&1
 
 
 

@@ -39,6 +39,14 @@ def _build_arg_parser():
         default=" "
     )
 
+    arg_parser.add_argument(
+        "-r", "--random_state",
+        type=int,
+        help="Random state",
+        default=None
+        )
+
+
     # parameter which specifies how much information is given
     group = arg_parser.add_mutually_exclusive_group()
     group.add_argument(
@@ -64,7 +72,7 @@ if __name__ == '__main__':
                                 n_clusters=args.n_centers,
                                 n_init=1,
                                 algorithm='elkan',
-                                random_state=None)
+                                random_state=args.random_state)
         normal_kmeans.fit(X)
 
 
