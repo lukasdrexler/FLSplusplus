@@ -19,7 +19,7 @@ fi
 python calls_datasets_generator.py
 
 today="$(date '+%Y-%m-%d')"
-now="$(date '+%H:%M:%S')"
+now="$(date '+%H-%M-%S')"
 echo "Time: ${today} ${now}" >> runs/run_${today}_${now}.txt
 cat calls.txt | xargs -L1 /usr/bin/time -p >> runs/run_${today}_${now}.txt 2>&1
 
