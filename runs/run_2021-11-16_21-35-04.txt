@@ -1,0 +1,516 @@
+Time: 2021-11-16 21-35-04
+
+Dataset: datasets/D31.txt, k: 31, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 4162.360431108093
+real 2.03
+user 15.32
+sys 4.22
+Inertia of kMeans++: 4162.424890154276
+real 0.80
+user 1.88
+sys 3.32
+
+Dataset: datasets/D31.txt, k: 31, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 3779.680696658758
+real 1.28
+user 7.84
+sys 3.70
+Inertia of kMeans++: 3779.8132000212768
+real 0.76
+user 1.88
+sys 3.10
+
+Dataset: datasets/D31.txt, k: 31, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 3803.032901236673
+real 1.53
+user 10.79
+sys 3.44
+Inertia of kMeans++: 3803.4261154025367
+real 0.78
+user 1.95
+sys 3.08
+
+Dataset: datasets/D31.txt, k: 31, depth: 1, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 3393.2784947482082
+real 1.39
+user 9.25
+sys 3.45
+Inertia of kMeans++: 3393.3452298345073
+real 0.81
+user 1.92
+sys 3.15
+
+Dataset: datasets/D31.txt, k: 31, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 3393.2566467962415
+real 1.16
+user 6.17
+sys 3.34
+Inertia of kMeans++: 3393.2566467962415
+real 0.82
+user 1.96
+sys 3.03
+
+Dataset: datasets/D31.txt, k: 31, depth: 3, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 3393.363408322064
+real 1.21
+user 7.10
+sys 3.47
+Inertia of kMeans++: 3393.3634083220645
+real 0.70
+user 1.89
+sys 3.13
+
+Dataset: datasets/D31.txt, k: 31, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 4347.557219951041
+real 1.84
+user 15.43
+sys 3.92
+Inertia of kMeans++: 4347.613992122919
+real 0.75
+user 1.82
+sys 3.25
+
+Dataset: datasets/D31.txt, k: 31, depth: 3, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 3788.170164211957
+real 1.35
+user 8.52
+sys 3.21
+Inertia of kMeans++: 3788.948010801773
+real 0.73
+user 1.80
+sys 3.27
+
+Dataset: datasets/D31.txt, k: 31, depth: 5, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 3393.32892091881
+real 1.37
+user 8.94
+sys 3.62
+Inertia of kMeans++: 3393.3289209188106
+real 0.85
+user 2.17
+sys 3.27
+
+Dataset: datasets/D31.txt, k: 31, depth: 5, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 3782.10705285657
+real 1.65
+user 12.82
+sys 3.48
+Inertia of kMeans++: 3782.9702620541984
+real 0.72
+user 1.80
+sys 3.24
+
+Dataset: datasets/D31.txt, k: 31, depth: 5, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 3393.301174155802
+real 0.98
+user 4.78
+sys 3.50
+Inertia of kMeans++: 3393.3011741558016
+real 0.86
+user 2.61
+sys 3.21
+
+Dataset: datasets/D31.txt, k: 31, depth: 5, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 3766.650807263654
+real 1.41
+user 9.81
+sys 3.66
+Inertia of kMeans++: 3766.6508072636548
+real 0.76
+user 1.92
+sys 3.10
+
+Dataset: datasets/pr91.txt, k: 4, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 14118367258.389515
+real 0.81
+user 2.49
+sys 3.26
+Inertia of kMeans++: 14118367258.389511
+real 0.79
+user 1.95
+sys 3.14
+
+Dataset: datasets/pr91.txt, k: 4, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 14118367258.389515
+real 0.78
+user 2.28
+sys 3.43
+Inertia of kMeans++: 14119062295.552486
+real 0.70
+user 1.80
+sys 3.18
+
+Dataset: datasets/pr91.txt, k: 4, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 14118367258.389511
+real 0.77
+user 2.13
+sys 3.40
+Inertia of kMeans++: 14118367258.389511
+real 0.71
+user 1.68
+sys 3.32
+
+Dataset: datasets/pr91.txt, k: 4, depth: 1, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 14118367258.389513
+real 0.81
+user 2.90
+sys 3.33
+Inertia of kMeans++: 14118367258.389513
+real 0.74
+user 1.91
+sys 3.15
+
+Dataset: datasets/pr91.txt, k: 4, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 14118367258.389513
+real 0.77
+user 2.22
+sys 3.24
+Inertia of kMeans++: 14118367258.389513
+real 0.70
+user 1.78
+sys 3.27
+
+Dataset: datasets/pr91.txt, k: 4, depth: 3, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 14118367258.389515
+real 0.79
+user 2.55
+sys 3.32
+Inertia of kMeans++: 14118367258.389511
+real 0.70
+user 1.81
+sys 3.26
+
+Dataset: datasets/pr91.txt, k: 4, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 14118367258.389511
+real 0.77
+user 2.11
+sys 3.36
+Inertia of kMeans++: 14118367258.389513
+real 0.68
+user 1.72
+sys 3.22
+
+Dataset: datasets/pr91.txt, k: 4, depth: 3, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 14118367258.389511
+real 0.91
+user 2.67
+sys 3.31
+Inertia of kMeans++: 14118367258.389513
+real 0.80
+user 2.06
+sys 3.03
+
+Dataset: datasets/pr91.txt, k: 4, depth: 5, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 14118367258.389515
+real 0.84
+user 2.76
+sys 3.22
+Inertia of kMeans++: 14118367258.389513
+real 0.83
+user 1.86
+sys 3.27
+
+Dataset: datasets/pr91.txt, k: 4, depth: 5, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 14118367258.389513
+real 0.92
+user 2.84
+sys 3.19
+Inertia of kMeans++: 14118367258.389511
+real 0.84
+user 1.79
+sys 3.27
+
+Dataset: datasets/pr91.txt, k: 4, depth: 5, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 14118367258.389515
+real 0.94
+user 2.73
+sys 3.36
+Inertia of kMeans++: 14118367258.389513
+real 0.78
+user 1.85
+sys 3.19
+
+Dataset: datasets/pr91.txt, k: 4, depth: 5, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 14118367258.389511
+real 0.83
+user 2.20
+sys 3.31
+Inertia of kMeans++: 14118367258.389513
+real 0.87
+user 1.83
+sys 3.19
+
+Dataset: datasets/pr91.txt, k: 8, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 7172211142.87859
+real 1.05
+user 4.30
+sys 3.31
+Inertia of kMeans++: 7172211142.87859
+real 0.83
+user 1.93
+sys 3.16
+
+Dataset: datasets/pr91.txt, k: 8, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 7170018710.316657
+real 0.94
+user 3.38
+sys 3.31
+Inertia of kMeans++: 7170018710.316658
+real 0.78
+user 1.74
+sys 3.29
+
+Dataset: datasets/pr91.txt, k: 8, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 7141892460.091471
+real 0.90
+user 3.46
+sys 3.46
+Inertia of kMeans++: 7142064318.151151
+real 0.72
+user 1.79
+sys 3.21
+
+Dataset: datasets/pr91.txt, k: 8, depth: 1, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 7169941141.214232
+real 0.83
+user 2.87
+sys 3.41
+Inertia of kMeans++: 7170070220.340303
+real 0.68
+user 1.80
+sys 3.19
+
+Dataset: datasets/pr91.txt, k: 8, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 7321847422.867176
+real 1.00
+user 4.00
+sys 3.22
+Inertia of kMeans++: 7322126040.48408
+real 0.79
+user 1.86
+sys 3.16
+
+Dataset: datasets/pr91.txt, k: 8, depth: 3, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 7402613268.072685
+real 1.44
+user 9.39
+sys 3.49
+Inertia of kMeans++: 7402877200.044835
+real 0.80
+user 1.89
+sys 3.15
+
+Dataset: datasets/pr91.txt, k: 8, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 7169855029.670295
+real 1.35
+user 7.15
+sys 3.23
+Inertia of kMeans++: 7170281358.473279
+real 0.81
+user 1.85
+sys 3.24
+
+Dataset: datasets/pr91.txt, k: 8, depth: 3, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 7321903428.575909
+real 0.85
+user 2.85
+sys 3.36
+Inertia of kMeans++: 7321971196.297524
+real 0.77
+user 1.82
+sys 3.26
+
+Dataset: datasets/pr91.txt, k: 8, depth: 5, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 7391222782.558484
+real 1.03
+user 4.62
+sys 3.48
+Inertia of kMeans++: 7393505296.1300535
+real 0.68
+user 1.89
+sys 3.03
+
+Dataset: datasets/pr91.txt, k: 8, depth: 5, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 7324105472.850433
+real 0.89
+user 3.66
+sys 3.31
+Inertia of kMeans++: 7325030431.744958
+real 0.69
+user 1.67
+sys 3.32
+
+Dataset: datasets/pr91.txt, k: 8, depth: 5, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 7125252700.194274
+real 1.09
+user 5.69
+sys 3.66
+Inertia of kMeans++: 7125252700.194274
+real 0.75
+user 1.91
+sys 3.18
+
+Dataset: datasets/pr91.txt, k: 8, depth: 5, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 7158787912.764927
+real 1.01
+user 4.51
+sys 3.32
+Inertia of kMeans++: 7159062927.612329
+real 0.83
+user 1.84
+sys 3.24
+
+Dataset: datasets/pr91.txt, k: 16, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 3315072605.190447
+real 1.59
+user 10.68
+sys 3.47
+Inertia of kMeans++: 3318127539.2626433
+real 0.82
+user 1.89
+sys 3.17
+
+Dataset: datasets/pr91.txt, k: 16, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 3155420809.707134
+real 1.94
+user 16.55
+sys 3.67
+Inertia of kMeans++: 3156012562.1556396
+real 0.88
+user 2.12
+sys 3.10
+
+Dataset: datasets/pr91.txt, k: 16, depth: 1, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 3248193665.536587
+real 1.52
+user 9.58
+sys 3.63
+Inertia of kMeans++: 3248269540.863004
+real 0.72
+user 1.96
+sys 3.06
+
+Dataset: datasets/pr91.txt, k: 16, depth: 1, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 3319779558.1146317
+real 1.44
+user 9.83
+sys 3.56
+Inertia of kMeans++: 3320136275.4821916
+real 0.71
+user 1.83
+sys 3.19
+
+Dataset: datasets/pr91.txt, k: 16, depth: 3, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 3219488622.966423
+real 1.06
+user 5.34
+sys 3.24
+Inertia of kMeans++: 3219488622.966423
+real 0.71
+user 1.82
+sys 3.20
+
+Dataset: datasets/pr91.txt, k: 16, depth: 3, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 3124888132.0251565
+real 1.20
+user 7.22
+sys 3.25
+Inertia of kMeans++: 3124888132.0251565
+real 0.77
+user 1.87
+sys 3.26
+
+Dataset: datasets/pr91.txt, k: 16, depth: 3, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 3197606428.409205
+real 1.46
+user 9.49
+sys 3.32
+Inertia of kMeans++: 3197606428.4092054
+real 0.86
+user 2.27
+sys 3.10
+
+Dataset: datasets/pr91.txt, k: 16, depth: 3, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 3165490589.087325
+real 1.22
+user 6.24
+sys 3.55
+Inertia of kMeans++: 3166193153.6224113
+real 0.78
+user 1.76
+sys 3.24
+
+Dataset: datasets/pr91.txt, k: 16, depth: 5, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 3190847177.226408
+real 1.20
+user 6.12
+sys 3.25
+Inertia of kMeans++: 3190847177.2264085
+real 0.86
+user 2.19
+sys 2.94
+
+Dataset: datasets/pr91.txt, k: 16, depth: 5, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 3195252864.1392674
+real 1.09
+user 5.13
+sys 3.23
+Inertia of kMeans++: 3195252864.139267
+real 0.75
+user 1.83
+sys 3.24
+
+Dataset: datasets/pr91.txt, k: 16, depth: 5, norm_it: 3, search_steps: 1
+Inertia of ALSPP = 3189667403.530467
+real 1.28
+user 7.61
+sys 3.65
+Inertia of kMeans++: 3189667403.530467
+real 0.70
+user 1.83
+sys 3.23
+
+Dataset: datasets/pr91.txt, k: 16, depth: 5, norm_it: 5, search_steps: 1
+Inertia of ALSPP = 3233216931.6190896
+real 1.05
+user 5.17
+sys 3.62
+Inertia of kMeans++: 3233216931.619089
+real 0.70
+user 1.71
+sys 3.26
+
+Dataset: datasets/pr91.txt, k: 100, depth: 1, norm_it: 1, search_steps: 1
+Inertia of ALSPP = 423250208.14930713
+real 598.52
+user 5709.61
+sys 3705.14
+Inertia of kMeans++: 424208261.56040907
+real 1.50
+user 7.54
+sys 8.01
+
+Dataset: datasets/pr91.txt, k: 100, depth: 1, norm_it: 2, search_steps: 1
+Inertia of ALSPP = 441732470.4882127
+real 902.10
+user 8659.84
+sys 5578.02
+Inertia of kMeans++: 444975333.0340256
+real 1.47
+user 7.03
+sys 7.36
+Traceback (most recent call last):
+  File "/home/lukas/Documents/GitHub/ALSplusplus/alspp.py", line 98, in <module>
+    als_pp.fit_new(X)
+  File "/home/lukas/Documents/GitHub/ALSplusplus/venv/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py", line 2471, in fit_new
+    labels, inertia, centers, n_iter_ = kmeans_single(
+  File "/home/lukas/Documents/GitHub/ALSplusplus/venv/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py", line 1315, in _kmeans_als_plusplus_fast
+    best_index, centers_output, labels_output, best_value, inertia_norm_it = exchange_solutions_fast(X, candidate_id, centers, depth, n_clusters, n_threads, norm_it, sample_weight,
+  File "/home/lukas/Documents/GitHub/ALSplusplus/venv/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py", line 1549, in exchange_solutions_fast
+    _, inertia, _, _ = _kmeans_single_elkan(X, sample_weight, centers_depth.copy(), max_iter=depth - norm_it, verbose=verbose, tol=tol, x_squared_norms=x_squared_norms,
+  File "/home/lukas/Documents/GitHub/ALSplusplus/venv/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py", line 551, in _kmeans_single_elkan
+    inertia = _inertia(X, sample_weight, centers, labels, n_threads)
+KeyboardInterrupt
+real 5282.85
+user 18465.07
+sys 11998.80

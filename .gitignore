@@ -10,6 +10,7 @@ current_times.txt
 !calls_datasets_generator.py
 !normal_kmeans.py
 !TextToCSV.py
+!_kmeans.py
 
 !datasets/*
 !datasets_large/*
