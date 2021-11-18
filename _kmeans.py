@@ -1266,13 +1266,14 @@ def _kmeans_als_plusplus(X, sample_weight, centers_init, max_iter=300,
 
 def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                          verbose=False, x_squared_norms=None, tol=1e-4,
-                         n_threads=1, depth=3, search_steps=1, norm_it=2):
+                         n_threads=1, depth=3, search_steps=1, norm_it=2, random_state=None):
 
 
     if verbose:
         print("Starting alspp: depth {} norm_it {} search_step {}".format(depth, norm_it, search_steps))
 
-    random_state = check_random_state(None)
+    # should always be a random number generator at this point since this method is invoked in fit-method
+    #random_state = check_random_state(random_state)
 
     # centers_init is either some predefined set of centers or the output of D2-Sampling
     centers = centers_init
@@ -1371,7 +1372,7 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
             break
         else:
             center_shift = paired_euclidean_distances(centers, old_centers)
-            center_shift_tot = (center_shift ** 2).sum()
+            center_shift_tot = (center_shift ** 2).sum() / norm_it
             if center_shift_tot <= tol:
                 if verbose:
                     print(
@@ -2563,6 +2564,7 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
                     depth=self.depth,
                     search_steps=self.search_steps,
                     norm_it=self.norm_it,
+                    random_state=random_state,
                 )
 
             # determine if these results are the best so far
