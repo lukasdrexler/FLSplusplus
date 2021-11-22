@@ -1289,6 +1289,7 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
     for iteration in range(0, max_iter, norm_it):
         if verbose:
             print(f"Iteration {iteration} in main loop")
+            print(f"\nTolerance is {tol}")
 
         if iteration == 0:
             # calculate for sampling the potential and minimum distances:
@@ -1324,6 +1325,7 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                 print("##########################")
                 print("EXCHANGE METHOD TERMINATED")
                 print("##########################")
+                print(f"\nTolerance is {tol}")
 
 
             # check if some exchange was the result / best option
@@ -1557,7 +1559,14 @@ def exchange_solutions_fast(X, candidate_id, centers, clustercosts, depth, n_clu
             inertia = inertia_depth
 
     best_value = inertia
-    inertia_normit = inertia_depth
+
+    if depth >= norm_it:
+        inertia_normit = inertia_depth
+
+    else:
+        inertia_normit = None
+
+
     best_centers = centers_depth.copy()
     best_labels = labels_depth.copy()
     best_index = -1  # index of best found swap candidate (if any)
@@ -1614,7 +1623,15 @@ def exchange_solutions_fast(X, candidate_id, centers, clustercosts, depth, n_clu
                 best_value = inertia
                 best_centers = best_centers.copy()
                 best_labels = labels_depth
-                inertia_normit = inertia_depth
+
+                if depth == norm_it:
+                    inertia_depth = inertia
+
+
+                if depth >= norm_it:
+                    inertia_normit = inertia_depth
+                else:
+                    inertia_normit = None
 
 
     return best_index, best_centers, best_labels, best_value, inertia_normit
