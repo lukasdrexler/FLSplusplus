@@ -85,6 +85,8 @@ def _build_arg_parser():
 if __name__ == '__main__':
     args = _build_arg_parser().parse_args()
 
+    print("\nDataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
+
     try:
         X = np.genfromtxt(args.file)
         als_pp = cluster.KMeans(init='k-means++',
@@ -98,8 +100,6 @@ if __name__ == '__main__':
                                 verbose=args.verbose)
         als_pp.fit_new(X)
 
-        print("\nDataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
-
         if args.quiet:
             print(als_pp.inertia_)
         elif args.verbose:
@@ -110,6 +110,10 @@ if __name__ == '__main__':
             print("Inertia ALSPP: {}".format(als_pp.inertia_))
         else:
             print("Inertia of ALSPP = {}".format(als_pp.inertia_))
-    
-    except ValueError as e:
-        print("Error:", e)
+
+    except Exception as e:
+        print("Inertia of ALSPP = -1")
+        f = open("errors.txt", "a")
+        f.write("Dataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}\n".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
+        f.write(str(e) + "\n\n")
+        f.close()
