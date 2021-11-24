@@ -14,9 +14,12 @@ then
 	find datasets/ -type f | sort -V > datasets.txt
 fi
 
+echo "How many runs per config?"
+read RUNS
+
 
 # create calls.txt from python script and write to calls.txt
-python calls_datasets_generator.py
+python calls_datasets_generator.py -r $RUNS
 
 today="$(date '+%Y-%m-%d')"
 now="$(date '+%H-%M-%S')"

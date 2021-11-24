@@ -1,10 +1,31 @@
 import os
 import numpy as np
+import argparse
+
+def _build_arg_parser():
+    """Builds the parser for the command line arguments"""
+
+    arg_parser = argparse.ArgumentParser(description=
+                                         """
+        Generates the calls for our experiments.
+        """
+                                         )
+    arg_parser.add_argument(
+        "-r", "--runs",
+        type=int,
+        default=1,
+        help="number of consecutive runs with same parameters"
+    )
+
+    return arg_parser
+
+
+
 
 def generate_random_state():
     return np.random.randint(0, 1000000)
 
-def write_combinations_to_file(f, n_centers, depths, norm_its, search_steps):
+def write_combinations_to_file(f, n_centers, depths, norm_its, search_steps, n_runs):
     for n_center in n_centers:
         for depth in depths:
             for norm_it in norm_its:
@@ -15,76 +36,81 @@ def write_combinations_to_file(f, n_centers, depths, norm_its, search_steps):
                         f.write("python normal_kmeans.py -f {} -k {} -r {}\n".format(datapath, n_center, seed))
 
 
-n_runs = 1
 
-datasets = open('datasets.txt', 'r')
+if __name__ == '__main__':
 
-lines = datasets.readlines()
+    args = _build_arg_parser().parse_args()
 
-# check if file already exists, otherwise skip
-f = open('calls.txt', 'w')
+    n_runs = args.runs
 
-# for each possible dataset we write the parameters in a line to calls.txt
-for line in lines:
-    datapath = line.strip()
-    dataset = datapath.split(sep='/')[-1].split(sep='.')[0]
+    datasets = open('datasets.txt', 'r')
 
-    if dataset == 'pr91':
-        n_centers = np.array([4, 8, 16, 100])
-        depths = np.array([1, 3, 5])
-        # search_steps = np.arange(1, 4).astype('int64')
-        search_steps = np.array([1])
-        norm_its = np.array([1, 2, 3, 5])
+    lines = datasets.readlines()
 
-        write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
+    # check if file already exists, otherwise skip
+    f = open('calls.txt', 'w')
 
-    elif dataset == 'rectangles':
-        n_centers = np.array([4, 9, 36])
-        depths = np.array([1, 3, 5])
-        # search_steps = np.arange(1, 2).astype('int64')
-        search_steps = np.array([1])
-        norm_its = np.array([1, 2, 3, 5])
+    # for each possible dataset we write the parameters in a line to calls.txt
+    for line in lines:
+        datapath = line.strip()
+        dataset = datapath.split(sep='/')[-1].split(sep='.')[0]
 
-        write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
+        if dataset == 'pr91':
+            n_centers = np.array([4, 8, 16, 100])
+            depths = np.array([1, 3, 5])
+            # search_steps = np.arange(1, 4).astype('int64')
+            search_steps = np.array([1])
+            norm_its = np.array([1, 2, 3, 5])
 
-    elif dataset == 'D31':
-        n_centers = np.array([31])
-        depths = np.array([1, 3, 5])
-        search_steps = np.array([1])
-        norm_its = np.array([1, 2, 3, 5])
+            write_combinations_to_file(f, n_centers, depths, norm_its, search_steps, n_runs)
 
-        write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
+        elif dataset == 'rectangles':
+            n_centers = np.array([4, 9, 36])
+            depths = np.array([1, 3, 5])
+            # search_steps = np.arange(1, 2).astype('int64')
+            search_steps = np.array([1])
+            norm_its = np.array([1, 2, 3, 5])
 
-    elif dataset == 's2' or dataset == 's3' or dataset == 's4':
-        n_centers = np.array([15])
-        depths = np.array([1, 3, 5])
-        search_steps = np.array([1])
-        norm_its = np.array([1, 2, 3, 5])
+            write_combinations_to_file(f, n_centers, depths, norm_its, search_steps, n_runs)
 
-        write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
+        elif dataset == 'D31':
+            n_centers = np.array([31])
+            depths = np.array([1, 3, 5])
+            search_steps = np.array([1])
+            norm_its = np.array([1, 2, 3, 5])
 
-    elif dataset == 'unbalance':
-        n_centers = np.array([4, 6, 8, 10])
-        depths = np.array([1, 3, 5])
-        search_steps = np.array([1])
-        norm_its = np.array([1, 2, 3, 5])
+            write_combinations_to_file(f, n_centers, depths, norm_its, search_steps, n_runs)
 
-        write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
+        elif dataset == 's2' or dataset == 's3' or dataset == 's4':
+            n_centers = np.array([15])
+            depths = np.array([1, 3, 5])
+            search_steps = np.array([1])
+            norm_its = np.array([1, 2, 3, 5])
 
-    # elif dataset == 'Tower':
-    #   n_centers = np.array([20, 40])
-    #  depths = np.array([1, 3])
-    # search_steps = np.array([1])
-    # norm_its = np.array([1, 2])
+            write_combinations_to_file(f, n_centers, depths, norm_its, search_steps, n_runs)
 
-    # write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
+        elif dataset == 'unbalance':
+            n_centers = np.array([4, 6, 8, 10])
+            depths = np.array([1, 3, 5])
+            search_steps = np.array([1])
+            norm_its = np.array([1, 2, 3, 5])
 
-    elif dataset == 'clegg':
-        n_centers = np.array([20, 40])
-        depths = np.array([1, 3])
-        search_steps = np.array([1])
-        norm_its = np.array([1, 3])
+            write_combinations_to_file(f, n_centers, depths, norm_its, search_steps, n_runs)
 
-        write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
+        # elif dataset == 'Tower':
+        #   n_centers = np.array([20, 40])
+        #  depths = np.array([1, 3])
+        # search_steps = np.array([1])
+        # norm_its = np.array([1, 2])
 
-f.close()
+        # write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
+
+        elif dataset == 'clegg':
+            n_centers = np.array([20, 40])
+            depths = np.array([1, 3])
+            search_steps = np.array([1])
+            norm_its = np.array([1, 3])
+
+            write_combinations_to_file(f, n_centers, depths, norm_its, search_steps, n_runs)
+
+    f.close()

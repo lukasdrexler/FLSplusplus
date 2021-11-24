@@ -1289,7 +1289,6 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
     for iteration in range(0, max_iter, norm_it):
         if verbose:
             print(f"Iteration {iteration} in main loop")
-            print(f"\nTolerance is {tol}")
 
         if iteration == 0:
             # calculate for sampling the potential and minimum distances:
@@ -1325,7 +1324,7 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                 print("##########################")
                 print("EXCHANGE METHOD TERMINATED")
                 print("##########################")
-                print(f"\nTolerance is {tol}")
+
 
 
             # check if some exchange was the result / best option
@@ -1335,6 +1334,7 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                     centers_candidate_distances = euclidean_distances(centers, X[candidate_id].reshape(1, -1), squared=True).reshape(n_clusters)
                     print("The clustercost of removed center is {}-smallest value".format(np.where(np.sort(clustercosts) == clustercosts[best_index])[0][0]))
                     print("The removed center is {}-closest to candidate".format(np.where(np.sort(centers_candidate_distances) == centers_candidate_distances[best_index])[0][0]))
+                    print("Improved inertia is {}".format(best_value))
 
                 # make exchange: replace center with new candidate
                 centers[best_index] = X[candidate_id]  # make final change
@@ -1614,10 +1614,10 @@ def exchange_solutions_fast(X, candidate_id, centers, clustercosts, depth, n_clu
             center_shift = paired_euclidean_distances(best_centers, centers_depth)
             center_shift_tot = (center_shift ** 2).sum()
             if center_shift_tot > tol:
-                if verbose_als:
-                    print(f"found improvement in exchange {j}: old inertia = {best_value}, new inertia = {inertia}")
-                    print("The clustercost of removed center is {}-smallest value".format(np.where(np.sort(clustercosts)==clustercosts[j])[0][0]))
-                    print("The removed center is {}-closest to candidate".format(np.where(np.sort(centers_candidate_distances)== centers_candidate_distances[j])[0][0]))
+                #if verbose_als:
+                 #   print(f"found improvement in exchange {j}: old inertia = {best_value}, new inertia = {inertia}")
+                  #  print("The clustercost of removed center is {}-smallest value".format(np.where(np.sort(clustercosts)==clustercosts[j])[0][0]))
+                   # print("The removed center is {}-closest to candidate".format(np.where(np.sort(centers_candidate_distances)== centers_candidate_distances[j])[0][0]))
 
                 best_index = j
                 best_value = inertia
