@@ -1266,11 +1266,15 @@ def _kmeans_als_plusplus(X, sample_weight, centers_init, max_iter=300,
 
 def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                          verbose=False, x_squared_norms=None, tol=1e-4,
-                         n_threads=1, depth=3, search_steps=1, norm_it=2, random_state=None):
+                         n_threads=1, depth=3, search_steps=1, norm_it=2, heuristics={}, random_state=None):
 
+    heuristics = {"first_improve": True,"incresing_clustercosts": True}
 
     if verbose:
         print("Starting alspp: depth {} norm_it {} search_step {}".format(depth, norm_it, search_steps))
+        print("heuristics:")
+        for key, value in heuristics.items():
+            print(f"{key}: {value}")
 
     # should always be a random number generator at this point since this method is invoked in fit-method
     #random_state = check_random_state(random_state)
@@ -1317,8 +1321,11 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
             # ----------------------------------------------------------------------------------------------------------------------
             # main function: exchange every center with candidate, perform loyd/elkan for depth many steps, save best found solution
             # ----------------------------------------------------------------------------------------------------------------------
-            best_index, centers_output, labels_output, best_value, inertia_norm_it = exchange_solutions_fast(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it, sample_weight,
-                                                              tol, verbose, x_squared_norms, max_iter, search_steps)
+            # best_index, centers_output, labels_output, best_value, inertia_norm_it = exchange_solutions_fast(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it, sample_weight,
+            #                                                   tol, verbose, x_squared_norms, max_iter, search_steps)
+
+            best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min = exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it,
+                                                                                                             sample_weight, tol, verbose, x_squared_norms, max_iter, search_steps, heuristics)
 
             if verbose:
                 print("##########################")
@@ -1334,7 +1341,8 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                     centers_candidate_distances = euclidean_distances(centers, X[candidate_id].reshape(1, -1), squared=True).reshape(n_clusters)
                     print("The clustercost of removed center is {}-smallest value".format(np.where(np.sort(clustercosts) == clustercosts[best_index])[0][0]))
                     print("The removed center is {}-closest to candidate".format(np.where(np.sort(centers_candidate_distances) == centers_candidate_distances[best_index])[0][0]))
-                    print("Improved inertia is {}".format(best_value))
+                    print("Inertia of best exchanged solution after depth many steps is {}".format(best_inertia_compare))
+                    print("Inertia of best exchanged solution after min(depth, norm_it) many steps is {}".format(best_inertia_min))
 
                 # make exchange: replace center with new candidate
                 centers[best_index] = X[candidate_id]  # make final change
@@ -1354,22 +1362,28 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
 
 
         old_centers = centers.copy()
+
         # depending on relation of depth and norm_it we need to make more iterations to find level of norm_it with new solution (norm_it > depth)
         # or can simply reuse precalculated solution (norm_it <= depth)
-        if depth >= norm_it:
-            labels, centers, inertia = labels_output, centers_output, inertia_norm_it
+
+        if depth == norm_it:
+            labels, centers, inertia = best_labels_min, best_centers_min, best_inertia_min
+
+        elif depth > norm_it:
+            labels, centers, inertia = best_labels_min, best_centers_min, best_inertia_min
 
         elif depth < norm_it:
-            labels, inertia, centers, _ = _kmeans_single_elkan(X, sample_weight, centers, max_iter=norm_it - depth, verbose=verbose, tol=tol,
+            labels, inertia, centers, _ = _kmeans_single_elkan(X, sample_weight, best_centers_min.copy(), max_iter=norm_it - depth, verbose=verbose, tol=tol,
                                                                x_squared_norms=x_squared_norms, n_threads=n_threads)
-            if inertia > best_value:
-                centers, labels = centers_output, labels_output
+            if inertia > best_inertia_min:
+                labels, inertia, centers = best_labels_min, best_centers_min, best_inertia_min
+
 
         if np.array_equal(labels, labels_old):
             # print("Labels are equal!")
             # First check the labels for strict convergence.
             if verbose:
-                print(f"Converged at iteration {i}: strict convergence.")
+                print(f"Converged at iteration {iteration}: strict convergence.")
             strict_convergence = True
             break
         else:
@@ -1636,9 +1650,120 @@ def exchange_solutions_fast(X, candidate_id, centers, clustercosts, depth, n_clu
 
     return best_index, best_centers, best_labels, best_value, inertia_normit
 
+def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it, sample_weight, tol, verbose, x_squared_norms, max_iter,
+                       search_steps, heuristics):
 
 
+    verbose_als = verbose
+    verbose=False
 
+    first_improve = False
+    increasing_clustercosts = False
+    if "first_improve" in heuristics:
+        first_improve = heuristics["first_improve"]
+    if "increasing_clustercosts" in heuristics:
+        increasing_clustercosts = heuristics["increasing_clustercosts"]
+
+    # first calculate appropriate solution where no exchange happend to level depth
+
+    centers_min, labels_min, centers_depth, inertia_min, inertia_compare = future_vision(X, centers.copy(), depth, n_threads, norm_it, sample_weight, tol,
+                                                                                                                             verbose, x_squared_norms)
+    best_centers_min = centers_min.copy()
+    best_labels_min = labels_min.copy()
+    best_inertia_compare = inertia_compare
+    best_inertia_min = inertia_min
+    best_index = -1  # index of best found swap candidate (if any)
+    # comparision of sampled point to old centers
+
+    if verbose_als:
+        print(f"starting with inertia {best_inertia_compare}")
+        centers_candidate_distances = euclidean_distances(centers, X[candidate_id].reshape(1,-1), squared=True).reshape(n_clusters)
+
+    if not increasing_clustercosts:
+        possible_exchange_centers = np.arange(0, n_clusters)
+    else:
+        possible_exchange_centers = np.argsort(clustercosts)
+
+
+    for j in possible_exchange_centers:
+
+        old_center = centers[j].copy()  # store old center (candidate for swapping)
+        centers[j] = X[candidate_id]  # swap current centers with candidate
+
+        centers_min, labels_min, centers_depth, inertia_min, inertia_compare = future_vision(X, centers.copy(), depth, n_threads, norm_it, sample_weight, tol, verbose, x_squared_norms)
+        # centers_min: centers after min(depth, norm_it) many steps
+        # labels_min: labels after min(depth, norm_it) many steps
+        # centers_depth: centers after depth many steps
+        # inertia_min: inertia after min(depth, norm_it) many steps
+        # inertia_compare: inertia after depth many steps
+
+
+        if best_inertia_compare > inertia_compare:
+            #calculate the shift in centers (only evaluated for the centers after min(depth, norm_it) steps)
+
+            if depth == norm_it:
+                center_shift = paired_euclidean_distances(centers, centers_min)
+            elif depth < norm_it:
+                center_shift = paired_euclidean_distances(centers, centers_min)
+            elif depth > norm_it:
+                center_shift = paired_euclidean_distances(centers, centers_depth)
+
+
+            center_shift_tot = (center_shift ** 2).sum()
+            if center_shift_tot > tol:
+                #if verbose_als:
+                 #   print(f"found improvement in exchange {j}: old inertia = {best_value}, new inertia = {inertia}")
+                  #  print("The clustercost of removed center is {}-smallest value".format(np.where(np.sort(clustercosts)==clustercosts[j])[0][0]))
+                   # print("The removed center is {}-closest to candidate".format(np.where(np.sort(centers_candidate_distances)== centers_candidate_distances[j])[0][0]))
+
+                best_index = j
+                best_centers_min = centers_min.copy()
+                best_labels_min = labels_min.copy()
+                best_inertia_compare = inertia_compare
+                best_inertia_min = inertia_min
+
+                if first_improve:
+                    # need to reverse exchange in this case for consistency
+                    centers[j] = old_center.copy()
+                    break
+
+        centers[j] = old_center.copy()  # undo swap
+
+
+    return best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min
+
+
+def future_vision(X, centers, depth, n_threads, norm_it, sample_weight, tol, verbose, x_squared_norms):
+    centers_depth = centers
+
+    if depth == norm_it:
+        labels, inertia, centers, n_iter = _kmeans_single_elkan(X, sample_weight, centers.copy(), max_iter=depth, verbose=verbose, tol=tol, x_squared_norms=x_squared_norms,
+                                                                n_threads=n_threads)
+        inertia_compare = inertia
+        best_centers = centers.copy()
+        best_labels = labels.copy()
+
+    elif depth < norm_it:
+        labels, inertia, centers, n_iter = _kmeans_single_elkan(X, sample_weight, centers.copy(), max_iter=depth, verbose=verbose, tol=tol, x_squared_norms=x_squared_norms,
+                                                                n_threads=n_threads)
+        inertia_compare = inertia
+        best_centers = centers.copy()
+        best_labels = labels.copy()
+
+    elif depth > norm_it:
+        labels, inertia, centers, n_iter = _kmeans_single_elkan(X, sample_weight, centers.copy(), max_iter=norm_it, verbose=verbose, tol=tol, x_squared_norms=x_squared_norms,
+                                                                n_threads=n_threads)
+        labels_depth, inertia_depth, centers_depth, n_iter_depth = _kmeans_single_elkan(X, sample_weight, centers.copy(), max_iter=depth - norm_it, verbose=verbose, tol=tol,
+                                                                                        x_squared_norms=x_squared_norms, n_threads=n_threads)
+
+        # in some cases a single iteration of single_elkan can make the solution worse
+        # we then just return the better solution of the two
+        if inertia_depth > inertia:
+            inertia_depth = inertia
+        inertia_compare = inertia_depth
+        best_centers = centers.copy()
+        best_labels = labels.copy()
+    return best_centers, best_labels, centers_depth, inertia, inertia_compare
 
 
 def calculate_depth_solutions(X, best_depths_column, candidate_id, centers, i, iteration, k, n_threads, sample_weight, tol, verbose, x_squared_norms):
@@ -2163,7 +2288,8 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         algorithm="auto",
         depth=3,
         search_steps=3,
-        norm_it=2
+        norm_it=2,
+        heuristics={}
     ):
 
         self.n_clusters = n_clusters
@@ -2176,6 +2302,7 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         self.copy_x = copy_x
         self.algorithm = algorithm
         # new parameters for als++
+        self.heuristics = heuristics
         self.depth = depth
         self.search_steps = search_steps
         self.norm_it = norm_it
@@ -2581,6 +2708,7 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
                     depth=self.depth,
                     search_steps=self.search_steps,
                     norm_it=self.norm_it,
+                    heuristics=self.heuristics,
                     random_state=random_state,
                 )
 
