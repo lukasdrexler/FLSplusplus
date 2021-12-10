@@ -600,17 +600,26 @@ def kmeans_als_plusplus_comp(X, sample_weight, centers_init, candidate_id, max_i
 def error():
     print('Output is not the same as calculated solution!')
 
-
+plot_nr = 0
 def plot_configuration(mode, X, centers, args={}):
-    # returns the number of plots which were saved for chronological order
 
-    showme = False  # True if the plot should be shown while compilation (is saved nevertheless)
+    depth = args["depth"]
+    norm_it = args["norm_it"]
+    search_steps = args["search_steps"]
+    # directory of main in pycharm-environment
+    plot_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))))
+    # subfolder in which the plots are saved in
+    plot_dir = path.join(plot_dir, 'plots\\d_{}_n_{}_ss_{}'.format(depth, norm_it, search_steps))
+    global plot_nr
+
+    if not path.exists(plot_dir):
+        # do not override old results
+        os.makedirs(plot_dir)
+
     additional_plot = True
 
     if mode == 'init':
         centers_init = centers
-        plot_dir = args['plot_dir']
-        plot_nr = args['plot_nr']
 
         plt.figure(figsize=(8, 6))
         plt.title("initial centers")
@@ -628,22 +637,20 @@ def plot_configuration(mode, X, centers, args={}):
         for i, c in enumerate(labels_centers):
             plt.annotate(c, xy=(centers_init[i, 0], centers_init[i, 1]), xytext=(7, 7), textcoords='offset pixels', color='red', size=15)
 
-        if showme:
-            plt.show()
 
         rc('text', usetex=False)
         plt.savefig(path.join(plot_dir, '{}_init_centers.png'.format(plot_nr)))
         plt.close()
-        return plot_nr + 1
+
 
     elif mode == 'exchange':
         i = args['i']
-        depth = args['depth']
+        #depth = args['depth']
         candidate_id = args['candidate_id']
         best_index = args['best_index']
-        plot_dir = args['plot_dir']
+        #plot_dir = args['plot_dir']
         actual_iterations = args['actual_iterations']
-        plot_nr = args['plot_nr']
+        #plot_nr = args['plot_nr']
 
         plt.figure(figsize=(8, 6))
 
@@ -659,10 +666,9 @@ def plot_configuration(mode, X, centers, args={}):
                    ('points', 'centers', 'sampled point from centers', 'final exchanged center'),
                    loc='lower left', ncol=4, fontsize=8)
 
-        if showme:
-            plt.show()
+
         plt.savefig(path.join(plot_dir, '{}_ss_{}_0_centers.png'.format(plot_nr, i)))
-        # plt.close()
+        plt.close()
 
         if additional_plot:  # plot the inertia values for every solution in one plot
             plot_nr += 1
@@ -797,7 +803,7 @@ def plot_configuration(mode, X, centers, args={}):
             plt.show()
         plt.savefig(path.join(plot_dir, '{}_changedNormIt.png'.format(plot_nr)))
         plt.close()
-        return plot_nr + 1
+
 
     elif mode == 'final assignments':
         labels = args['labels']
@@ -958,7 +964,9 @@ def plot_configuration(mode, X, centers, args={}):
         #     inertias[z] = sol['depth']['inertia'][b_i + 1]
         #     best_indices[z] = b_
         #
-        return plot_nr + 1
+
+    plot_nr += 1
+
 
 
 def _kmeans_als_plusplus(X, sample_weight, centers_init, max_iter=300,
@@ -1262,19 +1270,116 @@ def _kmeans_als_plusplus(X, sample_weight, centers_init, max_iter=300,
 
     return labels, inertia, centers, iteration + 1
 
+def _localSearchPP(X, sample_weight, centers_init, max_iter=300, verbose=False, x_squared_norms=None, tol=1e-4, n_threads=1, z=None):
+    centers = centers_init
+    n = len(X)
+    k = len(centers)
+
+    labels = None
+
+    random_state = check_random_state(None)
+
+    if z==None:
+        z = 100000*k*np.log2(np.log2(k))
+
+    for i in range(z):
+
+        if labels is None:
+            closest_dist_sq = euclidean_distances(
+                centers, X, Y_norm_squared=x_squared_norms,
+                squared=True)
+            # closest_centers = np.argmin(closest_dist_sq, axis=0)    # Indizes der closest centers
+            # min_distances = closest_dist_sq.min(axis=0)  # Distanzen zu den closest centers
+            labels = np.argmin(closest_dist_sq, axis=0)
+            min_distances = closest_dist_sq[labels, np.arange(closest_dist_sq.shape[1])]
+
+            # collect each labeled point weighted by its distance in bins (so each bin is the clustercost)
+            #clustercosts = np.bincount(labels, weights=min_distances, minlength=centers.shape[0])
+            current_pot = min_distances.sum()  # Summe der quadrierten Abstände zu closest centers
+
+        rand_val = random_state.random_sample() * current_pot  # draw random candidate proportional to its cost
+
+        # find location where sampled point should be in sorted array (sum over distances)
+        candidate_id = np.searchsorted(stable_cumsum(min_distances), rand_val)
+
+        # XXX: numerical imprecision can result in a candidate_id out of range
+        # np.clip(candidate_id, None, closest_dist_sq.size - 1, out=candidate_id)
+        candidate_id = min(candidate_id, min_distances.size - 1)
+
+        # calculate all distances between the candidate and the other points
+        # assume we remove center i:
+        # if we have points with label i: recalculate the distance to its closest center
+        # otherwise: check if the distance decreases if we assign the point to the new candidate
+        candidate_distances = euclidean_distances(X[candidate_id].reshape((1,len(X[candidate_id]))), X, Y_norm_squared=x_squared_norms, squared=True)
+
+        min_pot = current_pot
+        found_exchange = False
+
+        for j in range(k):
+            new_labels = labels.copy()
+            new_min_distances = min_distances.copy()
+            new_pot = 0
+            for point in range(n):
+                if labels[point] != j:
+                    if new_min_distances[point] > candidate_distances[0,point]:
+                        new_labels[point] = j
+                        new_min_distances[point] = candidate_distances[0,point]
+                    #new_min_distances[point] = min(new_min_distances[point], candidate_distances[point])
+                    new_pot += new_min_distances[point]
+                else:
+                    point_distances = closest_dist_sq[:,point].copy()
+                    point_distances = np.ma.array(point_distances, mask=False)
+                    point_distances.mask[j] = True
+                    label = np.argmin(point_distances)
+
+                    new_labels[point] = label
+                    new_min_distances[point] = closest_dist_sq[label,point]
+
+                    if new_min_distances[point] > candidate_distances[0,point]:
+                        new_labels[point] = j
+                        new_min_distances[point] = candidate_distances[0,point]
+
+                    new_pot += new_min_distances[point]
+            if new_pot < min_pot:
+                if verbose:
+                    print("Decrease in inertia: old inertia = {}, new inertia = {}".format(min_pot, new_pot))
+                found_exchange = True
+                best_exchange = j
+                min_pot = new_pot
+                current_min_labels = new_labels.copy()
+
+        if found_exchange:
+            labels = current_min_labels
+            current_pot = min_pot
+            centers[best_exchange] = X[candidate_id]
+            closest_dist_sq[best_exchange] = candidate_distances[0]
+            min_distances = closest_dist_sq[labels, np.arange(closest_dist_sq.shape[1])]
+
+
+    return labels, current_pot, centers, z+1
+
 
 
 def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                          verbose=False, x_squared_norms=None, tol=1e-4,
                          n_threads=1, depth=3, search_steps=1, norm_it=2, heuristics={}, random_state=None):
 
-    heuristics = {"first_improve": True,"incresing_clustercosts": True}
+    heuristics = {"first_improve": False,"incresing_clustercosts": False, "increasing_distancesLog_clustercosts": True}
+
+    debug_average_improvement = False
+    n_runs_average_improvement = 1000
+    run_plots = True
+
 
     if verbose:
         print("Starting alspp: depth {} norm_it {} search_step {}".format(depth, norm_it, search_steps))
         print("heuristics:")
         for key, value in heuristics.items():
             print(f"{key}: {value}")
+
+    if run_plots:
+        myargs = {"depth": depth, "norm_it": norm_it, "search_steps": search_steps}
+        plot_configuration("init", X, centers_init, myargs)
 
     # should always be a random number generator at this point since this method is invoked in fit-method
     #random_state = check_random_state(random_state)
@@ -1301,6 +1406,11 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
         else:
             closest_dist_sq, current_pot, min_distances, clustercosts = calculate_potential_clustercosts(X, centers, labels=labels)
 
+        if verbose and debug_average_improvement:
+            best_centers_min, best_inertia_min, best_labels_min = Calculate_average_improvement_statistics(X, centers, clustercosts, current_pot, depth, heuristics, max_iter, min_distances,
+                                                                                                           n_clusters, n_runs_average_improvement, n_threads, norm_it, random_state,
+                                                                                                           sample_weight, search_steps, tol, verbose, x_squared_norms)
+
         for i in range(search_steps):
             # draw according to probability distribution D2
             rand_val = random_state.random_sample() * current_pot  # draw random candidate proportional to its cost
@@ -1324,15 +1434,13 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
             # best_index, centers_output, labels_output, best_value, inertia_norm_it = exchange_solutions_fast(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it, sample_weight,
             #                                                   tol, verbose, x_squared_norms, max_iter, search_steps)
 
-            best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min = exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it,
+            best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min, inertia_unchanged_solution = exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it,
                                                                                                              sample_weight, tol, verbose, x_squared_norms, max_iter, search_steps, heuristics)
 
             if verbose:
                 print("##########################")
                 print("EXCHANGE METHOD TERMINATED")
                 print("##########################")
-
-
 
             # check if some exchange was the result / best option
             if best_index != -1:
@@ -1344,10 +1452,15 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                     print("Inertia of best exchanged solution after depth many steps is {}".format(best_inertia_compare))
                     print("Inertia of best exchanged solution after min(depth, norm_it) many steps is {}".format(best_inertia_min))
 
+                if run_plots:
+                    myargs = {'i': i, 'candidate_id': candidate_id, 'best_index': best_index, 'actual_iterations': iteration/norm_it, 'solutions': solutions}
+
+                    plot_configuration('exchange', X, centers, myargs)
+                    plot_configuration('depth comparison', X, centers, myargs)
+
+
                 # make exchange: replace center with new candidate
                 centers[best_index] = X[candidate_id]  # make final change
-
-
 
                 if i != search_steps-1:
                     # replace distance-array-row of exchanged center with new row for new center
@@ -1402,8 +1515,43 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
     return labels, inertia, centers, iteration + 1
 
 
-
-
+def Calculate_average_improvement_statistics(X, centers, clustercosts, current_pot, depth, heuristics, max_iter, min_distances, n_clusters, n_runs_average_improvement, n_threads, norm_it,
+                                             random_state, sample_weight, search_steps, tol, verbose, x_squared_norms):
+    successes = 0
+    average_improvement = 0
+    iters = 1000
+    for i in range(n_runs_average_improvement):
+        rand_val = random_state.random_sample() * current_pot  # draw random candidate proportional to its cost
+        candidate_id = np.searchsorted(stable_cumsum(min_distances), rand_val)
+        candidate_id = min(candidate_id, min_distances.size - 1)
+        best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min, inertia_unchanged_solution = exchange_solutions_faster(X, candidate_id, centers, clustercosts,
+                                                                                                                                                      depth, n_clusters,
+                                                                                                                                                      n_threads, norm_it,
+                                                                                                                                                      sample_weight, tol, verbose,
+                                                                                                                                                      x_squared_norms, max_iter,
+                                                                                                                                                      search_steps, heuristics)
+        if best_index != -1:
+            successes += 1
+            average_improvement += 1 - best_inertia_compare / inertia_unchanged_solution
+            if 1 - best_inertia_compare / inertia_unchanged_solution < 0.01:
+                # print("Percentage below 1%: {}".format(1-best_inertia_compare/inertia_unchanged_solution))
+                _, _, _, inertia_unexchanged_solution, _ = future_vision(X, centers, iters + min(depth, norm_it), n_threads, iters, sample_weight, tol, verbose, x_squared_norms)
+                _, _, _, inertia_exchanged_solution, _ = future_vision(X, best_centers_min, iters, n_threads, iters, sample_weight, tol, verbose, x_squared_norms)
+                # print("Percentage {} in run {}".format(1-best_inertia_compare/inertia_unchanged_solution, i))
+                # print(f"Inertia unexchanged: {inertia_unexchanged_solution}, inertia exchanged: {inertia_exchanged_solution}")
+                # print("Improvement: {}".format(1-inertia_exchanged_solution/inertia_unexchanged_solution))
+            elif 1 - best_inertia_compare / inertia_unchanged_solution > 0.01:
+                # print("Percentage above 1%: {}".format(1-best_inertia_compare/inertia_unchanged_solution))
+                _, _, _, inertia_unexchanged_solution, _ = future_vision(X, centers, iters + min(depth, norm_it), n_threads, iters, sample_weight, tol, verbose, x_squared_norms)
+                _, _, _, inertia_exchanged_solution, _ = future_vision(X, best_centers_min, iters, n_threads, iters, sample_weight, tol, verbose, x_squared_norms)
+                # print("Percentage {} in run {}".format(1-best_inertia_compare/inertia_unchanged_solution, i))
+                # print(f"Inertia unexchanged: {inertia_unexchanged_solution}, inertia exchanged: {inertia_exchanged_solution}")
+                # print("Improvement: {}".format(1-inertia_exchanged_solution/inertia_unexchanged_solution))
+    average_improvement = average_improvement / (float)(n_runs_average_improvement)
+    print("###################################")
+    print("Average number of successes was {}, successes: {}, n_runs: {}".format(successes / (float)(n_runs_average_improvement), successes, n_runs_average_improvement))
+    print("Average improvements percentage: {}".format(average_improvement))
+    return best_centers_min, best_inertia_min, best_labels_min
 
 
 def exchange_solutions(X, clustercosts, assertions, candidate_id, centers, depth, n_clusters, n_threads, norm_it, sample_weight, start, time_check, times, tol, verbose, x_squared_norms, max_iter,
@@ -1650,6 +1798,9 @@ def exchange_solutions_fast(X, candidate_id, centers, clustercosts, depth, n_clu
 
     return best_index, best_centers, best_labels, best_value, inertia_normit
 
+
+
+
 def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it, sample_weight, tol, verbose, x_squared_norms, max_iter,
                        search_steps, heuristics):
 
@@ -1659,15 +1810,19 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
 
     first_improve = False
     increasing_clustercosts = False
+    increasing_distancesLog_clustercosts = False
     if "first_improve" in heuristics:
         first_improve = heuristics["first_improve"]
     if "increasing_clustercosts" in heuristics:
         increasing_clustercosts = heuristics["increasing_clustercosts"]
+    elif "increasing_distancesLog_clustercosts" in heuristics:
+        increasing_distancesLog_clustercosts = heuristics["increasing_distancesLog_clustercosts"]
 
     # first calculate appropriate solution where no exchange happend to level depth
 
     centers_min, labels_min, centers_depth, inertia_min, inertia_compare = future_vision(X, centers.copy(), depth, n_threads, norm_it, sample_weight, tol,
                                                                                                                              verbose, x_squared_norms)
+    inertia_unchanged_solution = inertia_min
     best_centers_min = centers_min.copy()
     best_labels_min = labels_min.copy()
     best_inertia_compare = inertia_compare
@@ -1675,17 +1830,27 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
     best_index = -1  # index of best found swap candidate (if any)
     # comparision of sampled point to old centers
 
+    centers_candidate_distances = None
+
     if verbose_als:
         print(f"starting with inertia {best_inertia_compare}")
         centers_candidate_distances = euclidean_distances(centers, X[candidate_id].reshape(1,-1), squared=True).reshape(n_clusters)
 
-    if not increasing_clustercosts:
-        possible_exchange_centers = np.arange(0, n_clusters)
-    else:
+    if increasing_clustercosts: # check centers by their incresing clustercosts
         possible_exchange_centers = np.argsort(clustercosts)
+    elif increasing_distancesLog_clustercosts: # first check the first log(k) centers sorted by their distance to candidate, then continue with sorted clustercosts
+        possible_exchange_centers = np.argsort(clustercosts)
+        if centers_candidate_distances is None:
+            centers_candidate_distances = euclidean_distances(centers, X[candidate_id].reshape(1, -1), squared=True).reshape(n_clusters)
+        #centers_candidate_distances = centers_candidate_distances[np.argsort(centers_candidate_distances)][np.log(n_clusters)]
+        centers_candidate_distances_sorted = np.argsort(centers_candidate_distances)
+        centers_candidate_distances_firstLog = centers_candidate_distances_sorted[:(int)(np.ceil(np.log2(n_clusters)))]
+        centers_to_include = possible_exchange_centers[~np.in1d(possible_exchange_centers, centers_candidate_distances)]
+        possible_exchange_centers = np.append(centers_candidate_distances_firstLog, centers_to_include)
+    else:
+        possible_exchange_centers = np.arange(0, n_clusters)
 
-
-    for j in possible_exchange_centers:
+    for index, j in enumerate(possible_exchange_centers):
 
         old_center = centers[j].copy()  # store old center (candidate for swapping)
         centers[j] = X[candidate_id]  # swap current centers with candidate
@@ -1711,10 +1876,10 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
 
             center_shift_tot = (center_shift ** 2).sum()
             if center_shift_tot > tol:
-                #if verbose_als:
-                 #   print(f"found improvement in exchange {j}: old inertia = {best_value}, new inertia = {inertia}")
-                  #  print("The clustercost of removed center is {}-smallest value".format(np.where(np.sort(clustercosts)==clustercosts[j])[0][0]))
-                   # print("The removed center is {}-closest to candidate".format(np.where(np.sort(centers_candidate_distances)== centers_candidate_distances[j])[0][0]))
+                if verbose_als:
+                   print(f"found improvement in exchange {index}: old inertia = {best_inertia_compare}, new inertia = {inertia_compare}")
+                   print("The clustercost of removed center is {}-smallest value".format(np.where(np.sort(clustercosts)==clustercosts[j])[0][0]))
+                   print("The removed center is {}-closest to candidate".format(np.where(np.sort(centers_candidate_distances)== centers_candidate_distances[j])[0][0]))
 
                 best_index = j
                 best_centers_min = centers_min.copy()
@@ -1730,7 +1895,7 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
         centers[j] = old_center.copy()  # undo swap
 
 
-    return best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min
+    return best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min, inertia_unchanged_solution
 
 
 def future_vision(X, centers, depth, n_threads, norm_it, sample_weight, tol, verbose, x_squared_norms):
@@ -1764,6 +1929,82 @@ def future_vision(X, centers, depth, n_threads, norm_it, sample_weight, tol, ver
         best_centers = centers.copy()
         best_labels = labels.copy()
     return best_centers, best_labels, centers_depth, inertia, inertia_compare
+
+def calculate_solutions(X, candidate_id, centers, depth, n_clusters, n_threads, norm_it, sample_weight, tol, verbose, x_squared_norms, max_iter,
+                       search_steps):
+    solutions = {'depth': {}, 'norm_it': {}}  # we create a dictionary for all possible relevant values
+    # the first entry contains the unchainged variant, the second the (possibly empty) best exchanged variant
+    solutions['depth']['labels'] = {}
+    solutions['depth']['inertia'] = {}
+    solutions['depth']['centers'] = {}
+    solutions['depth']['n_iter'] = {}
+    solutions['norm_it']['labels'] = {}
+    solutions['norm_it']['inertia'] = {}
+    solutions['norm_it']['centers'] = {}
+    solutions['norm_it']['n_iter'] = {}
+
+    centers_start = centers.copy()
+
+    for i in range(len(centers) + 1):
+
+
+        if depth == norm_it:
+            labels, inertia, centers_new, n_iter = _kmeans_single_elkan(X, sample_weight, centers_start.copy(), max_iter=depth, verbose=verbose, tol=tol, x_squared_norms=x_squared_norms,
+                                                                    n_threads=n_threads)
+            solutions["depth"]["labels"] = labels.copy()
+            solutions["norm_it"]["labels"] = labels.copy()
+            solutions["depth"]["inertia"] = inertia
+            solutions["norm_it"]["inertia"] = inertia
+            solutions["depth"]["centers"] = centers_new.copy()
+            solutions["norm_it"]["centers"] = centers_new.copy()
+            solutions["depth"]["n_iter"] = n_iter
+            solutions["norm_it"]["n_iter"] = n_iter
+
+        elif depth < norm_it:
+            labels_new, inertia_new, centers_new, n_iter_new = _kmeans_single_elkan(X, sample_weight, centers_start.copy(), max_iter=depth, verbose=verbose, tol=tol, x_squared_norms=x_squared_norms,
+                                                                    n_threads=n_threads)
+            solutions["depth"]["labels"] = labels_new.copy()
+            solutions["depth"]["inertia"] = inertia_new
+            solutions["depth"]["centers"] = centers_new.copy()
+            solutions["depth"]["n_iter"] = n_iter_new
+
+            labels_new2, inertia_new2, centers_new2, n_iter_new2 = _kmeans_single_elkan(X, sample_weight, centers_new.copy(), max_iter=norm_it-depth, verbose=verbose, tol=tol,
+                                                                                    x_squared_norms=x_squared_norms,
+                                                                                    n_threads=n_threads)
+            if inertia_new2 > inertia_new:
+                solutions["norm_it"]["labels"] = labels_new.copy()
+                solutions["norm_it"]["inertia"] = inertia_new
+                solutions["norm_it"]["centers"] = centers_new.copy()
+                solutions["norm_it"]["n_iter"] = n_iter_new
+            else:
+                solutions["norm_it"]["labels"] = labels_new2.copy()
+                solutions["norm_it"]["inertia"] = inertia_new2
+                solutions["norm_it"]["centers"] = centers_new2.copy()
+                solutions["norm_it"]["n_iter"] = n_iter_new2
+
+
+        elif depth > norm_it:
+            labels_new, inertia_new, centers_new, n_iter_new = _kmeans_single_elkan(X, sample_weight, centers_start.copy(), max_iter=norm_it, verbose=verbose, tol=tol, x_squared_norms=x_squared_norms,
+                                                                    n_threads=n_threads)
+            solutions["norm_it"]["labels"] = labels_new.copy()
+            solutions["norm_it"]["inertia"] = inertia_new
+            solutions["norm_it"]["centers"] = centers_new.copy()
+            solutions["norm_it"]["n_iter"] = n_iter_new
+
+
+            labels_new2, inertia_new2, centers_new2, n_iter_new2 = _kmeans_single_elkan(X, sample_weight, centers_new.copy(), max_iter=depth - norm_it, verbose=verbose, tol=tol,
+                                                                                            x_squared_norms=x_squared_norms, n_threads=n_threads)
+            if inertia_new2 > inertia_new:
+                solutions["depth"]["labels"] = labels_new.copy()
+                solutions["depth"]["inertia"] = inertia_new
+                solutions["depth"]["centers"] = centers_new.copy()
+                solutions["depth"]["n_iter"] = n_iter_new
+            else:
+                solutions["depth"]["labels"] = labels_new2.copy()
+                solutions["depth"]["inertia"] = inertia_new2
+                solutions["depth"]["centers"] = centers_new2.copy()
+                solutions["depth"]["n_iter"] = n_iter_new2
+
 
 
 def calculate_depth_solutions(X, best_depths_column, candidate_id, centers, i, iteration, k, n_threads, sample_weight, tol, verbose, x_squared_norms):
@@ -2289,7 +2530,8 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         depth=3,
         search_steps=3,
         norm_it=2,
-        heuristics={}
+        heuristics={},
+        z=None
     ):
 
         self.n_clusters = n_clusters
@@ -2306,6 +2548,7 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         self.depth = depth
         self.search_steps = search_steps
         self.norm_it = norm_it
+        self.z = z
 
     def _check_params(self, X):
         # n_init
@@ -2327,9 +2570,9 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         self._tol = _tolerance(X, self.tol)
 
         # algorithm
-        if self.algorithm not in ("auto", "full", "elkan", "als++"):
+        if self.algorithm not in ("auto", "full", "elkan", "als++", "lspp"):
             raise ValueError(
-                "Algorithm must be 'auto', 'full', 'elkan' or 'als++', "
+                "Algorithm must be 'auto', 'full', 'elkan', 'als++' or 'lspp', "
                 f"got {self.algorithm} instead."
             )
 
@@ -2670,6 +2913,9 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         elif self._algorithm == "als++":
             kmeans_single = _kmeans_als_plusplus_fast
             self._check_mkl_vcomp(X, X.shape[0])
+        elif self._algorithm == "lspp":
+            kmeans_single = _localSearchPP
+            self._check_mkl_vcomp(X, X.shape[0])
         else:
             kmeans_single = _kmeans_single_elkan
 
@@ -2684,7 +2930,7 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
                 print("Initialization complete")
 
             # run a k-means once
-            if kmeans_single != _kmeans_als_plusplus_fast:
+            if kmeans_single == _kmeans_single_elkan or kmeans_single == _kmeans_single_lloyd:
                 labels, inertia, centers, n_iter_ = kmeans_single(
                     X,
                     sample_weight,
@@ -2695,7 +2941,19 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
                     x_squared_norms=x_squared_norms,
                     n_threads=self._n_threads,
                 )
-            else:
+            elif kmeans_single == _localSearchPP:
+                labels, inertia, centers, n_iter_ = kmeans_single(
+                    X,
+                    sample_weight,
+                    centers_init,
+                    max_iter=self.max_iter,
+                    verbose=self.verbose,
+                    tol=self._tol,
+                    x_squared_norms=x_squared_norms,
+                    n_threads=self._n_threads,
+                    z=self.z,
+                )
+            elif kmeans_single == _kmeans_als_plusplus_fast:
                 labels, inertia, centers, n_iter_ = kmeans_single(
                     X,
                     sample_weight,

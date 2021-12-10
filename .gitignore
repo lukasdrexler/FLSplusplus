@@ -10,6 +10,7 @@ current_times.txt
 !normal_kmeans.py
 !TextToCSV.py
 !_kmeans.py
+!lspp.py
 
 !datasets/*
 !datasets_large/*
