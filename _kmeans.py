@@ -1347,7 +1347,7 @@ def _localSearchPP(X, sample_weight, centers_init, max_iter=300, verbose=False, 
                 test_closest_dist_sq[j] = candidate_distances[0].copy()
                 test_labels = np.argmin(test_closest_dist_sq, axis=0)
                 test_distances = test_closest_dist_sq[test_labels, np.arange(closest_dist_sq.shape[1])]
-                assert 1e-4 >= np.abs(newpot - test_distances.sum()), f"potentials do not match, got {newpot}, expected {test_distances.sum()}"
+                #assert 1e-4 >= np.abs(newpot - test_distances.sum()), f"potentials do not match, got {newpot}, expected {test_distances.sum()}"
 
         if found_exchange:
             j = best_exchange
@@ -1502,8 +1502,14 @@ def _localSearchPP(X, sample_weight, centers_init, max_iter=300, verbose=False, 
                 assert 1e-4 >= np.abs(current_pot - test_distances[0].sum()), f"potentials do not match, got {newpot}, expected {test_distances.sum()}"
 
 
+    # run elkan for max_iter iterations, using the current best found centers
 
-    return labels[0,:], current_pot, centers, z+1
+    labels, inertia, centers, n_iter = _kmeans_single_elkan(X, sample_weight, centers.copy(), max_iter=max_iter, verbose=verbose, tol=tol, x_squared_norms=x_squared_norms, n_threads=n_threads)
+
+
+    #return labels[0,:], current_pot, centers, z+1
+
+    return labels, inertia, centers, z + n_iter + 1
 
 
 
@@ -1516,6 +1522,7 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
     debug_average_improvement = False
     n_runs_average_improvement = 1000
     run_plots = False
+    debug_information = True
 
 
     if verbose:
@@ -1527,6 +1534,14 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
     if run_plots:
         myargs = {"depth": depth, "norm_it": norm_it, "search_steps": search_steps}
         plot_configuration("init", X, centers_init, myargs)
+
+    if debug_information:
+        max_failed_iterations = 0
+        current_iteration = 0
+
+        #overall_time = time.time()
+        times = []
+        best_indexes = []
 
     # should always be a random number generator at this point since this method is invoked in fit-method
     #random_state = check_random_state(random_state)
@@ -1554,7 +1569,7 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
             closest_dist_sq, current_pot, min_distances, clustercosts = calculate_potential_clustercosts(X, centers, labels=labels)
 
         if verbose and debug_average_improvement:
-            best_centers_min, best_inertia_min, best_labels_min = Calculate_average_improvement_statistics(X, centers, clustercosts, current_pot, depth, heuristics, max_iter, min_distances,
+            statistics_average_improvements = Calculate_average_improvement_statistics(X, centers, clustercosts, current_pot, depth, heuristics, max_iter, min_distances,
                                                                                                            n_clusters, n_runs_average_improvement, n_threads, norm_it, random_state,
                                                                                                            sample_weight, search_steps, tol, verbose, x_squared_norms)
 
@@ -1569,20 +1584,16 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
             # np.clip(candidate_id, None, closest_dist_sq.size - 1, out=candidate_id)
             candidate_id = min(candidate_id, min_distances.size - 1)
 
-            # calculate how much we have to pay for every cluster
-            #clustercosts = np.zeros(n_clusters)
-            #for l in range(X.shape[0]):
-            #    center = np.argmin(closest_dist_sq[:, l])
-            #    clustercosts[center] += closest_dist_sq[center, l]
 
-            # ----------------------------------------------------------------------------------------------------------------------
-            # main function: exchange every center with candidate, perform loyd/elkan for depth many steps, save best found solution
-            # ----------------------------------------------------------------------------------------------------------------------
-            # best_index, centers_output, labels_output, best_value, inertia_norm_it = exchange_solutions_fast(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it, sample_weight,
-            #                                                   tol, verbose, x_squared_norms, max_iter, search_steps)
+            if debug_information:
+                start = time.time()
 
             best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min, inertia_unchanged_solution = exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it,
                                                                                                              sample_weight, tol, verbose, x_squared_norms, max_iter, search_steps, heuristics)
+
+            if debug_information:
+                times.append(time.time() - start)
+                best_indexes.append(best_index)
 
             if verbose:
                 print("##########################")
@@ -1601,9 +1612,12 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
 
                 if run_plots:
                     myargs = {'i': i, 'candidate_id': candidate_id, 'best_index': best_index, 'actual_iterations': iteration/norm_it, 'solutions': solutions}
-
                     plot_configuration('exchange', X, centers, myargs)
                     plot_configuration('depth comparison', X, centers, myargs)
+
+                if debug_information:
+                    max_failed_iterations = max(max_failed_iterations, current_iteration)
+                    current_iteration = 0
 
 
                 # make exchange: replace center with new candidate
@@ -1618,7 +1632,8 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                     # recalculate (maybe faster) min_distances and pot
                     min_distances = closest_dist_sq.min(axis=0)  # Distanzen zu den closest centers
                     current_pot = min_distances.sum()  # Summe der quadrierten Abstände zu closest centers
-
+            elif best_index == -1 and debug_information:
+                current_iteration += 1
 
 
         old_centers = centers.copy()
@@ -1636,7 +1651,7 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
             labels, inertia, centers, _ = _kmeans_single_elkan(X, sample_weight, best_centers_min.copy(), max_iter=norm_it - depth, verbose=verbose, tol=tol,
                                                                x_squared_norms=x_squared_norms, n_threads=n_threads)
             if inertia > best_inertia_min:
-                labels, inertia, centers = best_labels_min, best_centers_min, best_inertia_min
+                labels, centers, inertia = best_labels_min, best_centers_min, best_inertia_min
 
 
         if np.array_equal(labels, labels_old):
@@ -1659,11 +1674,34 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
 
         labels_old[:] = labels
 
+    if debug_information:
+
+        # directory of main in pycharm-environment
+        debug_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))))
+        # subfolder in which the plots are saved in
+        debug_dir = path.join(debug_dir, 'debug')
+        debug_file = path.join(debug_dir, "debug.txt")
+
+        if not path.exists(debug_dir):
+            os.makedirs(debug_dir)
+        fp = open("debug\\debug.txt", "w")
+        fp.write("max_failed_iterations: {}\n".format(max_failed_iterations))
+        for i in range(len(times)):
+            fp.write("best_index: {} time: {}\n".format(best_indexes[i], times[i]))
+        fp.close()
+
     return labels, inertia, centers, iteration + 1
 
 
 def Calculate_average_improvement_statistics(X, centers, clustercosts, current_pot, depth, heuristics, max_iter, min_distances, n_clusters, n_runs_average_improvement, n_threads, norm_it,
                                              random_state, sample_weight, search_steps, tol, verbose, x_squared_norms):
+
+    statistics_average_improvements = {"n_runs:": n_runs_average_improvement}
+
+    list_inertia_unchanged_solution = []
+    list_improvements = []
+    list_best_index = []
+
     successes = 0
     average_improvement = 0
     iters = 1000
@@ -1677,6 +1715,9 @@ def Calculate_average_improvement_statistics(X, centers, clustercosts, current_p
                                                                                                                                                       sample_weight, tol, verbose,
                                                                                                                                                       x_squared_norms, max_iter,
                                                                                                                                                       search_steps, heuristics)
+        list_inertia_unchanged_solution.append(inertia_unchanged_solution)
+
+
         if best_index != -1:
             successes += 1
             average_improvement += 1 - best_inertia_compare / inertia_unchanged_solution
@@ -1695,9 +1736,10 @@ def Calculate_average_improvement_statistics(X, centers, clustercosts, current_p
                 # print(f"Inertia unexchanged: {inertia_unexchanged_solution}, inertia exchanged: {inertia_exchanged_solution}")
                 # print("Improvement: {}".format(1-inertia_exchanged_solution/inertia_unexchanged_solution))
     average_improvement = average_improvement / (float)(n_runs_average_improvement)
-    print("###################################")
-    print("Average number of successes was {}, successes: {}, n_runs: {}".format(successes / (float)(n_runs_average_improvement), successes, n_runs_average_improvement))
-    print("Average improvements percentage: {}".format(average_improvement))
+    if verbose:
+        print("###################################")
+        print("Average number of successes was {}, successes: {}, n_runs: {}".format(successes / (float)(n_runs_average_improvement), successes, n_runs_average_improvement))
+        print("Average improvements percentage: {}".format(average_improvement))
     return best_centers_min, best_inertia_min, best_labels_min
 
 
