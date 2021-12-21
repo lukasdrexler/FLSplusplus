@@ -1517,13 +1517,16 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                          verbose=False, x_squared_norms=None, tol=1e-4,
                          n_threads=1, depth=3, search_steps=1, norm_it=2, heuristics={}, random_state=None):
 
-    heuristics = {"first_improve": False,"incresing_clustercosts": False, "increasing_distancesLog_clustercosts": True}
+    heuristics = {"first_improve": True,"incresing_clustercosts": False, "increasing_distancesLog_clustercosts": True, "early_abort": True, "early_abort_number": 4}
+
 
     debug_average_improvement = False
     n_runs_average_improvement = 1000
     run_plots = False
     debug_information = True
 
+
+    no_improvement_counter = 0
 
     if verbose:
         print("Starting alspp: depth {} norm_it {} search_step {}".format(depth, norm_it, search_steps))
@@ -1632,9 +1635,13 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                     # recalculate (maybe faster) min_distances and pot
                     min_distances = closest_dist_sq.min(axis=0)  # Distanzen zu den closest centers
                     current_pot = min_distances.sum()  # Summe der quadrierten Abstände zu closest centers
-            elif best_index == -1 and debug_information:
-                current_iteration += 1
+            elif best_index == -1:
 
+                if debug_information:
+                    current_iteration += 1
+
+                if heuristics["early_abort"] == True:
+                    no_improvement_counter += 1
 
         old_centers = centers.copy()
 
@@ -1673,6 +1680,11 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                 break
 
         labels_old[:] = labels
+
+        if no_improvement_counter >= heuristics["early_abort_number"]:
+            if verbose:
+                print("Terminated because of early abort.")
+            return _kmeans_single_elkan(X,sample_weight,centers,max_iter=300-iteration-norm_it, verbose=verbose, x_squared_norms=x_squared_norms,tol=tol, n_threads=n_threads)
 
     if debug_information:
 

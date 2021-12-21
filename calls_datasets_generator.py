@@ -34,7 +34,7 @@ def write_combinations_to_file(f, n_centers, depths, norm_its, search_steps, n_r
                         seed = generate_random_state()
                         f.write("python alspp.py -f {} -k {} -d {} -n {} -s {} -r {}\n".format(datapath, n_center, depth, norm_it, search_step, seed))
                         f.write("python normal_kmeans.py -f {} -k {} -r {}\n".format(datapath, n_center, seed))
-
+                        f.write("python -O lspp.py -f {} -k {} -r {} -z {}\n".format(datapath, n_center, seed, 25))
 
 
 if __name__ == '__main__':
@@ -105,12 +105,22 @@ if __name__ == '__main__':
 
         # write_combinations_to_file(f, n_centers, depths, norm_its, search_steps)
 
-        elif dataset == 'clegg':
-            n_centers = np.array([20, 40])
-            depths = np.array([1, 3])
+        #elif dataset == 'clegg':
+        #    n_centers = np.array([20, 40])
+        #    depths = np.array([1])
+        #    search_steps = np.array([1])
+        #    norm_its = np.array([1])
+
+        #    write_combinations_to_file(f, n_centers, depths, norm_its, search_steps, n_runs)
+
+        elif dataset == 'unproj':
+            n_centers = np.array([10])
+            depths = np.array([1])
             search_steps = np.array([1])
-            norm_its = np.array([1, 3])
+            norm_its = np.array([1])
 
             write_combinations_to_file(f, n_centers, depths, norm_its, search_steps, n_runs)
+
+
 
     f.close()

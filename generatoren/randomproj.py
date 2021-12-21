@@ -382,7 +382,7 @@ if __name__ == "__main__":
         else:
             target_dim = fit_target_dim(n_points, args.eps, args.beta)
 
-        print(n_points, target_dim)
+        #print(n_points, target_dim)
 
         for proj_point in reduce_dim(
             as_points(sys.stdin), 
