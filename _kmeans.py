@@ -1520,8 +1520,9 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
     heuristics = {"first_improve": True,"incresing_clustercosts": False, "increasing_distancesLog_clustercosts": True, "early_abort": True, "early_abort_number": 4}
 
 
+    # controls if we make in one step multiple sampling steps to simulate the average output in current steo
     debug_average_improvement = False
-    n_runs_average_improvement = 1000
+    n_runs_average_improvement = 100
     run_plots = False
     debug_information = True
 
@@ -1545,6 +1546,8 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
         #overall_time = time.time()
         times = []
         best_indexes = []
+        if debug_average_improvement:
+            list_statistics_average_improvements = []
 
     # should always be a random number generator at this point since this method is invoked in fit-method
     #random_state = check_random_state(random_state)
@@ -1571,10 +1574,11 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
         else:
             closest_dist_sq, current_pot, min_distances, clustercosts = calculate_potential_clustercosts(X, centers, labels=labels)
 
-        if verbose and debug_average_improvement:
+        if debug_average_improvement:
             statistics_average_improvements = Calculate_average_improvement_statistics(X, centers, clustercosts, current_pot, depth, heuristics, max_iter, min_distances,
                                                                                                            n_clusters, n_runs_average_improvement, n_threads, norm_it, random_state,
                                                                                                            sample_weight, search_steps, tol, verbose, x_squared_norms)
+            list_statistics_average_improvements.append(statistics_average_improvements)
 
         for i in range(search_steps):
             # draw according to probability distribution D2
@@ -1635,7 +1639,7 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                     # recalculate (maybe faster) min_distances and pot
                     min_distances = closest_dist_sq.min(axis=0)  # Distanzen zu den closest centers
                     current_pot = min_distances.sum()  # Summe der quadrierten Abstände zu closest centers
-            elif best_index == -1:
+            elif best_index == -1 and debug_information:
 
                 if debug_information:
                     current_iteration += 1
@@ -1700,6 +1704,20 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
         fp.write("max_failed_iterations: {}\n".format(max_failed_iterations))
         for i in range(len(times)):
             fp.write("best_index: {} time: {}\n".format(best_indexes[i], times[i]))
+        if debug_average_improvement:
+            fp.write("Average_improvements\n")
+            for j in range(len(list_statistics_average_improvements)):
+                fp.write("Itaration {}\n".format(j))
+                statistics_average_improvements = list_statistics_average_improvements[j]
+                n_runs = statistics_average_improvements["n_runs"]
+                fp.write("n_iterations_average_improvements: {}\n".format(n_runs))
+                for i in range(n_runs):
+                    fp.write("inertia_unchanged: {} inertia_exchange: {} best_index: {}\n".format(
+                        statistics_average_improvements["list_inertia_unchanged_solution"][i],
+                        statistics_average_improvements["list_improvements"][i],
+                        statistics_average_improvements["best_index"][i]
+                    ))
+
         fp.close()
 
     return labels, inertia, centers, iteration + 1
@@ -1708,7 +1726,7 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
 def Calculate_average_improvement_statistics(X, centers, clustercosts, current_pot, depth, heuristics, max_iter, min_distances, n_clusters, n_runs_average_improvement, n_threads, norm_it,
                                              random_state, sample_weight, search_steps, tol, verbose, x_squared_norms):
 
-    statistics_average_improvements = {"n_runs:": n_runs_average_improvement}
+    statistics_average_improvements = {"n_runs": n_runs_average_improvement}
 
     list_inertia_unchanged_solution = []
     list_improvements = []
@@ -1728,6 +1746,8 @@ def Calculate_average_improvement_statistics(X, centers, clustercosts, current_p
                                                                                                                                                       x_squared_norms, max_iter,
                                                                                                                                                       search_steps, heuristics)
         list_inertia_unchanged_solution.append(inertia_unchanged_solution)
+        list_improvements.append(best_inertia_compare)
+        list_best_index.append(best_index)
 
 
         if best_index != -1:
@@ -1752,7 +1772,12 @@ def Calculate_average_improvement_statistics(X, centers, clustercosts, current_p
         print("###################################")
         print("Average number of successes was {}, successes: {}, n_runs: {}".format(successes / (float)(n_runs_average_improvement), successes, n_runs_average_improvement))
         print("Average improvements percentage: {}".format(average_improvement))
-    return best_centers_min, best_inertia_min, best_labels_min
+
+    statistics_average_improvements["list_inertia_unchanged_solution"] = list_inertia_unchanged_solution
+    statistics_average_improvements["list_improvements"] = list_improvements
+    statistics_average_improvements["best_index"] = list_best_index
+
+    return statistics_average_improvements
 
 
 def exchange_solutions(X, clustercosts, assertions, candidate_id, centers, depth, n_clusters, n_threads, norm_it, sample_weight, start, time_check, times, tol, verbose, x_squared_norms, max_iter,
@@ -2023,7 +2048,7 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
 
     centers_min, labels_min, centers_depth, inertia_min, inertia_compare = future_vision(X, centers.copy(), depth, n_threads, norm_it, sample_weight, tol,
                                                                                                                              verbose, x_squared_norms)
-    inertia_unchanged_solution = inertia_min
+    inertia_unchanged_solution = inertia_compare
     best_centers_min = centers_min.copy()
     best_labels_min = labels_min.copy()
     best_inertia_compare = inertia_compare
