@@ -1517,14 +1517,16 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                          verbose=False, x_squared_norms=None, tol=1e-4,
                          n_threads=1, depth=3, search_steps=1, norm_it=2, heuristics={}, random_state=None):
 
-    heuristics = {"first_improve": True,"incresing_clustercosts": False, "increasing_distancesLog_clustercosts": True, "early_abort": True, "early_abort_number": 4}
+    heuristics = {"first_improve": False,"increasing_clustercosts": False, "increasing_distancesLog_clustercosts": True, "early_abort": False, "early_abort_number": 4}
 
 
     # controls if we make in one step multiple sampling steps to simulate the average output in current steo
     debug_average_improvement = False
     n_runs_average_improvement = 100
-    run_plots = False
     debug_information = True
+
+    # bool for plots
+    run_plots = False
 
 
     no_improvement_counter = 0
@@ -1546,8 +1548,12 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
         #overall_time = time.time()
         times = []
         best_indexes = []
-        if debug_average_improvement:
-            list_statistics_average_improvements = []
+        best_found_pos_arr = []
+        best_inertia_min_arr = []
+        best_inertia_compare_arr = []
+        inertia_unchanged_solution_arr = []
+        #if debug_average_improvement:
+        list_statistics_average_improvements = []
 
     # should always be a random number generator at this point since this method is invoked in fit-method
     #random_state = check_random_state(random_state)
@@ -1595,12 +1601,16 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
             if debug_information:
                 start = time.time()
 
-            best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min, inertia_unchanged_solution = exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it,
+            best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min, inertia_unchanged_solution, best_found_pos = exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it,
                                                                                                              sample_weight, tol, verbose, x_squared_norms, max_iter, search_steps, heuristics)
 
             if debug_information:
                 times.append(time.time() - start)
                 best_indexes.append(best_index)
+                best_inertia_min_arr.append(best_inertia_min)
+                best_inertia_compare_arr.append(best_inertia_compare)
+                best_found_pos_arr.append(best_found_pos)
+                inertia_unchanged_solution_arr.append(inertia_unchanged_solution)
 
             if verbose:
                 print("##########################")
@@ -1639,7 +1649,8 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                     # recalculate (maybe faster) min_distances and pot
                     min_distances = closest_dist_sq.min(axis=0)  # Distanzen zu den closest centers
                     current_pot = min_distances.sum()  # Summe der quadrierten Abstände zu closest centers
-            elif best_index == -1 and debug_information:
+
+            elif best_index == -1:
 
                 if debug_information:
                     current_iteration += 1
@@ -1685,42 +1696,56 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
 
         labels_old[:] = labels
 
-        if no_improvement_counter >= heuristics["early_abort_number"]:
+        if heuristics["early_abort"] and no_improvement_counter >= heuristics["early_abort_number"]:
             if verbose:
                 print("Terminated because of early abort.")
-            return _kmeans_single_elkan(X,sample_weight,centers,max_iter=300-iteration-norm_it, verbose=verbose, x_squared_norms=x_squared_norms,tol=tol, n_threads=n_threads)
+            #return
+            final_labels, final_inertia, final_centers, final_iteration = _kmeans_single_elkan(X, sample_weight, centers, max_iter=max(max_iter - iteration - norm_it, 1), verbose=verbose, x_squared_norms=x_squared_norms, tol=tol, n_threads=n_threads)
+            labels = final_labels
+            inertia = final_inertia
+            centers = final_centers
+            iteration += final_iteration
+            break
 
     if debug_information:
+        generate_debug_file(best_found_pos_arr, best_indexes, best_inertia_compare_arr, best_inertia_min_arr, debug_average_improvement, heuristics, inertia_unchanged_solution_arr,
+                            list_statistics_average_improvements, max_failed_iterations, times, inertia)
 
-        # directory of main in pycharm-environment
-        debug_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))))
-        # subfolder in which the plots are saved in
-        debug_dir = path.join(debug_dir, 'debug')
-        debug_file = path.join(debug_dir, "debug.txt")
+    return labels, inertia, centers, iteration
 
-        if not path.exists(debug_dir):
-            os.makedirs(debug_dir)
-        fp = open("debug\\debug.txt", "w")
-        fp.write("max_failed_iterations: {}\n".format(max_failed_iterations))
-        for i in range(len(times)):
-            fp.write("best_index: {} time: {}\n".format(best_indexes[i], times[i]))
-        if debug_average_improvement:
-            fp.write("Average_improvements\n")
-            for j in range(len(list_statistics_average_improvements)):
-                fp.write("Itaration {}\n".format(j))
-                statistics_average_improvements = list_statistics_average_improvements[j]
-                n_runs = statistics_average_improvements["n_runs"]
-                fp.write("n_iterations_average_improvements: {}\n".format(n_runs))
-                for i in range(n_runs):
-                    fp.write("inertia_unchanged: {} inertia_exchange: {} best_index: {}\n".format(
-                        statistics_average_improvements["list_inertia_unchanged_solution"][i],
-                        statistics_average_improvements["list_improvements"][i],
-                        statistics_average_improvements["best_index"][i]
-                    ))
 
-        fp.close()
+def generate_debug_file(best_found_pos_arr, best_indexes, best_inertia_compare_arr, best_inertia_min_arr, debug_average_improvement, heuristics, inertia_unchanged_solution_arr,
+                        list_statistics_average_improvements, max_failed_iterations, times, inertia):
+    # directory of main in pycharm-environment
+    debug_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))))
+    # subfolder in which the plots are saved in
+    debug_dir = path.join(debug_dir, 'debug')
+    debug_file = path.join(debug_dir, "debug.txt")
+    if not path.exists(debug_dir):
+        os.makedirs(debug_dir)
+    fp = open("debug\\debug.txt", "w")
+    for key, value in heuristics.items():
+        fp.write(f"heuristic: {key}: {value}\n")
+    fp.write("max_failed_iterations: {}\n".format(max_failed_iterations))
+    for i in range(len(times)):
+        fp.write("best_index: {} time: {} best_found_pos: {} inertia_unchanged: {} inertia_compare: {} inertia_min: {}\n".format(
+            best_indexes[i], times[i], best_found_pos_arr[i], inertia_unchanged_solution_arr[i], best_inertia_compare_arr[i], best_inertia_min_arr[i]))
+    fp.write("inertia: {}".format(inertia))
 
-    return labels, inertia, centers, iteration + 1
+    if debug_average_improvement:
+        fp.write("Average_improvements\n")
+        for j in range(len(list_statistics_average_improvements)):
+            fp.write("Itaration {}\n".format(j))
+            statistics_average_improvements = list_statistics_average_improvements[j]
+            n_runs = statistics_average_improvements["n_runs"]
+            fp.write("n_iterations_average_improvements: {}\n".format(n_runs))
+            for i in range(n_runs):
+                fp.write("inertia_unchanged: {} inertia_exchange: {} best_index: {}\n".format(
+                    statistics_average_improvements["list_inertia_unchanged_solution"][i],
+                    statistics_average_improvements["list_improvements"][i],
+                    statistics_average_improvements["best_index"][i]
+                ))
+    fp.close()
 
 
 def Calculate_average_improvement_statistics(X, centers, clustercosts, current_pot, depth, heuristics, max_iter, min_distances, n_clusters, n_runs_average_improvement, n_threads, norm_it,
@@ -2039,7 +2064,7 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
     increasing_distancesLog_clustercosts = False
     if "first_improve" in heuristics:
         first_improve = heuristics["first_improve"]
-    if "increasing_clustercosts" in heuristics:
+    if "increasing_clustercosts" in heuristics and heuristics["increasing_clustercosts"] == True:
         increasing_clustercosts = heuristics["increasing_clustercosts"]
     elif "increasing_distancesLog_clustercosts" in heuristics:
         increasing_distancesLog_clustercosts = heuristics["increasing_distancesLog_clustercosts"]
@@ -2054,6 +2079,7 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
     best_inertia_compare = inertia_compare
     best_inertia_min = inertia_min
     best_index = -1  # index of best found swap candidate (if any)
+    best_found_pos = -1 # position in enumeration at which we found our improvement (if any)
     # comparision of sampled point to old centers
 
     centers_candidate_distances = None
@@ -2071,7 +2097,7 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
         #centers_candidate_distances = centers_candidate_distances[np.argsort(centers_candidate_distances)][np.log(n_clusters)]
         centers_candidate_distances_sorted = np.argsort(centers_candidate_distances)
         centers_candidate_distances_firstLog = centers_candidate_distances_sorted[:(int)(np.ceil(np.log2(n_clusters)))]
-        centers_to_include = possible_exchange_centers[~np.in1d(possible_exchange_centers, centers_candidate_distances)]
+        centers_to_include = possible_exchange_centers[~np.in1d(possible_exchange_centers, centers_candidate_distances_firstLog)]
         possible_exchange_centers = np.append(centers_candidate_distances_firstLog, centers_to_include)
     else:
         possible_exchange_centers = np.arange(0, n_clusters)
@@ -2112,6 +2138,7 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
                 best_labels_min = labels_min.copy()
                 best_inertia_compare = inertia_compare
                 best_inertia_min = inertia_min
+                best_found_pos = index
 
                 if first_improve:
                     # need to reverse exchange in this case for consistency
@@ -2121,7 +2148,7 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
         centers[j] = old_center.copy()  # undo swap
 
 
-    return best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min, inertia_unchanged_solution
+    return best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min, inertia_unchanged_solution, best_found_pos
 
 
 def future_vision(X, centers, depth, n_threads, norm_it, sample_weight, tol, verbose, x_squared_norms):
