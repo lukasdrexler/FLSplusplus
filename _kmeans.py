@@ -1517,13 +1517,14 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                          verbose=False, x_squared_norms=None, tol=1e-4,
                          n_threads=1, depth=3, search_steps=1, norm_it=2, heuristics={}, random_state=None):
 
-    heuristics = {"first_improve": False,"increasing_clustercosts": False, "increasing_distancesLog_clustercosts": True, "early_abort": False, "early_abort_number": 4}
+    heuristics = {"first_improve": False,"increasing_clustercosts": False, "increasing_distancesLog_clustercosts": True, "early_abort": True, "early_abort_number": 4,
+                  "early_stop_exchanges": True}
 
 
     # controls if we make in one step multiple sampling steps to simulate the average output in current steo
     debug_average_improvement = False
     n_runs_average_improvement = 100
-    debug_information = True
+    debug_information = False
 
     # bool for plots
     run_plots = False
@@ -2062,12 +2063,15 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
     first_improve = False
     increasing_clustercosts = False
     increasing_distancesLog_clustercosts = False
+    early_stop_exchanges = False
     if "first_improve" in heuristics:
         first_improve = heuristics["first_improve"]
     if "increasing_clustercosts" in heuristics and heuristics["increasing_clustercosts"] == True:
-        increasing_clustercosts = heuristics["increasing_clustercosts"]
+        increasing_clustercosts = True
     elif "increasing_distancesLog_clustercosts" in heuristics:
         increasing_distancesLog_clustercosts = heuristics["increasing_distancesLog_clustercosts"]
+        if "early_stop_exchanges" in heuristics and heuristics["early_stop_exchanges"] == True:
+            early_stop_exchanges = True
 
     # first calculate appropriate solution where no exchange happend to level depth
 
@@ -2088,7 +2092,7 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
         print(f"starting with inertia {best_inertia_compare}")
         centers_candidate_distances = euclidean_distances(centers, X[candidate_id].reshape(1,-1), squared=True).reshape(n_clusters)
 
-    if increasing_clustercosts: # check centers by their incresing clustercosts
+    if increasing_clustercosts: # check centers by their increasing clustercosts
         possible_exchange_centers = np.argsort(clustercosts)
     elif increasing_distancesLog_clustercosts: # first check the first log(k) centers sorted by their distance to candidate, then continue with sorted clustercosts
         possible_exchange_centers = np.argsort(clustercosts)
@@ -2098,7 +2102,16 @@ def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_c
         centers_candidate_distances_sorted = np.argsort(centers_candidate_distances)
         centers_candidate_distances_firstLog = centers_candidate_distances_sorted[:(int)(np.ceil(np.log2(n_clusters)))]
         centers_to_include = possible_exchange_centers[~np.in1d(possible_exchange_centers, centers_candidate_distances_firstLog)]
-        possible_exchange_centers = np.append(centers_candidate_distances_firstLog, centers_to_include)
+        if early_stop_exchanges:
+            # we add the first "cheapest cluster centers" and the "most expensive cluster centers"
+            if 2*(int)(np.ceil(np.log2(n_clusters))) >= len(centers_to_include):
+                # the remaining parts are larger together so we add them all
+                possible_exchange_centers = np.append(centers_candidate_distances_firstLog, centers_to_include)
+            else:
+                possible_exchange_centers = np.append(centers_candidate_distances_firstLog, centers_to_include[:(int)(np.ceil(np.log2(n_clusters)))])
+                possible_exchange_centers = np.append(possible_exchange_centers, centers_to_include[-(int)(np.ceil(np.log2(n_clusters))):])
+        else:
+            possible_exchange_centers = np.append(centers_candidate_distances_firstLog, centers_to_include)
     else:
         possible_exchange_centers = np.arange(0, n_clusters)
 
