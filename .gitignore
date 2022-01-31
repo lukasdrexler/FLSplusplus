@@ -11,6 +11,7 @@ current_times.txt
 !TextToCSV.py
 !_kmeans.py
 !lspp.py
+!compare_performance.py
 
 !datasets/*
 !datasets_large/*
