@@ -91,87 +91,106 @@ def get_random_state():
     return np.random.randint(0, 1000000)
 
 
+def alspp_compare(verbose=False):
+    if args.random_state is None:
+        start_random_state = get_random_state()
+    else:
+        start_random_state = args.random_state
+    als_pp_time = 0
+    best_als_pp_inertia = np.infty
+    random_state = start_random_state
+    for i in range(args.repeats):
+
+        start = time.time()
+
+        als_pp = cluster.KMeans(init='k-means++',
+                                n_clusters=args.n_centers,
+                                n_init=1,
+                                algorithm='als++',
+                                depth=args.depth,
+                                search_steps=args.search_steps,
+                                norm_it=args.normal_iterations,
+                                random_state=random_state,
+                                verbose=args.verbose)
+        als_pp.fit_new(X)
+
+        # we define our time limit for the other algorithms and compare their inertia values
+        als_pp_time += (time.time() - start)
+        if best_als_pp_inertia > als_pp.inertia_:
+            if best_als_pp_inertia != np.infty:
+                if verbose:
+                    print("alspp old inertia: {} new inertia: {}".format(best_als_pp_inertia, als_pp.inertia_))
+            best_als_pp_inertia = als_pp.inertia_
+        random_state = get_random_state()
+    if verbose:
+        print("ALSpp inertia: {}".format(als_pp.inertia_))
+        print("ALSpp used time: {}".format(als_pp_time))
+    current_time = 0
+    best_inertia_normal = np.infty
+    repeats = 0
+    random_state = start_random_state
+    while current_time < als_pp_time:
+        start = time.time()
+        normal_kmeans = cluster.KMeans(init='k-means++',
+                                       n_clusters=args.n_centers,
+                                       n_init=1,
+                                       algorithm='elkan',
+                                       random_state=random_state)
+        normal_kmeans.fit(X)
+        normal_kmeans_time = time.time() - start
+        current_time += normal_kmeans_time
+        if best_inertia_normal > normal_kmeans.inertia_:
+            if best_inertia_normal != np.infty:
+                if verbose:
+                    print("kmeans old inertia: {} new inertia: {}".format(best_inertia_normal, normal_kmeans.inertia_))
+            best_inertia_normal = normal_kmeans.inertia_
+        random_state = get_random_state()
+        repeats += 1
+    if verbose:
+        print("best normal kmeans inertia in same time: {}".format(best_inertia_normal))
+        print("number of repeats: {}".format(repeats))
+    # if args.quiet:
+    #     print(als_pp.inertia_)
+    # elif args.verbose:
+    #     centers = als_pp.cluster_centers_
+    #     print("Calculated centers:")
+    #     for i in range(len(centers)):
+    #         print(centers[i])
+    #     print("Inertia ALSPP: {}".format(als_pp.inertia_))
+    # else:
+    #     print("Inertia of ALSPP = {}".format(als_pp.inertia_))
+
+    if best_als_pp_inertia < best_inertia_normal:
+        return 1, 0
+    else:
+        return 0, 1
+
+
 if __name__ == '__main__':
     args = _build_arg_parser().parse_args()
 
-    print("\nDataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
+    print("\nDataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers,
+                                                                                  args.depth, args.normal_iterations,
+                                                                                  args.search_steps))
 
     try:
         X = np.genfromtxt(args.file)
 
-        if args.random_state is None:
-            start_random_state = get_random_state()
-        else:
-            start_random_state = args.random_state
+        alspp_win_sum = k_means_win_sum = 0
 
-        als_pp_time = 0
-        best_als_pp_inertia = np.infty
-        random_state = start_random_state
-
-        for i in range(args.repeats):
-
-            start = time.time()
-
-            als_pp = cluster.KMeans(init='k-means++',
-                                    n_clusters=args.n_centers,
-                                    n_init=1,
-                                    algorithm='als++',
-                                    depth=args.depth,
-                                    search_steps=args.search_steps,
-                                    norm_it=args.normal_iterations,
-                                    random_state=random_state,
-                                    verbose=args.verbose)
-            als_pp.fit_new(X)
-
-            # we define our time limit for the other algorithms and compare their inertia values
-            als_pp_time += (time.time() - start)
-            if best_als_pp_inertia > als_pp.inertia_:
-                if best_als_pp_inertia != np.infty:
-                    print("alspp old inertia: {} new inertia: {}".format(best_als_pp_inertia, als_pp.inertia_))
-                best_als_pp_inertia = als_pp.inertia_
-            random_state = get_random_state()
-
-        print("ALSpp inertia: {}".format(als_pp.inertia_))
-        print("ALSpp used time: {}".format(als_pp_time))
-
-        current_time = 0
-        best_inertia_normal = np.infty
-        repeats = 0
-        random_state =start_random_state
-        while current_time < als_pp_time:
-            start = time.time()
-            normal_kmeans = cluster.KMeans(init='k-means++',
-                                           n_clusters=args.n_centers,
-                                           n_init=1,
-                                           algorithm='elkan',
-                                           random_state=random_state)
-            normal_kmeans.fit(X)
-            normal_kmeans_time = time.time() - start
-            current_time += normal_kmeans_time
-            if best_inertia_normal > normal_kmeans.inertia_:
-                if best_inertia_normal != np.infty:
-                    print("kmeans old inertia: {} new inertia: {}".format(best_inertia_normal, normal_kmeans.inertia_))
-                best_inertia_normal = normal_kmeans.inertia_
-            random_state = get_random_state()
-            repeats += 1
-
-        print("best normal kmeans inertia in same time: {}".format(best_inertia_normal))
-        print("number of repeats: {}".format(repeats))
-
-        # if args.quiet:
-        #     print(als_pp.inertia_)
-        # elif args.verbose:
-        #     centers = als_pp.cluster_centers_
-        #     print("Calculated centers:")
-        #     for i in range(len(centers)):
-        #         print(centers[i])
-        #     print("Inertia ALSPP: {}".format(als_pp.inertia_))
-        # else:
-        #     print("Inertia of ALSPP = {}".format(als_pp.inertia_))
+        for i in range(10):
+            print("###### Run {} ######".format(i))
+            alspp_win, k_means_win = alspp_compare(verbose=True)
+            alspp_win_sum += alspp_win
+            k_means_win_sum += k_means_win
+        print("#Wins ALSPP: {} , #Wins kMeans: {}".format(alspp_win_sum, k_means_win_sum))
 
     except Exception as e:
         print("Inertia of ALSPP = -1")
         f = open("errors.txt", "a")
-        f.write("Dataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}\n".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
+        f.write("Dataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}\n".format(args.file.name, args.n_centers,
+                                                                                        args.depth,
+                                                                                        args.normal_iterations,
+                                                                                        args.search_steps))
         f.write(str(e) + "\n\n")
         f.close()
