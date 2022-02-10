@@ -75,6 +75,12 @@ def _build_arg_parser():
         default=1
     )
 
+    arg_parser.add_argument(
+        "-p", "--plot",
+        action='store_true',
+        help="Only plot current file"
+    )
+
     # parameter which specifies how much information is given
     group = arg_parser.add_mutually_exclusive_group()
     group.add_argument(
@@ -239,8 +245,7 @@ def alspp_compare(verbose=False):
     # else:
     #     return 0, 1
 
-
-def plot_results(h, steps=100):
+def save_plot_results(h, save=True):
     my_trials = len(h)
     algorithms = ["alspp", "lspp", "kmeans"]
 
@@ -298,6 +303,24 @@ def plot_results(h, steps=100):
                 avg_results[alg]["x"].append(current_time)
                 avg_results[alg]["y"].append(avg_best)
 
+    if save:
+        np.save("avg_results.npy", avg_results)
+
+    return avg_results
+
+
+def plot_results(file=True, h=None):
+    algorithms = ["alspp", "lspp", "kmeans"]
+
+    # if file==True we choose the dictionary from a savefile, otherwise we compute the result
+    if file:
+        avg_results = np.load("avg_results.npy", allow_pickle='TRUE').item()
+    else:
+        if h is None:
+            return
+        else:
+            avg_results = save_plot_results(h, save=False)
+
     # we plot our results
     for alg in algorithms:
         plt.plot(avg_results[alg]["x"], avg_results[alg]["y"], label=alg)
@@ -312,35 +335,42 @@ def plot_results(h, steps=100):
 if __name__ == '__main__':
     args = _build_arg_parser().parse_args()
 
-    print("\nDataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers,
-                                                                                  args.depth, args.normal_iterations,
-                                                                                  args.search_steps))
+    if args.plot:
+        plot_results()
 
-    trials = 10
+    else:
 
-    # try:
-    X = np.genfromtxt(args.file)
+        print("\nDataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers,
+                                                                                      args.depth, args.normal_iterations,
+                                                                                      args.search_steps))
 
-    alspp_win_sum = k_means_win_sum = lspp_win_sum = 0
+        trials = 10
 
-    histories = []
+        # try:
+        X = np.genfromtxt(args.file)
 
-    for iteration in range(trials):
-        print("###### Run {} ######".format(iteration))
-        # alspp_win, k_means_win = alspp_compare(verbose=True)
-        wins, final_repeats, history = alspp_compare(verbose=True)
-        if wins["alspp"] == 2:
-            alspp_win_sum += 1
-        elif wins["lspp"] == 2:
-            lspp_win_sum += 1
-        elif wins["kmeans"] == 2:
-            k_means_win_sum += 1
+        alspp_win_sum = k_means_win_sum = lspp_win_sum = 0
 
-        histories.append(history)
+        histories = []
 
-    print("#Wins ALSPP: {} , #Wins LSPP: {} , #Wins kMeans: {}".format(alspp_win_sum, lspp_win_sum, k_means_win_sum))
+        for iteration in range(trials):
+            print("###### Run {} ######".format(iteration))
+            # alspp_win, k_means_win = alspp_compare(verbose=True)
+            wins, final_repeats, history = alspp_compare(verbose=True)
+            if wins["alspp"] == 2:
+                alspp_win_sum += 1
+            elif wins["lspp"] == 2:
+                lspp_win_sum += 1
+            elif wins["kmeans"] == 2:
+                k_means_win_sum += 1
 
-    plot_results(histories)
+            histories.append(history)
+
+        print("#Wins ALSPP: {} , #Wins LSPP: {} , #Wins kMeans: {}".format(alspp_win_sum, lspp_win_sum, k_means_win_sum))
+
+        save_plot_results(histories)
+
+    #plot_results(histories)
 
     # except Exception as e:
     #     print("Inertia of ALSPP = -1")
