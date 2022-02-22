@@ -1,5 +1,6 @@
 import os
-from os import path
+from os import path, listdir
+from os.path import isfile, join
 import sys
 
 import numpy as np
@@ -13,6 +14,8 @@ elif "win" in sys.platform:
     import time
 
 import matplotlib.pyplot as plt
+
+import copy
 
 
 def _build_arg_parser():
@@ -86,6 +89,13 @@ def _build_arg_parser():
         "-p", "--plot",
         action='store_true',
         help="Only plot current file"
+    )
+
+    arg_parser.add_argument(
+        "-t", "--trials",
+        type=int,
+        help="Number of iterations we average over",
+        default=5
     )
 
     # parameter which specifies how much information is given
@@ -224,9 +234,14 @@ class Experiment:
 
         self.write_to_log("#Wins ALSPP: {} , #Wins LSPP: {} , #Wins kMeans: {}".format(alspp_win_sum, lspp_win_sum, k_means_win_sum))
 
+        all_avg_results = {}
+
         for i in range(self.best_of):
-            avg_results = self.save_plot_results(self.histories[i], i)
+            avg_results = self.save_plot_results(self.histories[i], i+1)
+            all_avg_results[i] = avg_results
             self.plot_results(avg_results)
+
+        np.save(path.join(self.directory, "all_avg_results.npy"), all_avg_results)
 
     def compare_algorithms(self, X, it):
         # if args.random_state is None:
@@ -258,6 +273,9 @@ class Experiment:
             history[algorithm]["best_inertia"] = []
 
         for run in range(self.best_of):
+
+            self.write_to_log("Current iteration of ALSPP: {}".format(run))
+
             current_state = random_states[run]
 
             # start = time.time()
@@ -382,7 +400,7 @@ class Experiment:
             self.write_to_log("number of repeats: {}".format(lspp_repeats))
 
             # We save the current dictionaries for later processing/plotting
-            self.histories[run].append(history)
+            self.histories[run].append(copy.deepcopy(history))
 
         final_repeats["kmeans"] = kmeans_repeats
         final_repeats["lspp"] = lspp_repeats
@@ -396,6 +414,7 @@ class Experiment:
 
         # If some inertia value is identical there is no clear winner and we skip the results
         if best_inertia_kmeans == best_inertia_alspp or best_inertia_kmeans == best_inertia_lspp or best_inertia_alspp == best_inertia_lspp:
+            self.write_to_log("Some algorithms had same result!")
             return wins, final_repeats, history
 
         inertias = [best_inertia_alspp, best_inertia_lspp, best_inertia_kmeans]
@@ -406,11 +425,11 @@ class Experiment:
         wins["kmeans"] = inertias_winner[2]
 
         np.save(path.join(self.directory, "raw_dictionary.npy"), history)
-        np.save("random_states", random_states)
+        np.save(path.join(self.directory, "random_states.npy"), random_states)
 
         return wins, final_repeats, history
 
-    def save_plot_results(self, h, i):
+    def save_plot_results(self, h, trial):
         my_trials = len(h)
         algorithms = ["alspp", "lspp", "kmeans"]
 
@@ -471,10 +490,10 @@ class Experiment:
         avg_results["alspp"]["config"] = {"d": self.depth,
                                           "n": self.norm_it,
                                           "ss": 1,
-                                          "reps": i}
+                                          "reps": trial}
 
 
-        np.save(path.join(self.directory, "avg_results_{}.npy".format(i)), avg_results)
+        #np.save(path.join(self.directory, "avg_results_{}.npy".format(trial)), avg_results)
         self.avg_results = avg_results
 
         return avg_results
@@ -483,6 +502,8 @@ class Experiment:
         algorithms = ["alspp", "lspp", "kmeans"]
 
         #avg_results = self.avg_results
+
+        fig = plt.figure()
 
         # we plot our results
         for alg in algorithms:
@@ -503,10 +524,72 @@ class Experiment:
             ss = avg_results["alspp"]["config"]["ss"]
             reps = avg_results["alspp"]["config"]["reps"]
 
-            plt.title("depth:{} normit:{} ss:{} best of {}".format(d, n, ss, reps))
+            plt.title("depth:{} norm_it:{} ss:{} best of {}".format(d, n, ss, reps))
 
-        plt.show()
+        #plt.show()
+        image_name = path.join(self.directory, 'best of {}'.format(reps))
+        fig.savefig(image_name)
 
+def plot_results(avg_results, current_directory):
+    algorithms = ["alspp", "lspp", "kmeans"]
+
+    #avg_results = self.avg_results
+
+    fig = plt.figure()
+
+    # we plot our results
+    for alg in algorithms:
+        plt.plot(avg_results[alg]["x"], avg_results[alg]["y"], label=alg)
+
+    plt.legend(loc="upper right")
+    plt.ylabel("avg min inertia [cost]")
+    plt.xlabel("time constraint [s]")
+
+    # history["alspp"]["config"] = {"d": args.depth,
+    # "n": args.normal_iterations,
+    # "ss": args.search_steps,
+    # "reps": args.repeats}
+
+    if "config" in avg_results["alspp"]:
+        d = avg_results["alspp"]["config"]["d"]
+        n = avg_results["alspp"]["config"]["n"]
+        ss = avg_results["alspp"]["config"]["ss"]
+        reps = avg_results["alspp"]["config"]["reps"]
+
+        plt.title("depth:{} norm_it:{} ss:{} best of {}".format(d, n, ss, reps))
+
+    #plt.show()
+    image_name = path.join(current_directory, 'best of {}'.format(reps))
+    fig.savefig(image_name)
+
+def plot_all_results():
+    # we create our dictionary hierarchy if not existing
+    # directory of main in pycharm-environment
+    compare_dir = os.path.dirname(__file__)
+    # subfolder in which the plots are saved in
+    compare_dir = path.join(compare_dir, 'Compare Performance')
+    if path.exists(compare_dir):
+        list_directory = listdir(compare_dir)
+        for dir in list_directory:
+            current_path = path.join(compare_dir, dir)
+            rec_create_plots(current_path)
+
+def rec_create_plots(current_path):
+    # check if files exist, otherwise do recursive call
+    onlyfiles = [f for f in listdir(current_path) if isfile(join(current_path, f))]
+    if len(onlyfiles) == 0:
+        list_directory = listdir(current_path)
+        for dir in list_directory:
+            new_path = path.join(current_path, dir)
+            rec_create_plots(new_path)
+    else:
+        # we are in some folder with files => we search for file all_avg_results and generate all plots
+        if "all_avg_results.npy" in onlyfiles:
+            file_path = path.join(current_path, "all_avg_results.npy")
+            all_avg_results = np.load(file_path, allow_pickle=True).item()
+            for i in range(len(all_avg_results)):
+                avg_results = all_avg_results[i]
+                plot_results(avg_results, current_path)
 
 def get_time_stamp():
     if "linux" in sys.platform:
@@ -939,7 +1022,7 @@ def save_plot_results(h, save=True):
     return avg_results
 
 
-def plot_results(file=True, h=None):
+def plot_results2(file=True, h=None):
     algorithms = ["alspp", "lspp", "kmeans"]
 
     # if file==True we choose the dictionary from a savefile, otherwise we compute the result
@@ -979,10 +1062,12 @@ if __name__ == '__main__':
     args = _build_arg_parser().parse_args()
 
     if args.plot:
-        plot_results()
+        #plot_results()
+        plot_all_results()
 
     else:
-        experiment_data = {"dataset": "datasets/pr91.txt", "trials": 1, "n_centers": 5, "depth": 1, "norm_it": 1, "best_of": 5}
+        #experiment_data = {"dataset": "datasets/pr91.txt", "trials": 10, "n_centers": 7, "depth": 2, "norm_it": 1, "best_of": 5}
+        experiment_data = {"dataset": args.file.name, "trials": args.trials, "n_centers": args.n_centers, "depth": args.depth, "norm_it": args.normal_iterations, "best_of": args.repeats}
         test_experiment = Experiment(**experiment_data)
         test_experiment.run_experiment()
         #test_experiment.save_plot_results()
