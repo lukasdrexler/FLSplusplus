@@ -1756,8 +1756,8 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                          verbose=False, x_squared_norms=None, tol=1e-4,
                          n_threads=1, depth=3, search_steps=1, norm_it=2, heuristics={}, random_state=None):
 
-    heuristics = {"first_improve": False,"increasing_clustercosts": False, "increasing_distancesLog_clustercosts": True, "early_abort": True, "early_abort_number": 4,
-                  "early_stop_exchanges": True}
+    heuristics = {"first_improve": False,"increasing_clustercosts": False, "increasing_distancesLog_clustercosts": True, "early_abort": False, "early_abort_number": 4,
+                  "early_stop_exchanges": False}
 
 
     # controls if we make in one step multiple sampling steps to simulate the average output in current steo
@@ -3036,7 +3036,8 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         search_steps=3,
         norm_it=2,
         heuristics={},
-        z=None
+        z=None,
+        n_local_trials=None
     ):
 
         self.n_clusters = n_clusters
@@ -3054,6 +3055,7 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         self.search_steps = search_steps
         self.norm_it = norm_it
         self.z = z
+        self.n_local_trials = n_local_trials # greedy D2 Sampling number of trials, default = 2+log(k)
 
     def _check_params(self, X):
         # n_init
@@ -3215,6 +3217,66 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
                 n_clusters,
                 random_state=random_state,
                 x_squared_norms=x_squared_norms,
+            )
+        elif isinstance(init, str) and init == "random":
+            seeds = random_state.permutation(n_samples)[:n_clusters]
+            centers = X[seeds]
+        elif hasattr(init, "__array__"):
+            centers = init
+        elif callable(init):
+            centers = init(X, n_clusters, random_state=random_state)
+            centers = check_array(centers, dtype=X.dtype, copy=False, order="C")
+            self._validate_center_shape(X, centers)
+
+        if sp.issparse(centers):
+            centers = centers.toarray()
+
+        return centers
+
+    def _init_centroids_trials(self, X, x_squared_norms, init, random_state, init_size=None, n_local_trials=None):
+        """Compute the initial centroids.
+
+        Parameters
+        ----------
+        X : {ndarray, sparse matrix} of shape (n_samples, n_features)
+            The input samples.
+
+        x_squared_norms : ndarray of shape (n_samples,)
+            Squared euclidean norm of each data point. Pass it if you have it
+            at hands already to avoid it being recomputed here.
+
+        init : {'k-means++', 'random'}, callable or ndarray of shape \
+                (n_clusters, n_features)
+            Method for initialization.
+
+        random_state : RandomState instance
+            Determines random number generation for centroid initialization.
+            See :term:`Glossary <random_state>`.
+
+        init_size : int, default=None
+            Number of samples to randomly sample for speeding up the
+            initialization (sometimes at the expense of accuracy).
+
+        Returns
+        -------
+        centers : ndarray of shape (n_clusters, n_features)
+        """
+        n_samples = X.shape[0]
+        n_clusters = self.n_clusters
+
+        if init_size is not None and init_size < n_samples:
+            init_indices = random_state.randint(0, n_samples, init_size)
+            X = X[init_indices]
+            x_squared_norms = x_squared_norms[init_indices]
+            n_samples = X.shape[0]
+
+        if isinstance(init, str) and init == "k-means++":
+            centers, _ = _kmeans_plusplus(
+                X,
+                n_clusters,
+                random_state=random_state,
+                x_squared_norms=x_squared_norms,
+                n_local_trials=n_local_trials,
             )
         elif isinstance(init, str) and init == "random":
             seeds = random_state.permutation(n_samples)[:n_clusters]
@@ -3428,8 +3490,8 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
 
         for i in range(self._n_init):
             # Initialize centers
-            centers_init = self._init_centroids(
-                X, x_squared_norms=x_squared_norms, init=init, random_state=random_state
+            centers_init = self._init_centroids_trials(
+                X, x_squared_norms=x_squared_norms, init=init, random_state=random_state, n_local_trials=n_local_trials
             )
             if self.verbose:
                 print("Initialization complete")
