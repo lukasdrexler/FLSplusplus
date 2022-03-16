@@ -12,6 +12,7 @@ current_times.txt
 !_kmeans.py
 !lspp.py
 !compare_performance.py
+!clustered_image.py
 
 !datasets/*
 !datasets_large/*

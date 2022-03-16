@@ -92,38 +92,38 @@ if __name__ == '__main__':
 
     print("\nDataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
 
-    try:
-        X = np.genfromtxt(args.file)
-        if args.nogreedy:
-            greedy_value = 1
-        else:
-            greedy_value = None
-        als_pp = cluster.KMeans(init='k-means++',
-                                n_clusters=args.n_centers,
-                                n_init=1,
-                                algorithm='als++',
-                                depth=args.depth,
-                                search_steps=args.search_steps,
-                                norm_it=args.normal_iterations,
-                                random_state=args.random_state,
-                                n_local_trials=greedy_value,
-                                verbose=args.verbose)
-        als_pp.fit_new(X)
 
-        if args.quiet:
-            print(als_pp.inertia_)
-        elif args.verbose:
-            centers = als_pp.cluster_centers_
-            print("Calculated centers:")
-            for i in range(len(centers)):
-                print(centers[i])
-            print("Inertia ALSPP: {}".format(als_pp.inertia_))
-        else:
-            print("Inertia of ALSPP = {}".format(als_pp.inertia_))
+    X = np.genfromtxt(args.file)
+    if args.nogreedy:
+        greedy_value = 1
+    else:
+        greedy_value = None
+    als_pp = cluster.KMeans(init='k-means++',
+                            n_clusters=args.n_centers,
+                            n_init=1,
+                            algorithm='als++',
+                            depth=args.depth,
+                            search_steps=args.search_steps,
+                            norm_it=args.normal_iterations,
+                            random_state=args.random_state,
+                            n_local_trials=greedy_value,
+                            verbose=args.verbose)
+    als_pp.fit_new(X)
 
-    except Exception as e:
-        print("Inertia of ALSPP = -1")
-        f = open("errors.txt", "a")
-        f.write("Dataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}\n".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
-        f.write(str(e) + "\n\n")
-        f.close()
+    if args.quiet:
+        print(als_pp.inertia_)
+    elif args.verbose:
+        centers = als_pp.cluster_centers_
+        print("Calculated centers:")
+        for i in range(len(centers)):
+            print(centers[i])
+        print("Inertia ALSPP: {}".format(als_pp.inertia_))
+    else:
+        print("Inertia of ALSPP = {}".format(als_pp.inertia_))
+
+    #except Exception as e:
+     #   print("Inertia of ALSPP = -1")
+      #  f = open("errors.txt", "a")
+       # f.write("Dataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}\n".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
+        #f.write(str(e) + "\n\n")
+        #f.close()
