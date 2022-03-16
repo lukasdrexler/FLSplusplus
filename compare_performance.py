@@ -98,6 +98,12 @@ def _build_arg_parser():
         default=5
     )
 
+    arg_parser.add_argument(
+        "-ng", "--nogreedy",
+        action='store_true',
+        help="No Greedy D2 Sampling"
+    )
+
     # parameter which specifies how much information is given
     group = arg_parser.add_mutually_exclusive_group()
     group.add_argument(
@@ -169,13 +175,19 @@ class Timestamp:
 
 
 class Experiment:
-    def __init__(self, dataset, trials, n_centers, depth, norm_it, best_of):
+    def __init__(self, dataset, trials, n_centers, depth, norm_it, best_of, greedy):
         self.dataset = dataset
         self.trials = trials
         self.n_centers = n_centers
         self.depth = depth
         self.norm_it = norm_it
         self.best_of = best_of
+        self.greedy = greedy
+
+        # greedy_value represents the actual value we need to use to get the desired result
+        self.greedy_value = None
+        if not greedy:
+            self.greedy_value = 1
 
         self.histories = {}
         for i in range(self.best_of):
@@ -198,17 +210,27 @@ class Experiment:
         if not path.exists(compare_dir):
             os.makedirs(compare_dir)
 
+        # if we run normal D2-Sampling and no greedy D2-Sampling we create a subfolder
+        if not greedy:
+            compare_dir = path.join(compare_dir, "normal_D2_Sampling")
+            if not path.exists(compare_dir):
+                os.makedirs(compare_dir)
+
         self.directory = compare_dir
 
         # create a Log file
         self.logfile = path.join(self.directory, "log.txt")
         fp = open(self.logfile, "w")
-        fp.write("Dataset: {}, k: {}, depth: {}, norm_it: {}, best of {}".format(self.dataset, self.n_centers, self.depth, self.norm_it, self.best_of))
+        fp.write("Dataset: {}, k: {}, depth: {}, norm_it: {}, best of {}\n".format(self.dataset, self.n_centers, self.depth, self.norm_it, self.best_of))
+        if self.greedy:
+            fp.write("Greedy D2-Sampling\n")
+        else:
+            fp.write("Non-greedy D2-Sampling\n")
         fp.close()
 
     def write_to_log(self, text):
         fp = open(self.logfile, "a")
-        fp.write("\n" + text)
+        fp.write(text + "\n")
         fp.close()
 
     def run_experiment(self):
@@ -244,21 +266,27 @@ class Experiment:
         np.save(path.join(self.directory, "all_avg_results.npy"), all_avg_results)
 
     def compare_algorithms(self, X, it):
-        # if args.random_state is None:
-        #     start_random_state = get_random_state()
-        # else:
-        #     start_random_state = args.random_state
+        # initialize time values of all three algorithms
         als_pp_time = 0
         current_kmeans_time = 0
         current_lspp_time = 0
+
+        # make timestamp object for ALSpp (this does not start the timer)
         Alspp_Time = Timestamp()
+
+        # initialize starting inertias of all three algorithms
         best_inertia_alspp = np.infty
         best_inertia_kmeans = np.infty
         best_inertia_lspp = np.infty
+
+        # save number of repeats of kmeans and lspp
         kmeans_repeats = 0
         lspp_repeats = 0
 
+        # create many fixed random states which each algorithm runs consecutively until time limit is reached
         random_states = get_random_states(size=100000)
+
+        # initialize number of repeats and histories for each algorithm
         final_repeats = {"kmeans": 0,
                          "alspp": self.best_of,
                          "lspp": 0}
@@ -272,14 +300,14 @@ class Experiment:
             history[algorithm]["cum_times"] = []
             history[algorithm]["best_inertia"] = []
 
+        # after each run of ALSPP we use the elapsed time for normal kmeans and lspp
         for run in range(self.best_of):
 
             self.write_to_log("Current iteration of ALSPP: {}".format(run))
 
             current_state = random_states[run]
 
-            # start = time.time()
-
+            # Initializing each algorithm is not counted to the elapsed time
             als_pp = cluster.KMeans(init='k-means++',
                                     n_clusters=self.n_centers,
                                     n_init=1,
@@ -289,18 +317,24 @@ class Experiment:
                                     norm_it=self.norm_it,
                                     random_state=current_state,
                                     verbose=False,
-                                    tol=0)
+                                    tol=0,
+                                    n_local_trials=self.greedy_value)
 
+            # start the clock
             Alspp_Time.make_timestamp()
 
+            # run ALSPP on dataset
             als_pp.fit_new(X)
 
             # we define our time limit for the other algorithms and compare their inertia values
             current_time = Alspp_Time.get_elapsed_time()
             als_pp_time += current_time
 
+            # save elapsed time and cumulative elapsed time
             history["alspp"]["times"].append(current_time)
             history["alspp"]["cum_times"].append(als_pp_time)
+
+            # compare current best inertia value to new one
             if best_inertia_alspp > als_pp.inertia_:
                 if best_inertia_alspp != np.infty:
                     self.write_to_log("alspp old inertia: {} new inertia: {}".format(best_inertia_alspp, als_pp.inertia_))
@@ -309,20 +343,14 @@ class Experiment:
                 best_inertia_alspp = als_pp.inertia_
             history["alspp"]["best_inertia"].append(best_inertia_alspp)
 
-        # history["alspp"]["config"] = {"d": args.depth,
-        #                               "n": args.normal_iterations,
-        #                               "ss": args.search_steps,
-        #                               "reps": args.repeats}
-
-
-
-
-            # Kmeans runs in same time
+            ##########################
+            # normal Kmeans evaluation
+            ##########################
 
             kmeans_time = Timestamp()
-            #best_inertia_normal = np.infty
-            #repeats = 0
 
+
+            # As long as we are below the alspp cumulative timelimit repeat kmeans
             while current_kmeans_time < als_pp_time:
                 if kmeans_repeats > len(random_states):
                     random_states = np.append(random_states, get_random_states(size=100000))
@@ -334,11 +362,13 @@ class Experiment:
                                                n_init=1,
                                                algorithm='elkan',
                                                random_state=current_state,
-                                               tol=0)
+                                               tol=0,
+                                               n_local_trials=self.greedy_value)
 
                 kmeans_time.make_timestamp()
 
-                normal_kmeans.fit(X)
+                normal_kmeans.fit_new(X)
+
                 normal_kmeans_time = kmeans_time.get_elapsed_time()
                 history["kmeans"]["times"].append(normal_kmeans_time)
                 current_kmeans_time += normal_kmeans_time
@@ -357,13 +387,11 @@ class Experiment:
             self.write_to_log("number of repeats: {}".format(kmeans_repeats))
 
 
-
-            # comparison to lspp
+            #################
+            # lspp evaluation
+            #################
 
             Lspp_Time = Timestamp()
-            #current_time = 0
-            #best_inertia_lspp = np.infty
-            #repeats = 0
 
             while current_lspp_time < als_pp_time:
                 if lspp_repeats > len(random_states):
@@ -376,7 +404,8 @@ class Experiment:
                                       algorithm='lspp',
                                       random_state=current_state,
                                       z=25,
-                                      tol=0)
+                                      tol=0,
+                                      n_local_trials=self.greedy_value)
 
                 Lspp_Time.make_timestamp()
 
@@ -407,6 +436,8 @@ class Experiment:
 
         self.write_to_log("ALSpp final inertia: {}".format(best_inertia_alspp))
         self.write_to_log("ALSpp final used time: {}".format(als_pp_time))
+        self.write_to_log("Normal kmeans final inertia: {}".format(best_inertia_kmeans))
+        self.write_to_log("LSPP final inertia: {}".format(best_inertia_lspp))
 
         wins = {"kmeans": 0,
                 "alspp": 0,
@@ -1066,8 +1097,10 @@ if __name__ == '__main__':
         plot_all_results()
 
     else:
+        greedy = not args.nogreedy
         #experiment_data = {"dataset": "datasets/pr91.txt", "trials": 10, "n_centers": 7, "depth": 2, "norm_it": 1, "best_of": 5}
-        experiment_data = {"dataset": args.file.name, "trials": args.trials, "n_centers": args.n_centers, "depth": args.depth, "norm_it": args.normal_iterations, "best_of": args.repeats}
+        experiment_data = {"dataset": args.file.name, "trials": args.trials, "n_centers": args.n_centers, "depth": args.depth,
+                           "norm_it": args.normal_iterations, "best_of": args.repeats, "greedy": greedy}
         test_experiment = Experiment(**experiment_data)
         test_experiment.run_experiment()
         #test_experiment.save_plot_results()
