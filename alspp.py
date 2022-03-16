@@ -64,6 +64,12 @@ def _build_arg_parser():
         default=None
         )
 
+    arg_parser.add_argument(
+        "-ng", "--nogreedy",
+        action='store_true',
+        help="No Greedy D2 Sampling"
+    )
+
 
     # parameter which specifies how much information is given
     group = arg_parser.add_mutually_exclusive_group()
@@ -78,7 +84,6 @@ def _build_arg_parser():
         help='print verbose'
     )
 
-
     return arg_parser
 
 
@@ -89,6 +94,10 @@ if __name__ == '__main__':
 
     try:
         X = np.genfromtxt(args.file)
+        if args.nogreedy:
+            greedy_value = 1
+        else:
+            greedy_value = None
         als_pp = cluster.KMeans(init='k-means++',
                                 n_clusters=args.n_centers,
                                 n_init=1,
@@ -97,6 +106,7 @@ if __name__ == '__main__':
                                 search_steps=args.search_steps,
                                 norm_it=args.normal_iterations,
                                 random_state=args.random_state,
+                                n_local_trials=greedy_value,
                                 verbose=args.verbose)
         als_pp.fit_new(X)
 
