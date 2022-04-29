@@ -64,11 +64,24 @@ def _build_arg_parser():
         action='store_true',
         help='print verbose'
     )
+
+    arg_parser.add_argument(
+        "-ng", "--nogreedy",
+        action='store_true',
+        help="No Greedy D2 Sampling"
+    )
+
     return arg_parser
 
 
 if __name__ == '__main__':
     args = _build_arg_parser().parse_args()
+
+    if args.nogreedy:
+        greedy_value = 1
+    else:
+        greedy_value = None
+
 
     X = np.genfromtxt(args.file)
     lspp = cluster.KMeans(init='k-means++',
@@ -77,8 +90,8 @@ if __name__ == '__main__':
                           algorithm='lspp',
                           random_state=args.random_state,
                           z=args.z,
-                          verbose=args.verbose
-                          )
+                          verbose=args.verbose,
+                          n_local_trials=greedy_value)
     lspp.fit_new(X)
     print("Inertia of LS++: {}".format(lspp.inertia_))
 
