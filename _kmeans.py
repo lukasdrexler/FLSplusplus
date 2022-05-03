@@ -1932,7 +1932,15 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
 
             difference = np.where(new_labels_copy[0] != new_labels[0])
 
-            newpot = A + B
+            newpot = 0
+            centroids = np.zeros((k,X.shape[1]))
+            for i in range (k):
+                # can probably be done more efficiently
+                my_points = np.where(new_labels[0] == i)[0]
+                centroids[i] = np.sum(X[my_points], axis=0)/len(my_points)
+                newpot += euclidean_distances(centroids[i].reshape((1,len(centroids[i]))), X[my_points].reshape((len(my_points),X.shape[1])), Y_norm_squared=x_squared_norms[my_points], squared=True).sum()
+
+
             if newpot < min_pot:
                 found_exchange = True
                 best_exchange = j
