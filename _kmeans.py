@@ -1920,17 +1920,20 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
 
             new_labels = labels.copy()
             new_labels_copy = new_labels.copy()
-            new_labels[0][idx[[np.where(A==1)[0]]]] = j
+            new_labels[0][idx[np.where(A==1)[0]]] = j
 
             difference = np.where(new_labels_copy[0] != new_labels[0])
 
             B = np.argmin(np.r_[ [min_distances[1][~same_labels.mask]], [candidate_distances[0][~same_labels.mask]]], axis=0)
 
             idx = np.where(~same_labels.mask)[0]
-            new_labels[0][idx[[np.where(B == 1)[0]]]] = j
-            new_labels[0][idx[[np.where(B == 0)[0]]]] = new_labels[1][idx[[np.where(B == 0)[0]]]]
+            new_labels[0][idx[np.where(B == 1)[0]]] = j
+            new_labels[0][idx[np.where(B == 0)[0]]] = new_labels[1][idx[np.where(B == 0)[0]]]
 
             difference = np.where(new_labels_copy[0] != new_labels[0])
+
+            if np.array_equal(labels_comp[0], new_labels[0]):
+                print("!!!Labels are different!!!")
 
             newpot = 0
             centroids = np.zeros((k,X.shape[1]))
@@ -1946,180 +1949,10 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
                 best_exchange = j
                 min_pot = newpot
 
-            #C = np.where(labels[0,:] != j)[0]
-            #D = np.where(labels[0,:] == j)[0]
-            #A_test = np.minimum(min_distances[0,C], candidate_distances[0, C]).sum()
-            #B_test= np.minimum(min_distances[1,D], candidate_distances[0,D]).sum()
+    ############ add iteration where no exchange was made #############
 
-            # check if newpot is correct by exchanging center and recalculating pot
-            # if __debug__:
-            #     # recalculate the distances
-            #     test_closest_dist_sq = closest_dist_sq.copy()
-            #     test_closest_dist_sq[j] = candidate_distances[0].copy()
-            #     test_labels = np.argmin(test_closest_dist_sq, axis=0)
-            #     test_distances = test_closest_dist_sq[test_labels, np.arange(closest_dist_sq.shape[1])]
-
-                #assert 1e-4 >= np.abs(newpot - test_distances.sum()), f"potentials do not match, got {newpot}, expected {test_distances.sum()}"
-
-        if found_exchange:
-            j = best_exchange
-
-            new_labels = labels.copy()
-            new_min_distances = min_distances.copy()
-            #new_pot = 0
-            for point in range(n):
-                if labels[0,point] != j and labels[1,point] != j:
-                    if new_min_distances[0,point] > candidate_distances[0,point]:
-                        new_labels[1,point] = new_labels[0,point]
-                        new_labels[0,point] = j
-                        new_min_distances[1, point] = new_min_distances[0, point]
-                        new_min_distances[0,point] = candidate_distances[0,point]
-
-                    elif new_min_distances[0,point] <= candidate_distances[0,point] < new_min_distances[1,point]:
-                        new_labels[1, point] = j
-                        new_min_distances[1, point] = candidate_distances[0,point]
-
-                    #new_pot += new_min_distances[0,point]
-
-                # we remove for a point its second-closest
-                elif labels[1,point] == j:
-                    if new_min_distances[0,point] > candidate_distances[0,point]:
-                        new_labels[1,point] = new_labels[0,point]
-                        new_labels[0,point] = j
-                        new_min_distances[1, point] = new_min_distances[0, point]
-                        new_min_distances[0,point] = candidate_distances[0,point]
-                    else:
-                        # find the third-closest center which is now (without the new sampled point) the second closest center
-                        #label_third_closest = np.argpartition(closest_dist_sq[:,point], 2, axis=0)[2]
-
-                        labels_third_closest = np.argpartition(closest_dist_sq[:, point], 2, axis=0)
-                        label_third_closest = labels_third_closest[2]
-                        if label_third_closest == j:
-                            if closest_dist_sq[labels_third_closest[0], point] <= closest_dist_sq[labels_third_closest[1], point]:
-                                label_second_closest = labels_third_closest[1]
-                            else:
-                                label_second_closest = labels_third_closest[0]
-                            label_third_closest = label_second_closest
-                            assert label_third_closest != j
-
-
-
-                        assert label_third_closest == np.argsort(closest_dist_sq[:,point])[2] or \
-                               closest_dist_sq[label_third_closest,point] == closest_dist_sq[np.argsort(closest_dist_sq[:,point])[2], point]
-
-                        distance_third_closest = closest_dist_sq[label_third_closest, point]
-                        # case where new sampled point becomes second closest
-                        if distance_third_closest > candidate_distances[0,point]:
-                            new_labels[1, point] = j
-                            new_min_distances[1, point] = candidate_distances[0, point]
-                        # case where third-closest becomes second-closest
-                        else:
-                            new_labels[1, point] = label_third_closest
-                            new_min_distances[1, point] = distance_third_closest
-
-                    #new_pot += new_min_distances[0,point]
-
-                # we remove the closest point
-                elif labels[0,point] == j:
-                    if new_min_distances[1,point] > candidate_distances[0,point]:
-                        # we only need to update the closest center
-                        new_labels[0,point] = j
-                        new_min_distances[0,point] =  candidate_distances[0,point]
-                    else:
-                        # make the second closest center now the closest center
-                        new_labels[0,point] = new_labels[1,point]
-                        new_min_distances[0,point] = new_min_distances[1,point]
-
-                        # find the third-closest center which is now (without the new sampled point) the second closest center
-
-                        # Problem: If multiple centers have same distance this can have unexpected results (f.e. now the
-                        # 2-closest center is the 3-closest). In this case we need to select the second closest in the left partition
-                        # (which is also a valid "3-closest")
-
-                        labels_third_closest = np.argpartition(closest_dist_sq[:, point], 2, axis=0)
-                        label_third_closest = labels_third_closest[2]
-                        if label_third_closest == j:
-                            if closest_dist_sq[labels_third_closest[0], point] <= closest_dist_sq[labels_third_closest[1], point]:
-                                label_second_closest = labels_third_closest[1]
-                            else:
-                                label_second_closest = labels_third_closest[0]
-                            label_third_closest = label_second_closest
-                            assert label_third_closest != j
-
-                            #################################
-
-                        distance_third_closest = closest_dist_sq[label_third_closest, point]
-                        # case where new sampled point becomes second closest
-                        if distance_third_closest > candidate_distances[0, point]:
-                            new_labels[1, point] = j
-                            new_min_distances[1, point] = candidate_distances[0, point]
-                        # case where third-closest becomes second-closest
-                        else:
-                            new_labels[1, point] = label_third_closest
-                            new_min_distances[1, point] = distance_third_closest
-
-                # if __debug__:
-                #     # recalculate the distances
-                #     test_closest_dist_sq = closest_dist_sq.copy()
-                #     test_closest_dist_sq[best_exchange] = candidate_distances[0].copy()
-                #
-                #     test_labels = np.argpartition(test_closest_dist_sq, 1, axis=0)[:2]
-                #     # sometimes if distances are equal this can cause problems. Therefore we change values if distances are equal
-                #     for t in range(test_labels.shape[1]):
-                #         l1 = test_labels[0, t]
-                #         l2 = new_labels[0, t]
-                #         if l1 != l2 and test_closest_dist_sq[l1, t] == test_closest_dist_sq[l2, t]:
-                #             test_labels[0, t] = l2
-                #
-                #         l1 = test_labels[1, t]
-                #         l2 = new_labels[1, t]
-                #         if l1 != l2 and test_closest_dist_sq[l1, t] == test_closest_dist_sq[l2, t]:
-                #             test_labels[1, t] = l2
-                #
-                #     test_distances = test_closest_dist_sq[test_labels, np.arange(closest_dist_sq.shape[1])]
-                #     assert np.array_equal(test_labels[:,point], new_labels[:,point])
-
-                #new_pot += new_min_distances[0, point]
-
-
-        if found_exchange:
-            if verbose:
-                print("Decrease in inertia: old inertia = {}, new inertia = {}".format(current_pot, min_pot))
-
-            labels = new_labels
-            current_pot = min_pot
-            centers[best_exchange] = X[candidate_id]
-            closest_dist_sq[best_exchange] = candidate_distances[0]
-            #min_distances = closest_dist_sq[labels, np.arange(closest_dist_sq.shape[1])]
-            min_distances = new_min_distances
-
-            # if __debug__:
-            #     test_labels = np.argpartition(closest_dist_sq, 1, axis=0)[:2]
-            #     # sometimes if distances are equal this can cause problems. Therefore we change values if distances are equal
-            #     for t in range(test_labels.shape[1]):
-            #         l1 = test_labels[0,t]
-            #         l2 = labels[0,t]
-            #         if l1 != l2 and closest_dist_sq[l1, t] == closest_dist_sq[l2, t]:
-            #             test_labels[0,t] = l2
-            #
-            #         l1 = test_labels[1, t]
-            #         l2 = labels[1, t]
-            #         if l1 != l2 and closest_dist_sq[l1, t] == closest_dist_sq[l2, t]:
-            #             test_labels[1, t] = l2
-            #
-            #
-            #     test_distances = closest_dist_sq[test_labels, np.arange(closest_dist_sq.shape[1])]
-            #     assert np.array_equal(test_labels, labels) or np.allclose(test_distances, min_distances), "new labels for closest and second closest do not match!"
-            #     assert np.allclose(test_distances, min_distances), "distances of closest and second closest are not (almost) equal!"
-            #     assert 1e-4 >= np.abs(current_pot - test_distances[0].sum()), f"potentials do not match, got {newpot}, expected {test_distances.sum()}"
-
-
-    # run elkan for max_iter iterations, using the current best found centers
-
-    labels, inertia, centers, n_iter = _kmeans_single_elkan(X, sample_weight, centers.copy(), max_iter=max_iter, verbose=verbose, tol=tol, x_squared_norms=x_squared_norms, n_threads=n_threads)
-
-
-    #return labels[0,:], current_pot, centers, z+1
+    # if inertia shift <= eps: break
+    # else: labels = none
 
     return labels, inertia, centers, z + n_iter + 1
 
