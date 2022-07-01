@@ -1847,6 +1847,8 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
     n = len(X)
     k = len(centers)
 
+    print("In method _fls_d_one")
+    print("centers after initialization:")
     print(centers)
 
     labels = None
@@ -1859,26 +1861,26 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
     for i in range(z):
 
         if labels is None:
+            # (k x n) matrix of all distance pairs
             closest_dist_sq = euclidean_distances(
                 centers, X, Y_norm_squared=x_squared_norms,
                 squared=True)
             # closest_centers = np.argmin(closest_dist_sq, axis=0)    # Indizes der closest centers
             # min_distances = closest_dist_sq.min(axis=0)  # Distanzen zu den closest centers
             #labels = np.argmin(closest_dist_sq, axis=0)
+
+            # we find for each point its closest and secondclosest center
             labels = np.argpartition(closest_dist_sq, 1, axis=0)[:2]
-            #min_distances = closest_dist_sq[labels, np.arange(closest_dist_sq.shape[1])]
             min_distances = closest_dist_sq[labels, np.arange(closest_dist_sq.shape[1])]
 
             # assert np.array_equal(labels[0,:], np.argmin(closest_dist_sq, axis=0)), "labels computet by argpartition do not match to argmin"
             # assert np.array_equal(closest_dist_sq[labels[1,:], np.arange(closest_dist_sq.shape[1])], np.sort(closest_dist_sq, axis=0)[1,:]), "distances computet by argpartition do not match to argmin"
 
-            # collect each labeled point weighted by its distance in bins (so each bin is the clustercost)
-            #clustercosts = np.bincount(labels, weights=min_distances, minlength=centers.shape[0])
-            #current_pot = min_distances.sum()  # Summe der quadrierten Abstände zu closest centers
+            # for each point we add the sum of (squared) distances to its closest center
             current_pot = min_distances[0,:].sum()
 
         rand_val = random_state.random_sample() * current_pot  # draw random candidate proportional to its cost
-        print(rand_val)
+        print(f"random value: {rand_val}")
         # find location where sampled point should be in sorted array (sum over distances)
         candidate_id = np.searchsorted(stable_cumsum(min_distances), rand_val)
 
@@ -1886,7 +1888,7 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
         # np.clip(candidate_id, None, closest_dist_sq.size - 1, out=candidate_id)
         candidate_id = min(candidate_id, min_distances.size - 1)
 
-        print(candidate_id)
+        print(f"corresponding candidate id: {candidate_id}")
         # calculate all distances between the candidate and the other points
         # assume we remove center i:
         # if we have points with label i: recalculate the distance to its closest center
@@ -1910,20 +1912,23 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
             label_diff = np.where(labels_comp[0] != labels[0])
             ################################## INEFFICIENT SHIT END ##################################
 
-
+            # all points which have NOT the currently exchanged center j as their respective closest center
             same_labels = np.ma.masked_where(labels[0] != j, labels[0])
             idx = np.where(same_labels.mask)[0]
 
-            # First consider all points for which removed center ist NOT the closest one. Then A contains for each such point the information whether label needs
+            # First consider all points for which removed center is NOT the closest one. Then A contains for each such point the information whether label needs
             # to change.
             A = np.argmin(np.r_[ [min_distances[0][same_labels.mask]], [candidate_distances[0][same_labels.mask]]], axis=0)
 
             new_labels = labels.copy()
             new_labels_copy = new_labels.copy()
+
+            # for each point, where A==1 we know that the new candidate is the new closest center
             new_labels[0][idx[np.where(A==1)[0]]] = j
 
             difference = np.where(new_labels_copy[0] != new_labels[0])
 
+            # for the remaining points we compare the secondclosest center to the candidate since the closest center got removed (inverted mask)
             B = np.argmin(np.r_[ [min_distances[1][~same_labels.mask]], [candidate_distances[0][~same_labels.mask]]], axis=0)
 
             idx = np.where(~same_labels.mask)[0]
@@ -1932,16 +1937,21 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
 
             difference = np.where(new_labels_copy[0] != new_labels[0])
 
-            if np.array_equal(labels_comp[0], new_labels[0]):
-                print("!!!Labels are different!!!")
+            # dont know why the following doesnt work...
+            #if np.allclose(labels_comp[0], new_labels[0]):
+             #   print("!!!Labels are different!!!")
+            for l in range(len(new_labels[0])):
+                if labels_comp[0][l] != new_labels[0][l]:
+                    print("!!!Labels are different!!!")
+                    break
 
             newpot = 0
             centroids = np.zeros((k,X.shape[1]))
-            for i in range (k):
+            for l in range (k):
                 # can probably be done more efficiently
-                my_points = np.where(new_labels[0] == i)[0]
-                centroids[i] = np.sum(X[my_points], axis=0)/len(my_points)
-                newpot += euclidean_distances(centroids[i].reshape((1,len(centroids[i]))), X[my_points].reshape((len(my_points),X.shape[1])), Y_norm_squared=x_squared_norms[my_points], squared=True).sum()
+                my_points = np.where(new_labels[0] == l)[0]
+                centroids[l] = np.sum(X[my_points], axis=0)/len(my_points)
+                newpot += euclidean_distances(centroids[l].reshape((1,len(centroids[l]))), X[my_points], Y_norm_squared=x_squared_norms[my_points], squared=True).sum()
 
 
             if newpot < min_pot:
@@ -3284,9 +3294,9 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         self._tol = _tolerance(X, self.tol)
 
         # algorithm
-        if self.algorithm not in ("auto", "full", "elkan", "als++", "lspp"):
+        if self.algorithm not in ("auto", "full", "elkan", "als++", "lspp", "d_one"):
             raise ValueError(
-                "Algorithm must be 'auto', 'full', 'elkan', 'als++' or 'lspp', "
+                "Algorithm must be 'auto', 'full', 'elkan', 'als++', 'd_one' or 'lspp', "
                 f"got {self.algorithm} instead."
             )
 
@@ -3688,9 +3698,12 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
             kmeans_single = _kmeans_als_plusplus_fast
             self._check_mkl_vcomp(X, X.shape[0])
         elif self._algorithm == "lspp":
-            kmeans_single = _fls_d_one
-            #kmeans_single = _localSearchPP
+            kmeans_single = _localSearchPP
             self._check_mkl_vcomp(X, X.shape[0])
+        elif self._algorithm == "d_one":
+            kmeans_single = _fls_d_one
+            self._check_mkl_vcomp(X, X.shape[0])
+
         else:
             kmeans_single = _kmeans_single_elkan
 
