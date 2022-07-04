@@ -1958,6 +1958,45 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
                 found_exchange = True
                 best_exchange = j
                 min_pot = newpot
+                A_closest = A
+                B_secondclosest = B
+
+        if found_exchange:
+            j = best_exchange
+            for point in range(n):
+                if labels[0, point] != j and labels[1, point] != j:
+                    if A_closest[point] == 1:
+                        new_labels[1, point] = labels[0, point]
+                        min_distances[1, point] = closest_dist_sq[labels[0, point], point]
+                    else:
+                        if min_distances[1, point] > candidate_distances[0][point]:
+                            new_labels[1, point] = j
+                            min_distances[1, point] = candidate_distances[0][point]
+                elif labels[0, point] == j:
+                    if B_secondclosest[point] == 0:
+                        label_third_closest = np.argpartition(closest_dist_sq[:,point], 2, axis=0)[2]
+                        if candidate_distances[0][point] < closest_dist_sq[label_third_closest, point]:
+                            new_labels[1, point] = j
+                            min_distances[1, point] = candidate_distances[0][point]
+                        else:
+                            new_labels[1, point] = label_third_closest
+                            min_distances[1, point] = closest_dist_sq[label_third_closest, point]
+                elif labels[1, point] == j:
+                    if A_closest[point] == 1:
+                        new_labels[1, point] = labels[0, point]
+                        min_distances[1, point] = closest_dist_sq[labels[0, point], point]
+                    else:
+                        label_third_closest = np.argpartition(closest_dist_sq[:, point], 2, axis=0)[2]
+                        if candidate_distances[0][point] < closest_dist_sq[label_third_closest, point]:
+                            new_labels[1, point] = j
+                            min_distances[1, point] = candidate_distances[0][point]
+                        else:
+                            new_labels[1, point] = label_third_closest
+                            min_distances[1, point] = closest_dist_sq[label_third_closest, point]
+            labels = new_labels.copy()
+            current_pot = min_pot
+
+            # check for correctness with inefficient shit
 
     ############ add iteration where no exchange was made #############
 
