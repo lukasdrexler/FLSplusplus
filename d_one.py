@@ -1,6 +1,6 @@
-from sklearn import cluster
-import argparse
 import numpy as np
+import argparse
+from sklearn import cluster
 
 
 def _build_arg_parser():
@@ -27,6 +27,13 @@ def _build_arg_parser():
     )
 
     arg_parser.add_argument(
+        "-n", "--normal_iterations",
+        type=int,
+        default=3,
+        help="number of steps where we run loyds algrorithm and then start to sample one or more new candidates"
+    )
+
+    arg_parser.add_argument(
         "--precision",
         type=int,
         help="precision of numbers in the output",
@@ -38,26 +45,20 @@ def _build_arg_parser():
         default=" "
     )
 
+
     arg_parser.add_argument(
         "-r", "--random_state",
         type=int,
         help="Random state",
         default=None
-    )
+        )
 
     arg_parser.add_argument(
-        "-z",
-        type=int,
-        help="number of iterations to sample",
-        default=None
+        "-ng", "--nogreedy",
+        action='store_true',
+        help="No Greedy D2 Sampling"
     )
 
-    arg_parser.add_argument(
-        "-it", "--iterations",
-        type=int,
-        help="number of iterations to run algorithm",
-        default=1
-    )
 
     # parameter which specifies how much information is given
     group = arg_parser.add_mutually_exclusive_group()
@@ -72,47 +73,44 @@ def _build_arg_parser():
         help='print verbose'
     )
 
-    arg_parser.add_argument(
-        "-ng", "--nogreedy",
-        action='store_true',
-        help="No Greedy D2 Sampling"
-    )
-
     return arg_parser
 
 
 if __name__ == '__main__':
     args = _build_arg_parser().parse_args()
 
+   # print("\nDataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
+
+
+    X = np.genfromtxt(args.file)
     if args.nogreedy:
         greedy_value = 1
     else:
         greedy_value = None
+    als_pp = cluster.KMeans(init='k-means++',
+                            n_clusters=args.n_centers,
+                            n_init=1,
+                            algorithm='d_one',
+                            norm_it=args.normal_iterations,
+                            random_state=args.random_state,
+                            n_local_trials=greedy_value,
+                            verbose=args.verbose)
+    als_pp.fit_new(X)
 
+    if args.quiet:
+        print(als_pp.inertia_)
+    elif args.verbose:
+        centers = als_pp.cluster_centers_
+        print("Calculated centers:")
+        for i in range(len(centers)):
+            print(centers[i])
+        print("Inertia ALSPP: {}".format(als_pp.inertia_))
+    else:
+        print("Inertia of ALSPP = {}".format(als_pp.inertia_))
 
-    X = np.genfromtxt(args.file)
-    lspp = cluster.KMeans(init='k-means++',
-                          n_clusters=args.n_centers,
-                          n_init=args.iterations,
-                          algorithm='lspp',
-                          random_state=args.random_state,
-                          z=args.z,
-                          verbose=args.verbose,
-                          n_local_trials=greedy_value)
-    lspp.fit_new(X)
-    print("Inertia of LS++: {}".format(lspp.inertia_))
-
-    # try:
-    #     X = np.genfromtxt(args.file)
-    #     lspp = cluster.KMeans(init='k-means++',
-    #                           n_clusters=args.n_centers,
-    #                           n_init=1,
-    #                           algorithm='lspp',
-    #                           random_state=args.random_state,
-    #                           z=args.z
-    #                           )
-    #     lspp.fit_new(X)
-    #
-    #     print("Inertia of kMeans++: {}".format(lspp.inertia_))
-    # except ValueError as e:
-    #     print("Error:", e)
+    #except Exception as e:
+     #   print("Inertia of ALSPP = -1")
+      #  f = open("errors.txt", "a")
+       # f.write("Dataset: {}, k: {}, depth: {}, norm_it: {}, search_steps: {}\n".format(args.file.name, args.n_centers, args.depth, args.normal_iterations, args.search_steps))
+        #f.write(str(e) + "\n\n")
+        #f.close()
