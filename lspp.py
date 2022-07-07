@@ -52,6 +52,13 @@ def _build_arg_parser():
         default=None
     )
 
+    arg_parser.add_argument(
+        "-it", "--iterations",
+        type=int,
+        help="number of iterations to run algorithm",
+        default=1
+    )
+
     # parameter which specifies how much information is given
     group = arg_parser.add_mutually_exclusive_group()
     group.add_argument(
@@ -73,7 +80,7 @@ if __name__ == '__main__':
     X = np.genfromtxt(args.file)
     lspp = cluster.KMeans(init='k-means++',
                           n_clusters=args.n_centers,
-                          n_init=1,
+                          n_init=args.iterations,
                           algorithm='lspp',
                           random_state=args.random_state,
                           z=args.z,
