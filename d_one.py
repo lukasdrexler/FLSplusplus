@@ -45,6 +45,13 @@ def _build_arg_parser():
         default=" "
     )
 
+    arg_parser.add_argument(
+        "-z",
+        type=int,
+        help="number of iterations to sample",
+        default=None
+    )
+
 
     arg_parser.add_argument(
         "-r", "--random_state",
@@ -87,6 +94,7 @@ if __name__ == '__main__':
         greedy_value = 1
     else:
         greedy_value = None
+
     als_pp = cluster.KMeans(init='k-means++',
                             n_clusters=args.n_centers,
                             n_init=1,
@@ -94,6 +102,7 @@ if __name__ == '__main__':
                             norm_it=args.normal_iterations,
                             random_state=args.random_state,
                             n_local_trials=greedy_value,
+                            z=args.z,
                             verbose=args.verbose)
     als_pp.fit_new(X)
 

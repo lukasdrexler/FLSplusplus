@@ -1843,7 +1843,7 @@ def _localSearchPP_cycle(X, sample_weight, centers_init, max_iter=300, verbose=F
 
 
 def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_squared_norms=None, tol=1e-4, n_threads=1, z=None, random_state=None):
-    debug = True
+    debug = False
 
     centers = centers_init
     n = len(X)
@@ -1860,15 +1860,15 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
     if z==None:
         z = math.floor(100000*k*np.log2(np.log2(k)))
 
-        consecutive_print = 1
+    #consecutive_print = 1
 
     for i in range(z):
-        if i%10 ==0:
-            print("{} ".format(i), end='')
-            consecutive_print += 1
-            if consecutive_print == 20:
-                consecutive_print = 0
-                print("")
+        # if i%10 ==0:
+        #     print("{} ".format(i), end='')
+        #     consecutive_print += 1
+        #     if consecutive_print == 20:
+        #         consecutive_print = 0
+        #         print("")
 
         if labels is None:
             # (k x n) matrix of all distance pairs
@@ -1927,13 +1927,13 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
 
             #################################### INEFFICIENT SHIT ####################################
 
-            new_centers = centers.copy()
-            new_centers[j] = X[candidate_id]
-            closest_dist_sq_comp = euclidean_distances(
-                new_centers, X, Y_norm_squared=x_squared_norms,
-                squared=True)
-            labels_comp = np.argpartition(closest_dist_sq_comp, 1, axis=0)[:2]
-            label_diff = np.where(labels_comp[0] != labels[0])
+            # new_centers = centers.copy()
+            # new_centers[j] = X[candidate_id]
+            # closest_dist_sq_comp = euclidean_distances(
+            #     new_centers, X, Y_norm_squared=x_squared_norms,
+            #     squared=True)
+            # labels_comp = np.argpartition(closest_dist_sq_comp, 1, axis=0)[:2]
+            # label_diff = np.where(labels_comp[0] != labels[0])
             ################################## INEFFICIENT SHIT END ##################################
 
             # all points which have NOT the currently exchanged center j as their respective closest center
@@ -2086,6 +2086,9 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
 
     # if inertia shift <= eps: break
     # else: labels = none
+    
+    labels, inertia, centers, n_iter = _kmeans_single_elkan(X, sample_weight, centers.copy(), max_iter=max_iter, verbose=verbose, tol=tol, x_squared_norms=x_squared_norms,
+                                                            n_threads=n_threads)
 
     return labels, inertia, centers, z + n_iter + 1
 
