@@ -1,7 +1,7 @@
 *
 current_times.txt
-!datasets/
-!datasets_large/
+datasets/
+datasets_large/
 !generatoren/
 !Anleitung cygwin python.txt
 !create_calls.sh
@@ -14,6 +14,7 @@ current_times.txt
 !compare_performance.py
 !clustered_image.py
 !d_one.py
+!_kmeans_testing.py
 
 !datasets/*
 !datasets_large/*
