@@ -15,7 +15,6 @@ import warnings
 
 import numpy as np
 import scipy.sparse as sp
-from matplotlib.pyplot import close
 from numpy.random.mtrand import sample
 from threadpoolctl import threadpool_limits
 from threadpoolctl import threadpool_info
@@ -46,15 +45,6 @@ from ._k_means_elkan import elkan_iter_chunked_dense
 from ._k_means_elkan import elkan_iter_chunked_sparse
 
 from ..metrics.pairwise import paired_euclidean_distances
-
-import os
-from os import path
-import time
-
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-from matplotlib import rc, test
-import matplotlib.colors as mcolors
 
 ###############################################################################
 # Initialization heuristic
@@ -1093,14 +1083,14 @@ def _fls_d_one(X, sample_weight, centers_init, max_iter=300, verbose=False, x_sq
 
 def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
                          verbose=False, x_squared_norms=None, tol=1e-4,
-                         n_threads=1, depth=3, search_steps=1, norm_it=2, heuristics={}, random_state=None):
+                         n_threads=1, depth=3, norm_it=2, heuristics={}, random_state=None):
 
-    heuristics = {"first_improve": True,"increasing_clustercosts": False, "increasing_distancesLog_clustercosts": True, "early_abort": False, "early_abort_number": 4,
-                  "early_stop_exchanges": False}
+    # If no heristics were provided we dont use any
+    if len(heuristics) == 0:
+        heuristics = {"first_improve": False, "increasing_clustercosts": False, "increasing_distancesLog_clustercosts": False, "early_abort": False, "early_abort_number": 4,
+                      "early_stop_exchanges": False}
 
-
-    # controls if we make in one step multiple sampling steps to simulate the average output in current steo
-    debug_average_improvement = False
+    # controls if we make in one step multiple sampling steps to simulate the average output in current step
     n_runs_average_improvement = 100
     no_improvement_counter = 0
 
@@ -1129,40 +1119,41 @@ def _kmeans_als_plusplus_fast(X, sample_weight, centers_init, max_iter=300,
             # calculate for sampling the potential and minimum distances:
             closest_dist_sq, current_pot, min_distances, clustercosts = calculate_potential_clustercosts(X, centers, x_squared_norms=x_squared_norms)
         else:
+            # If labels is already defined we compute the new min_distances and potential using the labels
             closest_dist_sq, current_pot, min_distances, clustercosts = calculate_potential_clustercosts(X, centers, labels=labels)
 
-        for i in range(search_steps):
-            # draw according to probability distribution D2
-            rand_val = random_state.random_sample() * current_pot  # draw random candidate proportional to its cost
 
-            # find location where sampled point should be in sorted array (sum over distances)
-            candidate_id = np.searchsorted(stable_cumsum(min_distances), rand_val)
+        # draw according to probability distribution D2
+        rand_val = random_state.random_sample() * current_pot  # draw random candidate proportional to its cost
 
-            # XXX: numerical imprecision can result in a candidate_id out of range
-            # np.clip(candidate_id, None, closest_dist_sq.size - 1, out=candidate_id)
-            candidate_id = min(candidate_id, min_distances.size - 1)
+        # find location where sampled point should be in sorted array (sum over distances)
+        candidate_id = np.searchsorted(stable_cumsum(min_distances), rand_val)
 
-            best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min, inertia_unchanged_solution, best_found_pos = exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it,
-                                                                                                             sample_weight, tol, verbose, x_squared_norms, max_iter, search_steps, heuristics)
+        # XXX: numerical imprecision can result in a candidate_id out of range
+        # np.clip(candidate_id, None, closest_dist_sq.size - 1, out=candidate_id)
+        candidate_id = min(candidate_id, min_distances.size - 1)
 
-            # check if some exchange was the best option
-            if best_index != -1:
-                # make exchange: replace center with new candidate
-                centers[best_index] = X[candidate_id]  # make final change
+        best_index, best_centers_min, best_labels_min, best_inertia_compare, best_inertia_min, inertia_unchanged_solution, best_found_pos = exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it,
+                                                                                                         sample_weight, tol, verbose, x_squared_norms, max_iter, heuristics)
 
-                if i != search_steps-1:
-                    # replace distance-array-row of exchanged center with new row for new center
-                    closest_dist_sq[best_index] = euclidean_distances(
-                        centers[best_index].reshape(1, X[0].shape[0]), X, Y_norm_squared=x_squared_norms,
-                        squared=True)
+        # check if some exchange was the best option
+        if best_index != -1:
+            # make exchange: replace center with new candidate
+            centers[best_index] = X[candidate_id]  # make final change
 
-                    # recalculate (maybe faster) min_distances and pot
-                    min_distances = closest_dist_sq.min(axis=0)  # Distanzen zu den closest centers
-                    current_pot = min_distances.sum()  # Summe der quadrierten Abstände zu closest centers
 
-            elif best_index == -1:
-                if heuristics["early_abort"] == True:
-                    no_improvement_counter += 1
+            # compute the new distances of the sampled point to the other candidates
+            new_distances_candidate = euclidean_distances(
+                 centers[best_index].reshape(1, X[0].shape[0]), X, Y_norm_squared=x_squared_norms,
+                 squared=True).reshape(X.shape[0])
+
+            # recalculate min_distances and potential
+            min_distances = np.minimum(min_distances, new_distances_candidate)
+            current_pot = min_distances.sum()
+
+        elif best_index == -1:
+            if heuristics["early_abort"] == True:
+                no_improvement_counter += 1
 
         old_centers = centers.copy()
 
@@ -1298,7 +1289,7 @@ def exchange_solutions_fast(X, candidate_id, centers, clustercosts, depth, n_clu
 
 
 def exchange_solutions_faster(X, candidate_id, centers, clustercosts, depth, n_clusters, n_threads, norm_it, sample_weight, tol, verbose, x_squared_norms, max_iter,
-                       search_steps, heuristics):
+                       heuristics):
     verbose_als = verbose
     verbose=False
 
@@ -1899,7 +1890,6 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         copy_x=True,
         algorithm="auto",
         depth=3,
-        search_steps=3,
         norm_it=2,
         heuristics={},
         z=None,
@@ -1915,12 +1905,13 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         self.random_state = random_state
         self.copy_x = copy_x
         self.algorithm = algorithm
-        # new parameters for als++
+        # new parameters for fls++
         self.heuristics = heuristics
         self.depth = depth
-        self.search_steps = search_steps
         self.norm_it = norm_it
+        # parameter for local search
         self.z = z
+        # number of trials for every iteration in D2-sampling
         self.n_local_trials = n_local_trials # greedy D2 Sampling number of trials, default = 2+log(k)
 
     def _check_params(self, X):
@@ -1943,9 +1934,9 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         self._tol = _tolerance(X, self.tol)
 
         # algorithm
-        if self.algorithm not in ("auto", "full", "elkan", "als++", "lspp", "d_one"):
+        if self.algorithm not in ("auto", "full", "elkan", "fls++", "ls++"):
             raise ValueError(
-                "Algorithm must be 'auto', 'full', 'elkan', 'als++', 'd_one' or 'lspp', "
+                "Algorithm must be 'auto', 'full', 'elkan', 'fls++', or 'ls++', "
                 f"got {self.algorithm} instead."
             )
 
@@ -2276,7 +2267,7 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         return self
     
     #################################################################
-    # fit_new works as fit, but for testing als++ it can also take more
+    # fit_new works as fit, but for testing fls++ it can also take more
     # newly created parameters
     #################################################################
     
@@ -2343,14 +2334,11 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
         if self._algorithm == "full":
             kmeans_single = _kmeans_single_lloyd
             self._check_mkl_vcomp(X, X.shape[0])
-        elif self._algorithm == "als++":
+        elif self._algorithm == "fls++":
             kmeans_single = _kmeans_als_plusplus_fast
             self._check_mkl_vcomp(X, X.shape[0])
-        elif self._algorithm == "lspp":
+        elif self._algorithm == "ls++":
             kmeans_single = _localSearchPP
-            self._check_mkl_vcomp(X, X.shape[0])
-        elif self._algorithm == "d_one":
-            kmeans_single = _fls_d_one
             self._check_mkl_vcomp(X, X.shape[0])
 
         else:
@@ -2392,19 +2380,6 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
                     n_threads=self._n_threads,
                     z=self.z,
                 )
-            elif kmeans_single == _fls_d_one:
-                labels, inertia, centers, n_iter_ = kmeans_single(
-                    X,
-                    sample_weight,
-                    centers_init,
-                    max_iter=self.max_iter,
-                    verbose=self.verbose,
-                    tol=self._tol,
-                    x_squared_norms=x_squared_norms,
-                    n_threads=self._n_threads,
-                    z=self.z,
-                    random_state=random_state,
-                )
             elif kmeans_single == _kmeans_als_plusplus_fast:
                 labels, inertia, centers, n_iter_ = kmeans_single(
                     X,
@@ -2416,7 +2391,6 @@ class KMeans(TransformerMixin, ClusterMixin, BaseEstimator):
                     x_squared_norms=x_squared_norms,
                     n_threads=self._n_threads,
                     depth=self.depth,
-                    search_steps=self.search_steps,
                     norm_it=self.norm_it,
                     heuristics=self.heuristics,
                     random_state=random_state,
