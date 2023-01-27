@@ -15,7 +15,7 @@ if __name__ == '__main__':
 
     # Local search strategy
     local_search_k_means = cluster.KMeans(init='k-means++', n_clusters=n_clusters, n_init=1, algorithm='ls++', z=20)
-    local_search_k_means.fit_new(X)
+    local_search_k_means.fit(X)
     print("Clustering cost ls++: {}".format(local_search_k_means.inertia_))
 
     # Running FLS++ using some arbitrary values for depth.
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     # continue sampling using depth in a later iteration (depth < norm_it). For depth == norm_it we get the original procedure described
     # in the paper
     fls_pp = cluster.KMeans(init='k-means++', n_clusters=n_clusters, n_init=1, algorithm='fls++', depth=10, norm_it=3, n_local_trials=1)
-    fls_pp.fit_new(X)
+    fls_pp.fit(X)
     print("Clustering cost fls++: {}".format(fls_pp.inertia_))
 
 
@@ -43,5 +43,5 @@ if __name__ == '__main__':
     heuristics = {"first_improve": False, "increasing_clustercosts": False, "increasing_distancesLog_clustercosts": True, "early_abort": False, "early_abort_number": 4,
                   "early_stop_exchanges": True}
     fls_pp_heuristics = cluster.KMeans(init='k-means++', n_clusters=n_clusters, n_init=1, algorithm='fls++', depth=10, norm_it=3, heuristics=heuristics)
-    fls_pp_heuristics.fit_new(X)
+    fls_pp_heuristics.fit(X)
     print("Clustering cost fls++ using some heuristics: {}".format(fls_pp_heuristics.inertia_))
